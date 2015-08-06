@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  category_id: 1
+  permalink: MyString
+  description: MyString
+  short_description: MyString
+  active: false
+  weight: 9.99
+  created: 2015-08-06 13:04:22
+  update_id: 1
+
+two:
+  name: MyString
+  category_id: 1
+  permalink: MyString
+  description: MyString
+  short_description: MyString
+  active: false
+  weight: 9.99
+  created: 2015-08-06 13:04:22
+  update_id: 1
