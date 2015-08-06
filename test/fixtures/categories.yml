@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  category_id: 1
+  description: MyString
+  permalink: MyString
+  created: 2015-08-06 12:30:25
+  update_id: 1
+
+two:
+  name: MyString
+  category_id: 1
+  description: MyString
+  permalink: MyString
+  created: 2015-08-06 12:30:25
+  update_id: 1

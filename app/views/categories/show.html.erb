@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @category.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @category.category_id %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @category.description %>
+</p>
+
+<p>
+  <strong>Permalink:</strong>
+  <%= @category.permalink %>
+</p>
+
+<p>
+  <strong>Created:</strong>
+  <%= @category.created %>
+</p>
+
+<p>
+  <strong>Update:</strong>
+  <%= @category.update_id %>
+</p>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>
