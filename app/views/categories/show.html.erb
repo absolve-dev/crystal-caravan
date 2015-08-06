@@ -30,5 +30,19 @@
   <%= @category.update_id %>
 </p>
 
+<% if @sub_categories.length > 0 %>
+<h2>Sub-categories</h2>
+<% @sub_categories.each do |sub_category| %>
+<p><%= link_to sub_category.name, sub_category %></p>
+<% end %>
+<% end %>
+
+<% if @products.length > 0 %>
+<h2>Products</h2>
+<% @products.each do |product| %>
+<p><%= link_to product.name, product %></p>
+<% end %>
+<% end %>
+
 <%= link_to 'Edit', edit_category_path(@category) %> |
 <%= link_to 'Back', categories_path %>
