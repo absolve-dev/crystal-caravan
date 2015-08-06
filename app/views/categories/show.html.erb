@@ -8,6 +8,10 @@
 <p>
   <strong>Category:</strong>
   <%= @category.category_id %>
+  <% if @parent_category %>
+  <p>Parent Category: <%= link_to @parent_category.name, @parent_category %></p>
+  <% end %>
+
 </p>
 
 <p>

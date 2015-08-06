@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @parent_category = Category.find(@product.category_id)
   end
 
   # GET /products/new

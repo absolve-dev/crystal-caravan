@@ -10,6 +10,9 @@ class CategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+    if @category.category_id
+      @parent_category = Category.find(@category.category_id)
+    end
     @sub_categories = @category.categories
     @products = @category.products
   end

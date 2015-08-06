@@ -8,6 +8,9 @@
 <p>
   <strong>Category:</strong>
   <%= @product.category_id %>
+  <% if @parent_category %>
+  <p>Parent Category: <%= link_to @parent_category.name, @parent_category %></p>
+  <% end %>
 </p>
 
 <p>
@@ -44,6 +47,7 @@
   <strong>Update:</strong>
   <%= @product.update_id %>
 </p>
+
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
