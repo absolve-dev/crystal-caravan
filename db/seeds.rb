@@ -20,7 +20,7 @@ listing_one = Listing.create({name:'Brand New',price:1.0,product_id:product_one.
 
     cart_listings = Array.new
 
-    cart_category = Category.create({name:'Test Category'}, category_id:10501)
+    cart_category = Category.create({name:'Test Category', category_id:10501})
 
     for i in 0..10
         cart_products[i] = Product.create({name:"Test Product #{i}", category_id:cart_category.id})
