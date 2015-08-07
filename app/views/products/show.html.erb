@@ -48,6 +48,11 @@
   <%= @product.update_id %>
 </p>
 
-
+<% if @listings.length > 0 %>
+<h2>Listings</h2>
+<% @listings.each do |listing| %>
+<p><%= listing.name %>: $<%= listing.price %></p>
+<% end %>
+<% end %>
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
