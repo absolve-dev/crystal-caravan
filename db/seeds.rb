@@ -5,3 +5,11 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Products and Categories seeds
+Category.create([
+  {name:'Big Boy'},
+  {name:'Little Man',category_id:1}
+])
+
+Product.create({name:'Little Thing', category_id:2})
