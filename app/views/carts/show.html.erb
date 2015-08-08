@@ -16,7 +16,7 @@
   <tbody>
     <% for line_item in @cart.line_items %>
       <tr>
-        <td><%= Listing.find(line_item.listing_id).name %></td>
+        <td><%= Product.find(Listing.find(line_item.listing_id).product_id).name %> - <%= Listing.find(line_item.listing_id).name %></td>
         <td><%= line_item.quantity %></td>
         <td><%= Listing.find(line_item.listing_id).price %></td>
       </tr>
