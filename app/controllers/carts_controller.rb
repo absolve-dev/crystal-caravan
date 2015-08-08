@@ -10,6 +10,15 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
+    @total_items = 0
+    @total_price = 0.0
+    
+    for line_item in @cart.line_items
+      price = Listing.find(line_item.listing_id).price
+      @total_items += 1
+      @total_price += price
+    end
+    
   end
 
   # GET /carts/new
@@ -24,7 +33,11 @@ class CartsController < ApplicationController
   # POST /carts
   # POST /carts.json
   def create
+    #cart_params[:session_id] = request.session.id
+    
     @cart = Cart.new(cart_params)
+    @cart[:session_id] = request.session.id
+    @cart.save
 
     respond_to do |format|
       if @cart.save
@@ -69,6 +82,7 @@ class CartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_params
-      params.require(:cart).permit(:session_id)
+      params_hash = params.require(:cart).permit(:session_id)
+      params_hash[:session_id] = request.session.id
     end
 end
