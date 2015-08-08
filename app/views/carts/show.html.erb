@@ -1,9 +1,28 @@
 <p id="notice"><%= notice %></p>
-
+<h1>This Cart</h1>
 <p>
   <strong>Session:</strong>
   <%= @cart.session_id %>
 </p>
+
+<table>
+  <thead>
+    <tr>
+      <td>Item Name</td>
+      <td>Quantity</td>
+      <td>Price</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% for line_item in @cart.line_items %>
+      <tr>
+        <td><%= Listing.find(line_item.listing_id).name %></td>
+        <td><%= line_item.quantity %></td>
+        <td><%= Listing.find(line_item.listing_id).price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_cart_path(@cart) %> |
 <%= link_to 'Back', carts_path %>
