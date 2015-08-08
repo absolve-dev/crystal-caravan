@@ -1,5 +1,10 @@
+require 'PermalinkValidator'
+
 class Category < ActiveRecord::Base
   has_many :categories
   
   has_many :products
+  
+  validates :name, :presence => true
+  validates :permalink, :presence => true, :permalink => true
 end
