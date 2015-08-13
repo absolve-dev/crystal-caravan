@@ -5,7 +5,7 @@ class Product < ActiveRecord::Base
   
   belongs_to :categories
   
-  mount_uploader :default_picture, :ProductImageUploader
+  mount_uploader :default_picture, ProductImageUploader
   
   validates :name, :presence => true
   validates :permalink, :presence => true, :permalink => true
