@@ -10,7 +10,7 @@ class PermalinkValidator < ActiveModel::EachValidator
     models_with_permalinks.each do |model|
       results = model.where(permalink: value)
       
-      record.errors[attribute] << "permalink already exists in '#results.first.name}'" if results.length > 0
+      record.errors[attribute] << "permalink already exists in '#{results.first.name}'" if results.length > 0 and record.id != results.first.id
     end
     
   end
