@@ -34,6 +34,13 @@
   <%= @category.update_id %>
 </p>
 
+<p>
+  <% existing_default = @category.default_picture.url %>
+  <% if existing_default %>
+    <strong>Picture:</strong><br>
+    <%= image_tag existing_default %>
+  <% end %>
+</p>
 <% if @sub_categories.length > 0 %>
 <h2>Sub-categories</h2>
 <% @sub_categories.each do |sub_category| %>

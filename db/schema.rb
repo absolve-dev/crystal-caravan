@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150808022847) do
+ActiveRecord::Schema.define(version: 20150813015026) do
 
   create_table "carts", force: :cascade do |t|
     t.integer  "session_id"
@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 20150808022847) do
     t.string   "permalink"
     t.datetime "created"
     t.integer  "update_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "default_picture"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -49,6 +50,19 @@ ActiveRecord::Schema.define(version: 20150808022847) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "nifty_attachments", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.string   "parent_type"
+    t.string   "token"
+    t.string   "digest"
+    t.string   "role"
+    t.string   "file_name"
+    t.string   "file_type"
+    t.binary   "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.integer  "category_id"
@@ -62,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150808022847) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "default_listing_id"
+    t.string   "default_picture"
   end
 
 end

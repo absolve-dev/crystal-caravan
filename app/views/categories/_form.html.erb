@@ -35,6 +35,13 @@
     <%= f.label :update_id %><br>
     <%= f.number_field :update_id %>
   </div>
+  <div class="field">
+    <%= f.label :default_picture %><br>
+    <%= f.file_field :default_picture %>
+  </div>
+  <% existing_default = @category.default_picture.url %>
+  <%= image_tag existing_default if existing_default %>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>

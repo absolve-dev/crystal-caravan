@@ -48,6 +48,15 @@
   <%= @product.update_id %>
 </p>
 
+<p>
+  
+  <% existing_default = @product.default_picture.url %>
+  <% if existing_default %>
+    <strong>Picture:</strong><br>
+    <%= image_tag existing_default %>
+  <% end %>
+</p>
+
 <% if @listings.length > 0 %>
 <h2>Listings</h2>
 <% @listings.each do |listing| %>
