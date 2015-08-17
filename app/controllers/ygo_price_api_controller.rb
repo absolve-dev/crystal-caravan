@@ -1,0 +1,13 @@
+class YgoPriceApiController < ApplicationController
+  def index
+  end
+
+  def sets
+  end
+
+  def set
+  end
+
+  def card
+  end
+end

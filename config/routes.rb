@@ -1,8 +1,21 @@
 Rails.application.routes.draw do
+
   resources :line_items
+  
   resources :carts
+  
   resources :products
+  
   resources :categories
+  
+  get 'ygo_price_api/index'
+
+  get 'ygo_price_api/sets'
+
+  get 'ygo_price_api/set'
+
+  get 'ygo_price_api/card'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
