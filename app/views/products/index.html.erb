@@ -56,12 +56,12 @@
           </div>
         </td>
         <td class="col-xs-1"><%= product.permalink %></td>
-        <td class="col-xs-1"><%= product.description %></td>
-        <td class="col-xs-1"><%= product.short_description %></td>
-        <td class="col-xs-1"><%= product.active %></td>
-        <td class="col-xs-1"><%= product.weight %></td>
-        <td class="col-xs-1"><%= product.created %></td>
-        <td class="col-xs-1"><%= product.update_id %></td>
+        <td class="col-xs-1"><%= product.description or "N/A" %></td>
+        <td class="col-xs-1"><%= product.short_description or "N/A" %></td>
+        <td class="col-xs-1"><%= product.active or "N/A" %></td>
+        <td class="col-xs-1"><%= product.weight or "N/A" %></td>
+        <td class="col-xs-1"><%= product.created or "N/A" %></td>
+        <td class="col-xs-1"><%= product.update_id or "N/A" %></td>
       </tr>
     <% end %>
   </table>
