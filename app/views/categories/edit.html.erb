@@ -1,6 +1,12 @@
-<h1>Editing Category</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-5">
+            <h1>Editing Category</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @category %> |
-<%= link_to 'Back', categories_path %>
+            <%= render 'form' %>
+            <br>
+            <button type="button" class="btn btn-default"><%= link_to 'Show', @category %></button>
+            <button type="button" class="btn btn-default"><%= link_to 'Back', categories_path %></button>
+        </div>
+    </div>
+</div>
