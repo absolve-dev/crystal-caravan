@@ -9,3 +9,17 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+
+# Precompile class css/js files
+Rails.application.config.assets.precompile += %w( static_pages.css )
+Rails.application.config.assets.precompile += %w( static_pages.js )
+
+Rails.application.config.assets.precompile += %w( categories.css )
+Rails.application.config.assets.precompile += %w( categories.js )
+
+Rails.application.config.assets.precompile += %w( products.css )
+Rails.application.config.assets.precompile += %w( products.js )
+
+
+Rails.application.config.assets.precompile += %w( carts.css )
+Rails.application.config.assets.precompile += %w( carts.js )
