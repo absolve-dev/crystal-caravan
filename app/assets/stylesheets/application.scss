@@ -16,3 +16,17 @@
  
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ 
+ html, body{
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+div#wrapper{
+  min-height: 100%;
+  position: relative;
+}
+div#content{
+  padding-top: 20px;
+  padding-bottom: 70px;
+}
