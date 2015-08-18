@@ -1,14 +1,48 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>CrystalCaravan</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bootstrap 101 Template</title>
+    
+    <!-- Bootstrap -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <%= stylesheet_link_tag 'application', params[:controller], media: 'all' %>
+  
+    <%= javascript_include_tag 'application', params[:controller] %>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <h1>Crystal Caravan</h1>
+    
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class=<%="active" if params[:controller] == 'static_pages' %>><a href="/">Home</a></li>
+            <li class=<%="active" if params[:controller] == 'categories' %>><a href="/categories">Categories</a></li>
+            <li class=<%="active" if params[:controller] == 'products' %>><a href="/products">Products</a></li>
+            <li class=<%="active" if params[:controller] == 'carts' %>><a href="/carts">Carts</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    
+    <!-- <a class="btn btn-default" href="/" role="button">Home</a>
+    <a class="btn btn-default" href="/categories" role="button">Categories</a>
+    <a class="btn btn-default" href="/products" role="button">Products</a>
+    <a class="btn btn-default" href="/carts" role="button">Carts</a> -->
+    
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <%= yield %>
+  </body>
 </html>
