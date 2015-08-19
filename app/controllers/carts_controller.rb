@@ -14,9 +14,12 @@ class CartsController < ApplicationController
     @total_price = 0.0
     
     for line_item in @cart.line_items
-      price = Listing.find(line_item.listing_id).price
-      @total_items += 1
-      @total_price += price
+      # Please remove this and do proper validations...
+      if line_item.listing_id
+        line_item.listing = Listing.find(line_item.listing_id)
+        @total_items += 1
+        @total_price += line_item.listing.price
+      end
     end
     
   end
