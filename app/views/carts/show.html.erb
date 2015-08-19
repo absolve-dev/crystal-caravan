@@ -1,28 +1,25 @@
-<p id="notice"><%= notice %></p>
-<h1>This Cart</h1>
-<p>
-  <strong>Session:</strong>
-  <%= @cart.session_id %>
-</p>
-
-<table>
-  <thead>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-5">
+      <h1>Cart Session: <%= @cart.session_id %></h1>
+    </div>
+  </div>
+  <table class="table-bordered" style="margin-bottom:5px">
     <tr>
-      <td>Item Name</td>
-      <td>Quantity</td>
-      <td>Price</td>
+      <td class="col-xs-1">Item Name</td>
+      <td class="col-xs-1">Quantity</td>
+      <td class="col-xs-1">Price</td>
     </tr>
-  </thead>
-  <tbody>
-    <% for line_item in @cart.line_items %>
-      <tr>
-        <td><%= Product.find(Listing.find(line_item.listing_id).product_id).name %> - <%= Listing.find(line_item.listing_id).name %></td>
-        <td><%= line_item.quantity %></td>
-        <td><%= Listing.find(line_item.listing_id).price %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to 'Edit', edit_cart_path(@cart) %> |
-<%= link_to 'Back', carts_path %>
+      <% for line_item in @cart.line_items %>
+        <tr>
+          <% line_item.listing = Listing.find(line_item.listing_id) if line_item.listing_id %>
+          <td class="col-xs-1"><%= ((((Product.find(line_item.listing)).product_id).name + " - " + line_item.listing.name) if line_item.listing_id) or "N/A" %></td>
+          <td class="col-xs-1"><%= line_item.quantity or "N/A" %></td>
+          <td class="col-xs-1"><%= (line_item.listing.price if line_item.listing_id) or "N/A" %></td>
+        </tr>
+      <% end %>
+  </table>
+  
+  <button type="button" class="btn btn-default"><%= link_to 'Edit', edit_cart_path(@cart) %></button>
+  <button type="button" class="btn btn-default"><%= link_to 'Back', carts_path %></button>
+</div>

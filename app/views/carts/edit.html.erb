@@ -1,6 +1,14 @@
-<h1>Editing Cart</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @cart %> |
-<%= link_to 'Back', carts_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-5">
+      <h1>Editing Cart</h1>
+      
+      <%= render 'form' %>
+      
+      <br>
+      
+      <button type="button" class="btn btn-default"><%= link_to 'Show', @cart %></button>
+      <button type="button" class="btn btn-default"><%= link_to 'Back', carts_path %></button>
+    </div>
+  </div>
+</div>
