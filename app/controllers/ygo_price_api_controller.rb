@@ -1,4 +1,6 @@
 class YgoPriceApiController < ApplicationController
+  require 'YgoPriceAPI'
+  
   def index
   end
 
