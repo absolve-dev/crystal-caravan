@@ -5,11 +5,26 @@ class YgoPriceApiController < ApplicationController
   end
 
   def sets
+    respond_to do |format|
+      format.json{ }
+    end
   end
 
   def set
+    respond_to do |format|
+      format.json{ }
+    end
   end
 
   def card
+    respond_to do |format|
+      format.json{ }
+    end
+  end
+  
+  def update
+    respond_to do |format|
+      format.json{ }
+    end
   end
 end
