@@ -79,11 +79,6 @@ class YgoPriceAPI
     end
     
     def return_if_success(response_body)
-      json_data = JSON.parse(response_body)
-      if json_data['status'] == "success"
-        return json_data['data']
-      else
-        return false
-      end
+      JSON.parse(response_body) rescue false
     end
 end
