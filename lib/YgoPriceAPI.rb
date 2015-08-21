@@ -25,15 +25,15 @@ class YgoPriceAPI
   end
   
   def get_all_sets
-    JSON.parse( make_get_request("/card_sets") )
+    sets_data = JSON.parse( make_get_request("/card_sets") )
   end
   
   def get_set_data(set_name)
-    card_name = encode_slash(set_name)
+    card_name = encode_text(set_name)
     data = make_get_request("/set_data/#{set_name}")
     set_data = return_if_success(data)
     if set_data
-      return CardSet.new(set_data)
+      return CardSet.new(set_data['data'])
     else
       return false
     end
@@ -46,22 +46,22 @@ class YgoPriceAPI
   # has following keys in data array
   # name, text, card_type, type, family, atk, def, level, property
   def get_single_card(card_name)
-    card_name = encode_slash(card_name)
+    card_name = encode_text(card_name)
     data = make_get_request("/card_data/#{card_name}")
     return_if_success(data)
   end
   
   def get_single_card_image(card_name)
     # must follow 302 redirect
-    card_name = encode_slash(card_name)
+    card_name = encode_text(card_name)
     uri = URI.parse( URI.encode(@base_url + "/card_image/#{card_name}") )
     response = Net::HTTP.get_response(uri)
     make_get_request_to_uri(response.header['Location'])
   end
   
   private
-    def encode_slash(text)
-      new_text = text.gsub("/", "%2F")
+    def encode_text(text)
+      new_text = text.gsub("/", "%2F").gsub(".", "%2E")
       new_text ? new_text : text
     end
     
