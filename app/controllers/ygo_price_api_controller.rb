@@ -21,8 +21,10 @@ class YgoPriceApiController < ApplicationController
   end
 
   def card
+    api = YgoPriceAPI.new
+    card_data = api.get_single_card(params[:card_name])
     respond_to do |format|
-      format.json{ }
+      format.any{ render json: card_data, content_type: 'application/json' } if card_data
     end
   end
   
