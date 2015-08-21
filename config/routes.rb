@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'ygo_price_api/set/:set_name' => 'ygo_price_api#set', :set_name => /.+/
   get 'ygo_price_api/card/:card_name' => 'ygo_price_api#card', :card_name => /.+/
   get 'ygo_price_api/update' => 'ygo_price_api#update'
+
+  get '/' => 'static_pages#home'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
