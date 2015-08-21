@@ -20,6 +20,8 @@ Rails.application.config.assets.precompile += %w( categories.js )
 Rails.application.config.assets.precompile += %w( products.css )
 Rails.application.config.assets.precompile += %w( products.js )
 
-
 Rails.application.config.assets.precompile += %w( carts.css )
 Rails.application.config.assets.precompile += %w( carts.js )
+
+Rails.application.config.assets.precompile += %w( ygo_price_api.css )
+Rails.application.config.assets.precompile += %w( ygo_price_api.js )
