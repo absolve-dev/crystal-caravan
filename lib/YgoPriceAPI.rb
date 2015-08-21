@@ -33,7 +33,7 @@ class YgoPriceAPI
     data = make_get_request("/set_data/#{set_name}")
     set_data = return_if_success(data)
     if set_data
-      return CardSet.new(set_data['data'])
+      return CardSet.new(set_data)
     else
       return false
     end
@@ -79,6 +79,6 @@ class YgoPriceAPI
     end
     
     def return_if_success(response_body)
-      JSON.parse(response_body) rescue false
+      JSON.parse(response_body)['data'] rescue false
     end
 end
