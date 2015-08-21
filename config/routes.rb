@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   
   get 'ygo_price_api/' => 'ygo_price_api#index'
   get 'ygo_price_api/sets' => 'ygo_price_api#sets'
-  get 'ygo_price_api/set/:set_name' => 'ygo_price_api#set'
+  get 'ygo_price_api/set/:set_name' => 'ygo_price_api#set', :set_name => /.+/
   get 'ygo_price_api/card/:card_name' => 'ygo_price_api#card'
   get 'ygo_price_api/update' => 'ygo_price_api#update'
   
