@@ -5,8 +5,8 @@
 
             <%= render 'form' %>
             <br>
-            <button type="button" class="btn btn-default"><%= link_to 'Show', @category %></button>
-            <button type="button" class="btn btn-default"><%= link_to 'Back', categories_path %></button>
+            <%= link_to 'Show', @category, class:"btn btn-default" %>
+            <%= link_to 'Back', categories_path, class:"btn btn-default" %>
         </div>
     </div>
 </div>

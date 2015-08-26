@@ -11,7 +11,7 @@
           <strong>Category:</strong>
           <%= @product.category_id %>
           <% if @parent_category %>
-          <p>Parent Category: <%= link_to @parent_category.name, @parent_category %></p>
+          <p><strong>Parent Category:</strong> <%= link_to @parent_category.name, @parent_category %></p>
           <% end %>
         </p>
         
@@ -65,8 +65,8 @@
         <p><%= listing.name %>: $<%= listing.price %></p>
         <% end %>
         <% end %>
-        <button type="button" class="btn btn-default"><%= link_to 'Edit', edit_product_path(@product) %></button>
-        <button type="button" class="btn btn-default"><%= link_to 'Back', products_path %></button>
+        <%= link_to 'Edit', edit_product_path(@product), class:"btn btn-default" %>
+        <%= link_to 'Back', products_path, class:"btn btn-default" %>
     </div>
   </div>
 </div>

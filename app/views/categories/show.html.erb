@@ -11,7 +11,7 @@
             <strong>Category:</strong>
             <%= @category.category_id %>
             <% if @parent_category %>
-            <p>Parent Category: <%= link_to @parent_category.name, @parent_category %></p>
+              <p>Parent Category: <%= link_to @parent_category.name, @parent_category %></p>
             <% end %>
           
           </p>
@@ -44,21 +44,21 @@
             <% end %>
           </p>
           <% if @sub_categories.length > 0 %>
-          <h2>Sub-categories</h2>
-          <% @sub_categories.each do |sub_category| %>
-          <p><%= link_to sub_category.name, sub_category %></p>
-          <% end %>
+            <h2>Sub-categories</h2>
+            <% @sub_categories.each do |sub_category| %>
+              <p><%= link_to sub_category.name, sub_category %></p>
+            <% end %>
           <% end %>
           
           <% if @products.length > 0 %>
-          <h2>Products</h2>
-          <% @products.each do |product| %>
-          <p><%= link_to product.name, product %></p>
-          <% end %>
+            <h2>Products</h2>
+            <% @products.each do |product| %>
+              <p><%= link_to product.name, product %></p>
+            <% end %>
           <% end %>
           
-          <button type="button" class="btn btn-default"><%= link_to 'Edit', edit_category_path(@category) %></button> |
-          <button type="button" class="btn btn-default"><%= link_to 'Back', categories_path %></button>
+          <%= link_to 'Edit', edit_category_path(@category), class:"btn btn-default" %>
+          <%= link_to 'Back', categories_path, class:"btn btn-default" %>
       </div>
   </div>
 </div>
