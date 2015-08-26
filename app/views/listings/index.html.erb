@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-5">
+      <h1>Listings</h1>
+    </div>
+  </div>
+  
+  <div class="row" style="padding-bottom:15px">
+    <div class="col-xs-1">
+      <%= link_to 'New Listing', new_listing_path, class:"btn btn-default" %></button>
+    </div>
+  </div>
+  
+  <table class="table table-bordered">
+     <tr>
+       <td class="col-xs-1 field-label"><label>Product ID</label></td>
+       <td class="col-xs-1 field-label"><label>Name</label></td>
+       <td class="col-xs-1 field-label"><label>Price</label></td>
+       <td class="col-xs-1 field-label"><label>Quantity</label></td>
+       <td class="col-xs-1 field-label"><label>Active</label></td>
+       
+     </tr>
+     <% @listings.each do |listing| %>
+       <tr>
+         <td class="col-xs-1"><%= listing.product_id or "#" %></td>
+         <td class="col-xs-1">
+           <div class="btn-group">
+             <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= listing.name %><span class="caret"></span>
+             </button>
+           <ul class="dropdown-menu">
+             <li><%= link_to 'Show', listing %></li>
+             <li><%= link_to 'Edit', edit_listing_path(listing) %></li>
+             <li><%= link_to 'Destroy', listing, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+           </ul>
+           </div>
+         </td>
+         <td class="col-xs-1"><%= listing.price or "N/A" %></td>
+         <td class="col-xs-1"><%= listing.quantity or "N/A" %></td>
+         <td class="col-xs-1"><%= listing.active or "N/A" %></td>
+       </tr>
+     <% end %>
+  </table>
+</div>
