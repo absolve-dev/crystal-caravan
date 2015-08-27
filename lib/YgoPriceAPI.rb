@@ -59,12 +59,12 @@ class YgoPriceAPI
     make_get_request_to_uri(response.header['Location'])
   end
   
-  private
-    def encode_text(text)
-      new_text = text.gsub("/", "%2F").gsub(".", "%2E")
-      new_text ? new_text : text
-    end
+  def encode_text(text)
+    new_text = text.gsub("/", "%2F").gsub(".", "%2E")
+    new_text ? new_text : text
+  end
     
+  private   
     def make_get_request(endpoint)
       uri = URI.parse( URI.encode(@base_url + endpoint) )
       puts uri
