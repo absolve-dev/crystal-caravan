@@ -33,7 +33,7 @@ end
 
 # Cart and LineItem seeds
 
-cart_one = Cart.create({session_id:909090})
+cart_one = Cart.create({session_id:"909090"})
 
 line_items = Array.new
 
