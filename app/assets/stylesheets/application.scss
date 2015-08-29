@@ -14,10 +14,11 @@
  *= require_self
  */
  
- @import "bootstrap-sprockets";
- @import "bootstrap";
+@import "bootstrap-sprockets";
+@import "bootstrap";
  
- html, body{
+
+html, body{
   height: 100%;
   margin: 0px;
   padding: 0px;
@@ -29,4 +30,12 @@ div#wrapper{
 div#content{
   padding-top: 20px;
   padding-bottom: 70px;
+}
+
+#cart_modal tr td {
+    white-space: nowrap;
+}
+
+input.line_item_qty_field {
+  width: 100%;
 }

@@ -1,4 +1,30 @@
-<p id="notice"><%= notice %></p>
-
-<%= link_to 'Edit', edit_listing_path(@listing), class:"btn btn-default" %>
-<%= link_to 'Back', listings_path, class:"btn btn-default" %>
+<div class="container">  
+  <div class="row">
+      <div class="col-xs-5">
+          <h1>Listing</h1>
+          <p>
+            <strong>Name:</strong>
+            <%= @listing.name %>
+          </p>
+          
+          <p>
+            <strong>Product ID:</strong>
+            <%= @listing.product_id %>
+          
+          </p>
+          
+          <p>
+            <strong>Price:</strong>
+            <%= @listing.price %>
+          </p>
+          
+          <p>
+            <strong>Quantity:</strong>
+            <%= @listing.quantity %>
+          </p>
+          
+          <%= link_to 'Edit', edit_category_path(@listing), class:"btn btn-default" %>
+          <%= link_to 'Back', categories_path, class:"btn btn-default" %>
+      </div>
+  </div>
+</div>

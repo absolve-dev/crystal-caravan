@@ -7,10 +7,16 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
     <title>Crystal Caravan</title>
+  
+    <%= stylesheet_link_tag 'application', params[:controller], media: 'all' %>
+  
+    <%= javascript_include_tag 'application', params[:controller] %>
+    
+    <%= csrf_meta_tags %>
     
     <!-- Bootstrap -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
         
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,6 +29,14 @@
     
   </head>
   <body>
+    
+    <div id="cart_modal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content" id="cart">
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <div id="wrapper">
       <nav class="navbar navbar-default navbar">
         <div class="container">
@@ -40,16 +54,18 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+              <!-- Let's make this generation automatic in the future -->
               <li class=<%="active" if params[:controller] == 'static_pages' %>><a href="/">Home</a></li>
               <li class=<%="active" if params[:controller] == 'categories' %>><a href="/categories">Categories</a></li>
               <li class=<%="active" if params[:controller] == 'products' %>><a href="/products">Products</a></li>
               <li class=<%="active" if params[:controller] == 'carts' %>><a href="/carts">Carts</a></li>
+              <li class=<%="active" if params[:controller] == 'listings' %>><a href="/listings">Listings</a></li>
+              <li><%= link_to "Show Cart", edit_cart_path(Cart.where(:session_id => session.id).first), :remote => true %></li>
+
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
-    
-      
       
       <div id="content">
         <%= yield %>
