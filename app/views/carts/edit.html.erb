@@ -1,6 +1,12 @@
-<h1>Editing Cart</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @cart %> |
-<%= link_to 'Back', carts_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-5">
+      <%= render 'application/form' %>
+      
+      <br>
+      
+      <%= link_to 'Show', @cart, class:"btn btn-default" %>
+       <%= link_to 'Back', carts_path, class:"btn btn-default" %>
+    </div>
+  </div>
+</div>

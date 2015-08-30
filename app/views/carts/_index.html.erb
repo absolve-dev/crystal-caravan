@@ -1,0 +1,16 @@
+<% @carts.each do |cart| %>
+  <tr>
+    <td>
+      <div class="btn-group">
+        <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= cart.session_id %><span class="caret"></span>
+        </button>
+      <ul class="dropdown-menu">
+        <li><%= link_to 'Show', edit_cart_path(cart) %></li>
+        <li><%= link_to 'Destroy', cart, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        <li role="separator" class="divider"></li>
+        <li><%= link_to "Show (Modal)", edit_cart_path(cart), :remote => true %></li>
+      </ul>
+      </div>
+    </td>
+  </tr>
+<% end %>

@@ -1,5 +1,8 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  before_action :set_line_items, only: [:edit]
+  before_action :existing_cart, only: [:create]
+  
 
   # GET /carts
   # GET /carts.json
@@ -10,15 +13,11 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
-    @total_items = 0
-    @total_price = 0.0
-    
-    for line_item in @cart.line_items
-      price = Listing.find(line_item.listing_id).price
-      @total_items += 1
-      @total_price += price
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json: @line_items }
     end
-    
   end
 
   # GET /carts/new
@@ -28,16 +27,28 @@ class CartsController < ApplicationController
 
   # GET /carts/1/edit
   def edit
+  end 
+  
+  # BCK Defined Methods
+  def line_items_attributes=(attributes)
+    #{ }
   end
+  
+  
+  def existing_cart
+    # will fix this when users are implemented. one idea includes using this to modify the existing cart with the same method that creates on action
+    Cart.find(params[:session_id])
+  end
+  
+  # End BCK Defined Methods
 
   # POST /carts
   # POST /carts.json
   def create
-    #cart_params[:session_id] = request.session.id
-    
-    @cart = Cart.new(cart_params)
-    @cart[:session_id] = request.session.id
-    @cart.save
+    @cart = Cart.new(cart_params(request.session.id))
+    if not(@cart[:session_id]) then
+      @cart[:session_id] = request.session.id
+    end
 
     respond_to do |format|
       if @cart.save
@@ -56,10 +67,10 @@ class CartsController < ApplicationController
     respond_to do |format|
       if @cart.update(cart_params)
         format.html { redirect_to @cart, notice: 'Cart was successfully updated.' }
-        format.json { render :show, status: :ok, location: @cart }
+        format.js { render :show, status: :ok, location: @cart }
       else
         format.html { render :edit }
-        format.json { render json: @cart.errors, status: :unprocessable_entity }
+        format.js { render json: @cart.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -76,13 +87,9 @@ class CartsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_cart
-      @cart = Cart.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_params
-      params_hash = params.require(:cart).permit(:session_id)
-      params_hash[:session_id] = request.session.id
+      params.require(:cart).permit!.except(:session_id)
     end
 end

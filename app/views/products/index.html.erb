@@ -1,43 +1,68 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Products</h1>
-
-<table>
-  <thead>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-5">
+      <h1>Products</h1>
+    </div>
+  </div>
+  
+  <div class="row" style="padding-bottom:15px">
+    <div class="col-xs-3">
+      <%= link_to 'New Product', new_product_path, class:"btn btn-default" %>
+    </div>
+  </div>
+  
+  <table class="table table-bordered">
     <tr>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Permalink</th>
-      <th>Description</th>
-      <th>Short description</th>
-      <th>Active</th>
-      <th>Weight</th>
-      <th>Created</th>
-      <th>Update</th>
-      <th colspan="3"></th>
+      <td class="field-label col-xs-1">
+        <label>Category ID</label>
+      </td>
+      <td class="field-label col-xs-1">
+        <label>Name</label>
+      </td>
+      <td class="field-label col-xs-1">
+        <label>Permalink</label>
+      </td>
+      <td class="field-label col-xs-1">
+        <label>Description</label>
+      </td>
+      <td class="field-label col-xs-1">
+        <label>Short Desc</label>
+      </td>
+      <td class="field-label col-xs-1">
+        <label>Active</label>
+      </td>
+      <td class="field-label col-xs-1">
+        <label>Weight</label>
+      </td>
+      <td class="field-label col-xs-1">
+        <label>Created</label>
+      </td>
+      <td class="field-label col-xs-1">
+        <label>Update</label>
+      </td>
     </tr>
-  </thead>
-
-  <tbody>
     <% @products.each do |product| %>
       <tr>
-        <td><%= product.name %></td>
-        <td><%= product.category_id %></td>
-        <td><%= product.permalink %></td>
-        <td><%= product.description %></td>
-        <td><%= product.short_description %></td>
-        <td><%= product.active %></td>
-        <td><%= product.weight %></td>
-        <td><%= product.created %></td>
-        <td><%= product.update_id %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="col-xs-1"><%= product.category_id %></td>
+        <td class="col-xs-1">
+          <div class="btn-group">
+            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= product.name %><span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'Show', product %></li>
+              <li><%= link_to 'Edit', edit_product_path(product) %></li>
+              <li><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+            </ul>
+          </div>
+        </td>
+        <td class="col-xs-1"><%= product.permalink %></td>
+        <td class="col-xs-1"><%= product.description or "N/A" %></td>
+        <td class="col-xs-1"><%= product.short_description or "N/A" %></td>
+        <td class="col-xs-1"><%= product.active or "N/A" %></td>
+        <td class="col-xs-1"><%= product.weight or "N/A" %></td>
+        <td class="col-xs-1"><%= product.created or "N/A" %></td>
+        <td class="col-xs-1"><%= product.update_id or "N/A" %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Product', new_product_path %>
+  </table>
+</div>

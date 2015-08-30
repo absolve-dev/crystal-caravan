@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813015026) do
+ActiveRecord::Schema.define(version: 20150828044543) do
 
   create_table "carts", force: :cascade do |t|
-    t.integer  "session_id"
+    t.string   "session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -48,19 +48,6 @@ ActiveRecord::Schema.define(version: 20150813015026) do
     t.datetime "update_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "nifty_attachments", force: :cascade do |t|
-    t.integer  "parent_id"
-    t.string   "parent_type"
-    t.string   "token"
-    t.string   "digest"
-    t.string   "role"
-    t.string   "file_name"
-    t.string   "file_type"
-    t.binary   "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "products", force: :cascade do |t|
