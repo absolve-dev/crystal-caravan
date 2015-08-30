@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828044543) do
+ActiveRecord::Schema.define(version: 20150830063355) do
 
   create_table "carts", force: :cascade do |t|
     t.string   "session_id"
@@ -50,6 +50,42 @@ ActiveRecord::Schema.define(version: 20150828044543) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string   "first_name_billing"
+    t.string   "last_name_billing"
+    t.string   "company_billing"
+    t.string   "address_line_one_billing"
+    t.string   "address_line_two_billing"
+    t.string   "city_billing"
+    t.string   "country_billing"
+    t.string   "state_billing"
+    t.integer  "zip_billing"
+    t.string   "phone_billing"
+    t.string   "first_name_shipping"
+    t.string   "last_name_shipping"
+    t.string   "company_shipping"
+    t.string   "address_line_one_shipping"
+    t.string   "address_line_two_shipping"
+    t.string   "city_shipping"
+    t.string   "country_shipping"
+    t.string   "state_shipping"
+    t.integer  "zip_shipping"
+    t.string   "phone_shipping"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string   "transaction_id"
+    t.string   "order_id"
+    t.string   "gateway"
+    t.decimal  "amount"
+    t.integer  "status"
+    t.string   "response_message"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.integer  "category_id"
@@ -64,6 +100,14 @@ ActiveRecord::Schema.define(version: 20150828044543) do
     t.datetime "updated_at",         null: false
     t.integer  "default_listing_id"
     t.string   "default_picture"
+  end
+
+  create_table "stock_adjustments", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "listing_id"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
