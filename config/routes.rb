@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   
   devise_for :admins, controllers: { registrations: "admins/registrations" }
-  get 'admins/panel' => 'admins#panel'
+  
+  namespace :dashboard do
+    root 'panel#index'
+  end
   
   devise_for :users
   
