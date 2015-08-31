@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   
   namespace :dashboard do
     root 'panel#index'
+    get 'categories' => 'panel#categories'
+    get 'products' => 'panel#products'
   end
   
   devise_for :users
