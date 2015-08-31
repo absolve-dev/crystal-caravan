@@ -1,8 +1,6 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
   before_action :set_line_items, only: [:edit]
   before_action :existing_cart, only: [:create]
-  
 
   # GET /carts
   # GET /carts.json
@@ -45,10 +43,7 @@ class CartsController < ApplicationController
   # POST /carts
   # POST /carts.json
   def create
-    @cart = Cart.new(cart_params(request.session.id))
-    if not(@cart[:session_id]) then
-      @cart[:session_id] = request.session.id
-    end
+    @cart = Cart.new(cart_params)
 
     respond_to do |format|
       if @cart.save
@@ -90,6 +85,6 @@ class CartsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_params
-      params.require(:cart).permit!.except(:session_id)
+      params.require(:cart).permit!.except(:session_id).merge!({:session_id => session_id})
     end
 end
