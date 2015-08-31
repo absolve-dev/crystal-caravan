@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   devise_for :admins, controllers: { registrations: "admins/registrations" }
+  get 'admins/panel' => 'admins#panel'
   
   devise_for :users
   
