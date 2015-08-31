@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   
-  devise_for :admins
+  devise_for :admins, controllers: { registrations: "admins/registrations" }
+  
   devise_for :users
+  
   resources :orders
   resources :line_items
   resources :carts
