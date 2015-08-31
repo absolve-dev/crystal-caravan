@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   
   namespace :dashboard do
     root 'panel#index'
-    get 'categories' => 'panel#categories'
-    get 'products' => 'panel#products'
+    resources :categories, only: [:index, :new, :show, :edit], constraints: { format: 'html' }
+    resources :products, only: [:index, :new, :show, :edit], constraints: { format: 'html' }
   end
   
   devise_for :users

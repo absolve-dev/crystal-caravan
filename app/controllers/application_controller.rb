@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_action :set_cart
   
   def set_line_items
     @line_items = { }
@@ -17,6 +16,16 @@ class ApplicationController < ActionController::Base
 
     end
   end
+  
+  # initialize dashboard if required
+  before_action :initialize_dashboard
+  
+  def initialize_dashboard
+    self.class.layout '/layouts/dashboard.html.erb' if self.class.to_s.include? 'Dashboard::'
+  end
+  
+  # initialize cart on every page
+  before_action :set_cart
   
   def set_cart
       @cart = Cart.where({:session_id => session_id}).first
