@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :line_items
   resources :carts
   resources :products
-  resources :categories
+  resources :categories, only: [:index, :show]
   resources :listings
   
   get '/' => 'static_pages#home'
