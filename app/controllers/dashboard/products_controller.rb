@@ -1,7 +1,8 @@
 class Dashboard::ProductsController < ApplicationController
   
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_form_path, only: [:new, :edit]
+  
   # GET /products
   # GET /products.json
   def index
@@ -31,7 +32,7 @@ class Dashboard::ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.html { redirect_to dashboard_product_path(@product), notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -45,7 +46,7 @@ class Dashboard::ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.html { redirect_to dashboard_product_path(@product), notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }
@@ -59,11 +60,15 @@ class Dashboard::ProductsController < ApplicationController
   def destroy
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+      format.html { redirect_to dashboard_products_path, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
-
+  
+  def set_form_path
+    @form_path = params[:action] == 'new' ? dashboard_products_path : dashboard_product_path      
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
@@ -72,6 +77,6 @@ class Dashboard::ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :category_id, :permalink, :description, :short_description, :active, :weight, :created, :update_id, :default_picture)
+      params.require(:product).permit(:name, :category_id, :permalink, :description, :short_description, :active, :weight, :created, :update_id, :default_picture, listings_attributes: [:id, :quantity, :price, :active])
     end
 end
