@@ -6,6 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
+# Create Admin
+Admin.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang', :password_confirmation => 'toorgang')
+
 # Products and Categories seeds
 
 category_one_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'big-boy.jpg'), 'rb')
