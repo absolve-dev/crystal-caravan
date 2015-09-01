@@ -65,14 +65,14 @@ class Dashboard::ProductsController < ApplicationController
     end
   end
   
-  def set_form_path
-    @form_path = params[:action] == 'new' ? dashboard_products_path : dashboard_product_path      
-  end
-  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
+    end
+
+    def set_form_path
+      @form_path = params[:action] == 'new' ? dashboard_products_path : dashboard_product_path      
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

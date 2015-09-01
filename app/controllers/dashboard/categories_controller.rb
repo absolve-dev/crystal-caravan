@@ -64,17 +64,17 @@ class Dashboard::CategoriesController < ApplicationController
     @category.destroy
     redirect_to dashboard_categories_url, notice: 'Category was successfully destroyed.'
   end
-  
-  def set_form_path
-    @form_path = params[:action] == 'new' ? dashboard_categories_path : dashboard_category_path      
-  end
     
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
       @category = Category.find(params[:id])
     end
-
+    
+    def set_form_path
+      @form_path = params[:action] == 'new' ? dashboard_categories_path : dashboard_category_path      
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
       params.require(:category).permit(:name, :category_id, :description, :permalink, :update_id, :default_picture)
