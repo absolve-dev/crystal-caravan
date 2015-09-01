@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   namespace :dashboard do
     root 'panel#index'
-    resources :categories, only: [:index, :new, :show, :edit], constraints: { format: 'html' }
+    resources :categories, constraints: { format: 'html' }
     resources :products, only: [:index, :new, :show, :edit], constraints: { format: 'html' }
   end
   
