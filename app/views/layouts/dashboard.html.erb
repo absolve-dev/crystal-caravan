@@ -48,6 +48,14 @@
                 <%= link_to 'Products', dashboard_products_path %>
               </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="navbar-text">
+                Signed in as: <%= current_admin.email %>
+              </li>
+              <li>
+                <%= link_to('Log Out', destroy_admin_session_path, :method => :delete) %>    
+              </li>
+            </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container -->
       </nav>
