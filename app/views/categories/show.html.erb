@@ -1,59 +1,63 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @category.name %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @category.category_id %>
-  <% if @parent_category %>
-  <p>Parent Category: <%= link_to @parent_category.name, @parent_category %></p>
-  <% end %>
-
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @category.description %>
-</p>
-
-<p>
-  <strong>Permalink:</strong>
-  <%= @category.permalink %>
-</p>
-
-<p>
-  <strong>Created:</strong>
-  <%= @category.created %>
-</p>
-
-<p>
-  <strong>Update:</strong>
-  <%= @category.update_id %>
-</p>
-
-<p>
-  <% existing_default = @category.default_picture.url %>
-  <% if existing_default %>
-    <strong>Picture:</strong><br>
-    <%= image_tag existing_default %>
-  <% end %>
-</p>
-<% if @sub_categories.length > 0 %>
-<h2>Sub-categories</h2>
-<% @sub_categories.each do |sub_category| %>
-<p><%= link_to sub_category.name, sub_category %></p>
-<% end %>
-<% end %>
-
-<% if @products.length > 0 %>
-<h2>Products</h2>
-<% @products.each do |product| %>
-<p><%= link_to product.name, product %></p>
-<% end %>
-<% end %>
-
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+<div class="container">  
+  <div class="row">
+      <div class="col-xs-5">
+          <h1>Category</h1>
+          <p>
+            <strong>Name:</strong>
+            <%= @category.name %>
+          </p>
+          
+          <p>
+            <strong>Category:</strong>
+            <%= @category.category_id %>
+            <% if @parent_category %>
+              <p>Parent Category: <%= link_to @parent_category.name, @parent_category %></p>
+            <% end %>
+          
+          </p>
+          
+          <p>
+            <strong>Description:</strong>
+            <%= @category.description %>
+          </p>
+          
+          <p>
+            <strong>Permalink:</strong>
+            <%= @category.permalink %>
+          </p>
+          
+          <p>
+            <strong>Created:</strong>
+            <%= @category.created %>
+          </p>
+          
+          <p>
+            <strong>Update:</strong>
+            <%= @category.update_id %>
+          </p>
+          
+          <p>
+            <% existing_default = @category.default_picture.url %>
+            <% if existing_default %>
+              <strong>Picture:</strong><br>
+              <%= image_tag existing_default %>
+            <% end %>
+          </p>
+          <% if @sub_categories.length > 0 %>
+            <h2>Sub-categories</h2>
+            <% @sub_categories.each do |sub_category| %>
+              <p><%= link_to sub_category.name, sub_category %></p>
+            <% end %>
+          <% end %>
+          
+          <% if @products.length > 0 %>
+            <h2>Products</h2>
+            <% @products.each do |product| %>
+              <p><%= link_to product.name, product %></p>
+            <% end %>
+          <% end %>
+          
+          <%= link_to 'Back', categories_path, class:"btn btn-default" %>
+      </div>
+  </div>
+</div>

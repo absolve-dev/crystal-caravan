@@ -25,3 +25,15 @@ Rails.application.config.assets.precompile += %w( carts.js )
 
 Rails.application.config.assets.precompile += %w( ygo_price_api.css )
 Rails.application.config.assets.precompile += %w( ygo_price_api.js )
+
+Rails.application.config.assets.precompile += %w( dashboard.css )
+Rails.application.config.assets.precompile += %w( dashboard.js )
+
+Rails.application.config.assets.precompile += %w( dashboard/panel.css )
+Rails.application.config.assets.precompile += %w( dashboard/panel.js )
+
+Rails.application.config.assets.precompile += %w( dashboard/products.css )
+Rails.application.config.assets.precompile += %w( dashboard/products.js )
+
+Rails.application.config.assets.precompile += %w( dashboard/categories.css )
+Rails.application.config.assets.precompile += %w( dashboard/categories.js )

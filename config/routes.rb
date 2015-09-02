@@ -1,27 +1,35 @@
 Rails.application.routes.draw do
-
-  resources :line_items
   
+  devise_for :admins, controllers: { registrations: "admins/registrations" }  
+  devise_for :users
+  
+  namespace :dashboard do
+    root 'panel#index'
+    resources :categories, constraints: { format: 'html' }
+    resources :products, constraints: { format: 'html' }
+  end
+  
+  resources :categories, only: [:index, :show]
+  resources :products, only: [:index, :show]
+  resources :listings
   resources :carts
-  
-  resources :products
-  
-  resources :categories
+  resources :line_items
+  resources :orders
   
   get 'ygo_price_api/' => 'ygo_price_api#index'
   get 'ygo_price_api/sets' => 'ygo_price_api#sets'
   get 'ygo_price_api/set/:set_name' => 'ygo_price_api#set', :set_name => /.+/
   get 'ygo_price_api/card/:card_name' => 'ygo_price_api#card', :card_name => /.+/
   get 'ygo_price_api/update' => 'ygo_price_api#update'
-
-  get '/' => 'static_pages#home'
+  
+  root 'static_pages#home'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

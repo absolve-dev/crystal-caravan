@@ -13,8 +13,29 @@
 
 ActiveRecord::Schema.define(version: 20150902230757) do
 
+  create_table "admins", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "failed_attempts",        default: 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+  end
+
+  add_index "admins", ["email"], name: "index_admins_on_email", unique: true
+  add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
+
   create_table "carts", force: :cascade do |t|
-    t.integer  "session_id"
+    t.string   "session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -71,17 +92,40 @@ ActiveRecord::Schema.define(version: 20150902230757) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "nifty_attachments", force: :cascade do |t|
-    t.integer  "parent_id"
-    t.string   "parent_type"
-    t.string   "token"
-    t.string   "digest"
-    t.string   "role"
-    t.string   "file_name"
-    t.string   "file_type"
-    t.binary   "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "orders", force: :cascade do |t|
+    t.string   "first_name_billing"
+    t.string   "last_name_billing"
+    t.string   "company_billing"
+    t.string   "address_line_one_billing"
+    t.string   "address_line_two_billing"
+    t.string   "city_billing"
+    t.string   "country_billing"
+    t.string   "state_billing"
+    t.integer  "zip_billing"
+    t.string   "phone_billing"
+    t.string   "first_name_shipping"
+    t.string   "last_name_shipping"
+    t.string   "company_shipping"
+    t.string   "address_line_one_shipping"
+    t.string   "address_line_two_shipping"
+    t.string   "city_shipping"
+    t.string   "country_shipping"
+    t.string   "state_shipping"
+    t.integer  "zip_shipping"
+    t.string   "phone_shipping"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string   "transaction_id"
+    t.string   "order_id"
+    t.string   "gateway"
+    t.decimal  "amount"
+    t.integer  "status"
+    t.string   "response_message"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -99,5 +143,31 @@ ActiveRecord::Schema.define(version: 20150902230757) do
     t.integer  "default_listing_id"
     t.string   "default_picture"
   end
+
+  create_table "stock_adjustments", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "listing_id"
+    t.integer  "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

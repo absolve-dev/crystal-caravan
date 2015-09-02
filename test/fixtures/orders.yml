@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name_billing: MyString
+  last_name_billing: MyString
+  company_billing: MyString
+  address_line_one_billing: MyString
+  address_line_two_billing: MyString
+  city_billing: MyString
+  country_billing: MyString
+  state_billing: MyString
+  zip_billing: 1
+  phone_billing: MyString
+  first_name_shipping: MyString
+  last_name_shipping: MyString
+  company_shipping: MyString
+  address_line_one_shipping: MyString
+  address_line_two_shipping: MyString
+  city_shipping: MyString
+  country_shipping: MyString
+  state_shipping: MyString
+  zip_shipping: 1
+  phone_shipping: MyString
+
+two:
+  first_name_billing: MyString
+  last_name_billing: MyString
+  company_billing: MyString
+  address_line_one_billing: MyString
+  address_line_two_billing: MyString
+  city_billing: MyString
+  country_billing: MyString
+  state_billing: MyString
+  zip_billing: 1
+  phone_billing: MyString
+  first_name_shipping: MyString
+  last_name_shipping: MyString
+  company_shipping: MyString
+  address_line_one_shipping: MyString
+  address_line_two_shipping: MyString
+  city_shipping: MyString
+  country_shipping: MyString
+  state_shipping: MyString
+  zip_shipping: 1
+  phone_shipping: MyString

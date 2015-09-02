@@ -1,67 +1,77 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @product.category_id %>
-  <% if @parent_category %>
-  <p>Parent Category: <%= link_to @parent_category.name, @parent_category %></p>
-  <% end %>
-</p>
-
-<p>
-  <strong>Permalink:</strong>
-  <%= @product.permalink %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @product.description %>
-</p>
-
-<p>
-  <strong>Short description:</strong>
-  <%= @product.short_description %>
-</p>
-
-<p>
-  <strong>Active:</strong>
-  <%= @product.active %>
-</p>
-
-<p>
-  <strong>Weight:</strong>
-  <%= @product.weight %>
-</p>
-
-<p>
-  <strong>Created:</strong>
-  <%= @product.created %>
-</p>
-
-<p>
-  <strong>Update:</strong>
-  <%= @product.update_id %>
-</p>
-
-<p>
-  
-  <% existing_default = @product.default_picture.url %>
-  <% if existing_default %>
-    <strong>Picture:</strong><br>
-    <%= image_tag existing_default %>
-  <% end %>
-</p>
-
-<% if @listings.length > 0 %>
-<h2>Listings</h2>
-<% @listings.each do |listing| %>
-<p><%= listing.name %>: $<%= listing.price %></p>
-<% end %>
-<% end %>
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<div class="container">  
+  <div class="row">
+      <div class="col-xs-5">
+          <h1>Product</h1>
+        <p>
+          <strong>Name:</strong>
+          <%= @product.name %>
+        </p>
+        
+        <p>
+          <strong>Category:</strong>
+          <%= @product.category_id %>
+          <% if @parent_category %>
+          <p><strong>Parent Category:</strong> <%= link_to @parent_category.name, @parent_category %></p>
+          <% end %>
+        </p>
+        
+        <p>
+          <strong>Permalink:</strong>
+          <%= @product.permalink %>
+        </p>
+        
+        <p>
+          <strong>Description:</strong>
+          <%= @product.description %>
+        </p>
+        
+        <p>
+          <strong>Short description:</strong>
+          <%= @product.short_description %>
+        </p>
+        
+        <p>
+          <strong>Active:</strong>
+          <%= @product.active %>
+        </p>
+        
+        <p>
+          <strong>Weight:</strong>
+          <%= @product.weight %>
+        </p>
+        
+        <p>
+          <strong>Created:</strong>
+          <%= @product.created %>
+        </p>
+        
+        <p>
+          <strong>Update:</strong>
+          <%= @product.update_id %>
+        </p>
+        
+        <p>
+          
+          <% existing_default = @product.default_picture.url %>
+          <% if existing_default %>
+            <strong>Picture:</strong><br>
+            <%= image_tag existing_default %>
+          <% end %>
+        </p>
+        
+        <% if @listings.length > 0 %>
+          <h1>Listings</h1>
+          <% @listings.each do |listing| %>
+            <%= listing.name %>: $<%= listing.price %>
+            <% @line_item = LineItem.new %>
+            <%= form_for(@line_item, remote: true, :html => { :role => "form" }) do |f| %>
+              <%= f.hidden_field(:listing_id, :value => listing.id) %>
+              <%= f.number_field(:quantity) %>
+              <%= f.submit "Add to Cart", class:"btn btn-default" %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= link_to 'Back', products_path, class:"btn btn-default" %>
+    </div>
+  </div>
+</div>
