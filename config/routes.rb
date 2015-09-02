@@ -1,10 +1,20 @@
 Rails.application.routes.draw do
   
+  devise_for :admins, controllers: { registrations: "admins/registrations" }
+  
+  namespace :dashboard do
+    root 'panel#index'
+    resources :categories, constraints: { format: 'html' }
+    resources :products, constraints: { format: 'html' }
+  end
+  
+  devise_for :users
+  
   resources :orders
   resources :line_items
   resources :carts
-  resources :products
-  resources :categories
+  resources :products, only: [:index, :show]
+  resources :categories, only: [:index, :show]
   resources :listings
   
   root 'static_pages#home'

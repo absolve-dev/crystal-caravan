@@ -5,12 +5,6 @@
     </div>
   </div>
   
-  <div class="row" style="padding-bottom:15px">
-    <div class="col-xs-3">
-      <%= link_to 'New Product', new_product_path, class:"btn btn-default" %>
-    </div>
-  </div>
-  
   <table class="table table-bordered">
     <tr>
       <td class="field-label col-xs-1">
@@ -44,17 +38,7 @@
     <% @products.each do |product| %>
       <tr>
         <td class="col-xs-1"><%= product.category_id %></td>
-        <td class="col-xs-1">
-          <div class="btn-group">
-            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= product.name %><span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><%= link_to 'Show', product %></li>
-              <li><%= link_to 'Edit', edit_product_path(product) %></li>
-              <li><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-            </ul>
-          </div>
-        </td>
+        <td class="col-xs-1"><%= product.name %></td>
         <td class="col-xs-1"><%= product.permalink %></td>
         <td class="col-xs-1"><%= product.description or "N/A" %></td>
         <td class="col-xs-1"><%= product.short_description or "N/A" %></td>
