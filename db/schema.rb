@@ -11,12 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902225856) do
+ActiveRecord::Schema.define(version: 20150902230757) do
 
   create_table "carts", force: :cascade do |t|
     t.integer  "session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "catalog_cards", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "catalog_set_id"
+    t.string   "card_data_json"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "catalog_sets", force: :cascade do |t|

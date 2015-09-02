@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  catalog_set_id: 1
+  card_data_json: MyString
+
+two:
+  name: MyString
+  catalog_set_id: 1
+  card_data_json: MyString
