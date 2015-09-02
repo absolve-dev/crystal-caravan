@@ -21,8 +21,10 @@ class ApplicationController < ActionController::Base
   before_action :initialize_dashboard
   
   def initialize_dashboard
-    self.class.layout '/layouts/dashboard.html.erb' if self.class.to_s.include? 'Dashboard::'
-    authenticate_admin!
+    if self.class.to_s.include? 'Dashboard::'
+      self.class.layout '/layouts/dashboard.html.erb' 
+      authenticate_admin!
+    end
   end
   
   # initialize cart on every page
