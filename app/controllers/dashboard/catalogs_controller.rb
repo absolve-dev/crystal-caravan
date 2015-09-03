@@ -1,7 +1,8 @@
 class Dashboard::CatalogsController < ApplicationController
-  before_action :set_catalog, only: [:show, :edit, :update, :destroy]
-  before_action :set_form_path, only: [:new, :edit]
+  before_action :set_catalog, only: [:show, :edit, :update, :destroy, :sync, :wipe]
+  before_action :set_handler, only: [:new, :show, :edit, :sync]
   before_action :set_libraries, only: [:new, :edit]
+  before_action :set_form_path, only: [:new, :edit]
   
   # GET /catalogs
   # GET /catalogs.json
@@ -12,6 +13,8 @@ class Dashboard::CatalogsController < ApplicationController
   # GET /catalogs/1
   # GET /catalogs/1.json
   def show
+    @api_sets = @handler.get_sets
+    @db_sets = @catalog.catalog_sets
   end
 
   # GET /catalogs/new
@@ -43,6 +46,38 @@ class Dashboard::CatalogsController < ApplicationController
       render :edit
     end
   end
+  
+  def sync
+    require 'json'
+    for set in @handler.get_sets
+      current_set = CatalogSet.where("name=\"#{encode_sql(set)}\"").first
+      current_set ||= CatalogSet.create(:catalog_id => @catalog.id, :name => set)
+      for card in @handler.get_set(set)
+        current_card = CatalogCard.where("name=\"#{encode_sql(card[:name])}\"").first
+        current_card = CatalogCard.create(:catalog_set_id => current_set.id, :name => card[:name])
+        card_data = card[:data].merge(@handler.get_card(card[:name]))
+        card_data.delete('name')
+        current_card.update!(:card_data_json => card_data.to_json)
+      end
+    end
+  end
+  
+  def wipe
+    for set in @catalog.catalog_sets
+      for card in set.catalog_cards
+        card.destroy
+      end
+      set.destroy
+    end
+  end
+  
+  def set
+    @set = CatalogSet.find(params[:set_id])
+  end
+  
+  def card
+    @card = CatalogCard.find(params[:card_id])
+  end
 
   # DELETE /catalogs/1
   # DELETE /catalogs/1.json
@@ -66,9 +101,18 @@ class Dashboard::CatalogsController < ApplicationController
       params[:catalog].permit(:library_name, :name)
     end
     
-    def set_libraries
+    def set_handler
       require 'catalog_lib/LibraryHandler'
-      handler = LibraryHandler.new
-      @libraries = handler.libraries.collect { |l| [l,l] } # usage for select field
+      @handler = LibraryHandler.new
+      @handler.set_library(@catalog.library_name) if params[:id]
     end
+    
+    def set_libraries
+      @libraries = @handler.libraries.collect { |l| [l,l] } # usage for select field
+    end
+    
+    def encode_sql(str)
+      str.gsub('"', '""')
+    end
+    
 end

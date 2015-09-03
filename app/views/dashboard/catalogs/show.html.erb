@@ -1,4 +1,39 @@
 <p id="notice"><%= notice %></p>
 
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <%= link_to 'Update', dashboard_catalog_sync_path(@catalog) %> | 
+      <%= link_to 'Wipe Database', dashboard_catalog_wipe_path(@catalog) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3>API Sets</h3>
+      <% if @api_sets && @api_sets.respond_to?(:length) && @api_sets.length > 0 %>
+        <ul>
+          <% for set in @api_sets do %>
+            <li><%= set %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        API did not return any sets
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <h3>DB Sets</h3>
+      <% if @db_sets.length > 0 %>
+        <ul>
+          <% for set in @db_sets do %>
+            <li><%= link_to set.name, dashboard_catalog_set_path(set) %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        Database did not return any sets
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <%= link_to 'Edit', edit_dashboard_catalog_path(@catalog) %> |
 <%= link_to 'Back', dashboard_catalogs_path %>

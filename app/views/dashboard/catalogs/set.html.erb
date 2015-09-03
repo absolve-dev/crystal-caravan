@@ -1,0 +1,9 @@
+<p>
+  <%= link_to 'Back', dashboard_catalog_path(@set.catalog_id) %>
+</p>
+<h3><%= @set.name %></h3>
+<ul>
+  <% for card in @set.catalog_cards %>
+    <li><%= link_to card.name, dashboard_catalog_card_path(card) %></li>
+  <% end %>
+</ul>

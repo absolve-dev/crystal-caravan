@@ -1,0 +1,9 @@
+<p>
+  <%= link_to 'Back', dashboard_catalog_set_path(@card.catalog_set_id) %>
+</p>
+<h3><%= @card.name %></h3>
+<ul>
+  <% JSON.parse(@card.card_data_json).each do |key, value| %>
+    <li><b><%= key %>:</b> <%= value %></li>
+  <% end %>
+</ul>

@@ -17,7 +17,7 @@
   
   <div class="field">
     <%= f.label :library_name %>
-    <%= f.select(:library_name, @libraries) %>
+    <%= f.select(:library_name, @libraries.collect { |l| [l,l] }) %>
   </div>
 
   <div class="actions">

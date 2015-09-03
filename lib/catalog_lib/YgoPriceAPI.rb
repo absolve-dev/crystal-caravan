@@ -18,10 +18,9 @@ class YgoPriceAPI < LibraryTemplate
       @items = Array.new
       data['cards'].each do |card|
         card_data = Hash.new
-        card_data[:name] = card['name']
         card_data[:print_tag] = card['numbers'][0]['print_tag']
         card_data[:rarity] = card['numbers'][0]['rarity']
-        @items << card_data
+        @items << {name: card['name'], data: card_data}
       end
     end
   end
@@ -35,11 +34,11 @@ class YgoPriceAPI < LibraryTemplate
   end
   
   def set(set_name)
-    card_name = encode_text(set_name)
-    data = make_get_request("/set_data/#{set_name}")
+    encoded_name = encode_text(set_name)
+    data = make_get_request("/set_data/#{encoded_name}")
     set_data = return_if_success(data)
     if set_data
-      return CardSet.new(set_data)
+      return CardSet.new(set_data).items
     else
       return false
     end
@@ -66,7 +65,7 @@ class YgoPriceAPI < LibraryTemplate
   end
   
   def encode_text(text)
-    new_text = text.gsub("/", "%2F").gsub(".", "%2E")
+    new_text = text.gsub("/", "%2F").gsub(".", "%2E").gsub("?", "%3F")
     new_text ? new_text : text
   end
   

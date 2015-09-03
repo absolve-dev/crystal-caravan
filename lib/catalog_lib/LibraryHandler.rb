@@ -27,11 +27,11 @@ class LibraryHandler
   end
   
   def get_set(set_name)
-    current_library.set
+    current_library.set(set_name)
   end
   
   def get_card(card_name)
-    current_library.card
+    current_library.card(card_name)
   end
   
   def get_card_image(card_name)
