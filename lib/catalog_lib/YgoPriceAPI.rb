@@ -88,7 +88,7 @@ class YgoPriceAPI < LibraryTemplate
     # 15 requests per second for apiary
     # http://docs.corepro.io/api/requestresponse/index
     def rest
-      sleep(0.1)
+      sleep(0.2)
     end
     
     def return_if_success(response_body)
