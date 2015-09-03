@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     root 'panel#index'
     resources :categories, constraints: { format: 'html' }
     resources :products, constraints: { format: 'html' }
-    resources :catalogs
+    resources :catalogs, constraints: { format: 'html' }
   end
   
   resources :categories, only: [:index, :show]

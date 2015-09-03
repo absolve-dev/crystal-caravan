@@ -27,13 +27,10 @@ class Dashboard::CatalogsController < ApplicationController
   # POST /catalogs.json
   def create
     @catalog = Catalog.new(catalog_params)
-
-    respond_to do |format|
-      if @catalog.save
-        format.html { redirect_to dashboard_catalog_path(@catalog), notice: 'Catalog was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @catalog.save
+      redirect_to dashboard_catalog_path(@catalog), notice: 'Catalog was successfully created.'
+    else
+      render :new
     end
   end
 
