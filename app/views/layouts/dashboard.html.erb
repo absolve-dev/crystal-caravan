@@ -44,6 +44,9 @@
               <li class=<%="active" if params[:controller] == 'dashboard/categories' %>>
                 <%= link_to 'Categories', dashboard_categories_path %>
               </li>
+              <li class=<%="active" if params[:controller] == 'dashboard/catalogs' %>>
+                <%= link_to 'Catalogs', dashboard_catalogs_path %>
+              </li>
               <li class=<%="active" if params[:controller] == 'dashboard/products' %>>
                 <%= link_to 'Products', dashboard_products_path %>
               </li>
