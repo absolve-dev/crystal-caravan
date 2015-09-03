@@ -1,6 +1,7 @@
 class Dashboard::CatalogsController < ApplicationController
   before_action :set_catalog, only: [:show, :edit, :update, :destroy]
   before_action :set_form_path, only: [:new, :edit]
+  before_action :set_libraries, only: [:new, :edit]
   
   # GET /catalogs
   # GET /catalogs.json
@@ -65,6 +66,12 @@ class Dashboard::CatalogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def catalog_params
-      params[:catalog]
+      params[:catalog].permit(:library_name, :name)
+    end
+    
+    def set_libraries
+      require 'catalog_lib/LibraryHandler'
+      handler = LibraryHandler.new
+      @libraries = handler.libraries.collect { |l| [l,l] } # usage for select field
     end
 end

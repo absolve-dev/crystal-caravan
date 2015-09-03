@@ -12,6 +12,8 @@
   <tbody>
     <% @catalogs.each do |catalog| %>
       <tr>
+        <td><%= catalog.name %></td>
+        <td><%= catalog.library_name %></td>
         <td><%= link_to 'Show', dashboard_catalog_path(catalog) %></td>
         <td><%= link_to 'Edit', edit_dashboard_catalog_path(catalog) %></td>
         <td><%= link_to 'Destroy', dashboard_catalog_path(catalog), method: :delete, data: { confirm: 'Are you sure?' } %></td>
