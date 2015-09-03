@@ -1,7 +1,13 @@
-class YgoPriceAPI
+require 'catalog_lib/LibraryTemplate'
+
+class YgoPriceAPI < LibraryTemplate
   require "net/http"
   require "uri"
   require "json"
+  
+  def name
+    "Yu-Gi-Oh!"
+  end
   
   # set_data
   # returns an array of names
@@ -24,11 +30,11 @@ class YgoPriceAPI
     @base_url = "http://yugiohprices.com/api"
   end
   
-  def get_all_sets
-    sets_data = JSON.parse( make_get_request("/card_sets") )
+  def sets
+    JSON.parse( make_get_request("/card_sets") )
   end
   
-  def get_set_data(set_name)
+  def set(set_name)
     card_name = encode_text(set_name)
     data = make_get_request("/set_data/#{set_name}")
     set_data = return_if_success(data)
@@ -45,13 +51,13 @@ class YgoPriceAPI
   
   # has following keys in data array
   # name, text, card_type, type, family, atk, def, level, property
-  def get_single_card(card_name)
+  def card(card_name)
     card_name = encode_text(card_name)
     data = make_get_request("/card_data/#{card_name}")
     return_if_success(data)
   end
   
-  def get_single_card_image(card_name)
+  def card_image(card_name)
     # must follow 302 redirect
     card_name = encode_text(card_name)
     uri = URI.parse( URI.encode(@base_url + "/card_image/#{card_name}") )
@@ -63,7 +69,7 @@ class YgoPriceAPI
     new_text = text.gsub("/", "%2F").gsub(".", "%2E")
     new_text ? new_text : text
   end
-    
+  
   private   
     def make_get_request(endpoint)
       uri = URI.parse( URI.encode(@base_url + endpoint) )
