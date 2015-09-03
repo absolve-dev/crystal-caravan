@@ -35,7 +35,7 @@ class LibraryHandler
   end
   
   def get_card_image(card_name)
-    current_library.card_image
+    current_library.card_image(card_name)
   end
   
   def current_library_name

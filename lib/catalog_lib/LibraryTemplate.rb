@@ -15,7 +15,7 @@ class LibraryTemplate
     false
   end
   
-  # expects an image file
+  # expects an image URL
   def card_image
     false
   end

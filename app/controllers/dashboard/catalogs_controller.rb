@@ -57,7 +57,10 @@ class Dashboard::CatalogsController < ApplicationController
         current_card = CatalogCard.create(:catalog_set_id => current_set.id, :name => card[:name])
         card_data = card[:data].merge(@handler.get_card(card[:name]))
         card_data.delete('name')
-        current_card.update!(:card_data_json => card_data.to_json)
+        current_card.card_data_json = card_data.to_json
+        card_image = @handler.get_card_image(card[:name])
+        current_card.remote_product_image_url = card_image if card_image
+        current_card.save
       end
     end
   end

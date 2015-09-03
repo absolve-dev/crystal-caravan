@@ -3,7 +3,19 @@
 </p>
 <h3><%= @card.name %></h3>
 <ul>
-  <% JSON.parse(@card.card_data_json).each do |key, value| %>
-    <li><b><%= key %>:</b> <%= value %></li>
+  <% if @card.card_data_json %>
+    <% JSON.parse(@card.card_data_json).each do |key, value| %>
+      <li><b><%= key %>:</b> <%= value %></li>
+    <% end %>
+  <% else %>
+    <li>No Card Data Available</li>
+  <% end %>
+  <% if @card.product_image.url  %>
+    <li>
+      <strong>Picture:</strong><br>
+      <%= image_tag @card.product_image.url %>
+    </li>
+  <% else %>
+    <li>No Product Image</li>
   <% end %>
 </ul>

@@ -61,7 +61,7 @@ class YgoPriceAPI < LibraryTemplate
     card_name = encode_text(card_name)
     uri = URI.parse( URI.encode(@base_url + "/card_image/#{card_name}") )
     response = Net::HTTP.get_response(uri)
-    make_get_request_to_uri(response.header['Location'])
+    response.header['Location']
   end
   
   def encode_text(text)
