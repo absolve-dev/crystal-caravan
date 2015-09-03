@@ -39,14 +39,10 @@ class Dashboard::CatalogsController < ApplicationController
   # PATCH/PUT /catalogs/1
   # PATCH/PUT /catalogs/1.json
   def update
-    respond_to do |format|
-      if @catalog.update(catalog_params)
-        format.html { redirect_to @catalog, notice: 'Catalog was successfully updated.' }
-        format.json { render :show, status: :ok, location: @catalog }
-      else
-        format.html { render :edit }
-        format.json { render json: @catalog.errors, status: :unprocessable_entity }
-      end
+    if @catalog.update(catalog_params)
+      redirect_to dashboard_catalog_path(@catalog), notice: 'Catalog was successfully updated.'
+    else
+      render :edit
     end
   end
 
