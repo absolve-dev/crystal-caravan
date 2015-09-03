@@ -75,13 +75,21 @@ class YgoPriceAPI < LibraryTemplate
       uri = URI.parse( URI.encode(@base_url + endpoint) )
       puts uri
       response = Net::HTTP.get(uri)
+      rest
       return response
     end
     
     def make_get_request_to_uri(uri)
       uri = URI.parse(uri)
       response = Net::HTTP.get(uri)
+      rest
       return response
+    end
+    
+    # 15 requests per second for apiary
+    # http://docs.corepro.io/api/requestresponse/index
+    def rest
+      sleep(0.1)
     end
     
     def return_if_success(response_body)
