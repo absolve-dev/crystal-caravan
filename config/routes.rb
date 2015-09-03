@@ -8,8 +8,8 @@ Rails.application.routes.draw do
     resources :categories, constraints: { format: 'html' }
     resources :products, constraints: { format: 'html' }
     resources :catalogs, constraints: { format: 'html' }
-    get 'catalogs/sync/:id' => 'catalogs#sync', as: :catalog_sync
-    get 'catalogs/wipe/:id' => 'catalogs#wipe', as: :catalog_wipe
+    get 'catalogs/:id/sync' => 'catalogs#sync', as: :catalog_sync
+    get 'catalogs/:id/wipe' => 'catalogs#wipe', as: :catalog_wipe
     get 'catalogs/set/:set_id' => 'catalogs#set', as: :catalog_set
     get 'catalogs/card/:card_id' => 'catalogs#card', as: :catalog_card
   end
