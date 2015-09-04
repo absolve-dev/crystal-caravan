@@ -16,6 +16,18 @@ class Dashboard::CatalogsController < ApplicationController
     @api_sets = @handler.get_sets
     @db_sets = @catalog.catalog_sets
   end
+  
+  # GET /catalogs/set/:set_id
+  def set
+    @db_set = CatalogSet.find(params[:set_id])
+    @db_sets = @db_set.catalog.catalog_sets
+  end
+  
+  # GET /catalogs/card/:card_id
+  def card
+    @card = CatalogCard.find(params[:card_id])
+    @db_set = @card.catalog_set
+  end
 
   # GET /catalogs/new
   def new
@@ -88,14 +100,6 @@ class Dashboard::CatalogsController < ApplicationController
       end
       set.destroy
     end
-  end
-  
-  def set
-    @set = CatalogSet.find(params[:set_id])
-  end
-  
-  def card
-    @card = CatalogCard.find(params[:card_id])
   end
 
   # DELETE /catalogs/1

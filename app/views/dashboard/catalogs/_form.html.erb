@@ -16,11 +16,11 @@
   </div>
   
   <div class="field">
-    <%= f.label :library_name %>
+    <%= f.label :library_name %><br>
     <%= f.select(:library_name, @libraries.collect { |l| [l,l] }) %>
   </div>
-
+  
   <div class="actions">
-    <%= f.submit %>
+    <br><%= f.submit %>
   </div>
 <% end %>

@@ -11,27 +11,16 @@
     <div class="col-md-6">
       <h3>API Sets</h3>
       <% if @api_sets && @api_sets.respond_to?(:length) && @api_sets.length > 0 %>
-        <ul>
+        <ul class="list-group">
           <% for set in @api_sets do %>
-            <li><%= set %></li>
+            <li class="list-group-item"><%= set %></li>
           <% end %>
         </ul>
       <% else %>
         API did not return any sets
       <% end %>
     </div>
-    <div class="col-md-6">
-      <h3>DB Sets</h3>
-      <% if @db_sets.length > 0 %>
-        <ul>
-          <% for set in @db_sets do %>
-            <li><%= link_to set.name, dashboard_catalog_set_path(set) %></li>
-          <% end %>
-        </ul>
-      <% else %>
-        Database did not return any sets
-      <% end %>
-    </div>
+    <%= render 'db_list' %>
   </div>
 </div>
 
