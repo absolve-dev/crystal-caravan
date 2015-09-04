@@ -49,17 +49,33 @@ class Dashboard::CatalogsController < ApplicationController
   
   def sync
     require 'json'
+    def default_permalink(name)
+      name.downcase.gsub(/[^a-z0-9]+/, '-').gsub(/^-*|-*$/, '')
+    end
     for set in @handler.get_sets
-      current_set = CatalogSet.where("name=\"#{encode_sql(set)}\"").first
+      current_set = CatalogSet.where(:name => set, :catalog_id => @catalog.id).first
       current_set ||= CatalogSet.create(:catalog_id => @catalog.id, :name => set)
+      
+      # Link to a category
+      current_category = Category.where(:name => set).first
+      current_category ||= Category.create(:name => set, :permalink => default_permalink(set))
+      current_set.category_id = current_category.id 
+      current_set.save
+      
       for card in @handler.get_set(set)
-        current_card = CatalogCard.where("name=\"#{encode_sql(card[:name])}\"").first
-        current_card = CatalogCard.create(:catalog_set_id => current_set.id, :name => card[:name])
+        # Create or modify a card in the database
+        current_card = CatalogCard.where(:name => card[:name], :catalog_set_id => current_set.id).first
+        current_card ||= CatalogCard.create(:catalog_set_id => current_set.id, :name => card[:name])
         card_data = card[:data].merge(@handler.get_card(card[:name]))
         card_data.delete('name')
         current_card.card_data_json = card_data.to_json
         card_image = @handler.get_card_image(card[:name])
         current_card.remote_product_image_url = card_image if card_image
+        
+        # Link to a product
+        current_product = Product.where(:name => card[:name]).first
+        current_product ||= Product.create(:name => card[:name], :category_id => current_set.category_id, :permalink => default_permalink(card[:name]), :weight => 0.1)
+        current_card.product_id = current_product.id
         current_card.save
       end
     end
