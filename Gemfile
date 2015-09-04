@@ -15,6 +15,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 # Use carrierwave for asset upload
 gem 'carrierwave'
+# Stripe test API
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
 # Use Bootstrap
 gem 'bootstrap-sass'
