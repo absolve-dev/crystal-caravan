@@ -33,6 +33,14 @@
     <div id="cart_modal" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content" id="cart">
+          <div class="modal-header">
+            <button type="button" class="close" id="cart_form_close_smbtn" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Your Cart</h4>
+          </div>
+          <div id="cart_modal_body" class="modal-body">
+          </div>
+          <div id="cart_modal_footer" class="modal-footer">
+          </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -60,7 +68,9 @@
               <li class=<%="active" if params[:controller] == 'products' %>><a href="/products">Products</a></li>
               <li class=<%="active" if params[:controller] == 'carts' %>><a href="/carts">Carts</a></li>
               <li class=<%="active" if params[:controller] == 'listings' %>><a href="/listings">Listings</a></li>
-              <li><%= link_to "Show Cart", edit_cart_path(Cart.where(:session_id => session.id).first), :remote => true %></li>
+              <%= puts "YO" %>
+              <%= puts @cart %>
+              <li><%= link_to "Show Cart", edit_cart_path(@cart), :remote => true %></li>
 
             </ul>
           </div><!-- /.navbar-collapse -->

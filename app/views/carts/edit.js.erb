@@ -1,2 +1,3 @@
-$('.modal-content#cart').html('<%= j render("application/form") %>');
+$('#cart_modal_body').html('<%= j render("application/form") %>');
+$('#cart_modal_footer').html($("#cart_form_actions").detach())
 $('#cart_modal').modal('show');

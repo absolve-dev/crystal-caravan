@@ -29,10 +29,13 @@ class ApplicationController < ActionController::Base
   
   # initialize cart on every page
   before_action :set_cart
+    
   
   def set_cart
-      @cart = Cart.where({:session_id => session_id}).first
-      @cart ||= Cart.create({:session_id => session_id})
+    session[:cart_initialization] = true
+    @cart = Cart.where({:session_id => session.id}).first
+    puts @cart
+    @cart ||= Cart.create({:session_id => session.id})
   end
   
   def session_id
