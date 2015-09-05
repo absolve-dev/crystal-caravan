@@ -10,12 +10,15 @@ Rails.application.routes.draw do
   
   devise_for :users
   
-  resources :orders
+  
   resources :line_items
   resources :carts
   resources :products, only: [:index, :show]
   resources :categories, only: [:index, :show]
   resources :listings
+  
+  match 'orders/new', to: 'orders#new', via: [:post]
+  resources :orders
   
   root 'static_pages#home'
   

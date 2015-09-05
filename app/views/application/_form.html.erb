@@ -40,6 +40,7 @@
   <% end %>
   <div class="actions" id="cart_form_actions">
     <%= f.submit class:"btn btn-default" %>
+    <%= link_to 'Checkout', 'orders/new', :protocol => "https", method: :post, class:"btn btn-default", id:"cart_form_checkout_btn" %>
     <button type="button" class="btn btn-default" data-dismiss="modal" id="cart_form_close_btn">Close</button>
   </div>
 <% end %>

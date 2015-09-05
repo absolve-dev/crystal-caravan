@@ -10,11 +10,18 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    
   end
 
   # GET /orders/new
   def new
-    @order = Order.new
+    if !Order.where(:cart_id => @cart.id).first
+      @order = Order.new
+    else
+      redirect_to(@cart)
+    end
+    puts "\n\n"
+    puts params
   end
 
   # GET /orders/1/edit
@@ -29,6 +36,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        format.js
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -69,6 +77,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:first_name_billing, :last_name_billing, :company_billing, :address_line_one_billing, :address_line_two_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :phone_billing, :first_name_shipping, :last_name_shipping, :company_shipping, :address_line_one_shipping, :address_line_two_shipping, :city_shipping, :country_shipping, :state_shipping, :zip_shipping, :phone_shipping)
+      params.require(:order).permit(:first_name_billing, :last_name_billing, :company_billing, :address_line_one_billing, :address_line_two_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :phone_billing, :first_name_shipping, :last_name_shipping, :company_shipping, :address_line_one_shipping, :address_line_two_shipping, :city_shipping, :country_shipping, :state_shipping, :zip_shipping, :phone_shipping, :cart_id)
     end
 end
