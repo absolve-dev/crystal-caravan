@@ -51,10 +51,13 @@
         </p>
         
         <p>
-          
-          <% if @product.product_image.url %>
             <strong>Picture:</strong><br>
+          <% if @product.product_image.url %>
             <%= image_tag @product.product_image.url %>
+          <% elsif @product.catalog_card && @product.catalog_card.product_image.url %>
+            <%= image_tag @product.catalog_card.product_image.url %>
+          <% else %>
+            No picture available
           <% end %>
         </p>
         
