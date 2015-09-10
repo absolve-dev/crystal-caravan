@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903223111) do
+ActiveRecord::Schema.define(version: 20150910172205) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -36,8 +36,10 @@ ActiveRecord::Schema.define(version: 20150903223111) do
 
   create_table "carts", force: :cascade do |t|
     t.string   "session_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "active_order", default: false
+    t.integer  "order_id"
   end
 
   create_table "catalog_cards", force: :cascade do |t|
@@ -117,8 +119,12 @@ ActiveRecord::Schema.define(version: 20150903223111) do
     t.string   "state_shipping"
     t.integer  "zip_shipping"
     t.string   "phone_shipping"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "cart_id"
+    t.integer  "order_status",              default: 0
+    t.string   "origin_ip"
+    t.integer  "payment_id"
   end
 
   create_table "payments", force: :cascade do |t|
@@ -146,6 +152,22 @@ ActiveRecord::Schema.define(version: 20150903223111) do
     t.datetime "updated_at",         null: false
     t.integer  "default_listing_id"
     t.string   "product_image"
+  end
+
+  create_table "shipping_methods", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "active"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.decimal  "price"
+    t.integer  "shipping_service_id"
+  end
+
+  create_table "shipping_services", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stock_adjustments", force: :cascade do |t|

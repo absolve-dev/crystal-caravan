@@ -1,0 +1,33 @@
+<%= form_for(@shipping_service) do |f| %>
+  <% if @shipping_service.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shipping_service.errors.count, "error") %> prohibited this shipping_service from being saved:</h2>
+
+      <ul>
+      <% @shipping_service.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
+  </div>
+  <div class="field">
+    <%= f.label :created_at %><br>
+    <%= f.datetime_select :created_at %>
+  </div>
+  <div class="field">
+    <%= f.label :updated_at %><br>
+    <%= f.datetime_select :updated_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
