@@ -1,0 +1,20 @@
+<div class="col-md-6">
+  <div class="list-group">
+    <div class="list-group-item">
+      <h3>
+        <%= @db_set.name %>
+      </h3>
+    </div>
+    <% if @db_set.catalog_cards.length > 0 %>
+      <% for card in @db_set.catalog_cards %>
+        <a href="<%= dashboard_catalog_card_path(card) %>" class="list-group-item<%= ' active' if @card && @card == card %>">
+          <%= card.name %>
+        </a>
+      <% end %>
+    <% else %>
+      <div class="list-group-item">
+        This set contains no cards in the database.
+      </div>
+    <% end %>
+  </div>
+</div>

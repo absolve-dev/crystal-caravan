@@ -7,6 +7,6 @@ class Category < ActiveRecord::Base
   
   mount_uploader :default_picture, CategoryImageUploader
   
-  validates :name, :presence => true
+  validates :name, :presence => true, :uniqueness => true
   validates :permalink, :presence => true, :permalink => true
 end

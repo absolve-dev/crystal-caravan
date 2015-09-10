@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <%= link_to 'Back to Set', dashboard_catalog_set_path(@card.catalog_set_id) %><br>
+      <%= link_to 'Back to Catalog', dashboard_catalog_path(@card.catalog_set.catalog) %>
+    </div>
+  </div>
+  <div class="row">
+    <%= render 'db_cards' %>
+    <div class="col-md-6">
+      <div class="list-group">
+        <div class="list-group-item">
+          <h3><%= @card.name %></h3>
+        </div>
+        <div class="list-group-item">
+          <% if @card.product_image.url  %>
+              <%= image_tag @card.product_image.url %>
+          <% else %>
+            No Product Image
+          <% end %>
+        </div>
+        <% if @card.card_data_json %>
+          <% JSON.parse(@card.card_data_json).each do |key, value| %>
+            <div class="list-group-item">
+              <b><%= key %>:</b> <%= value %>
+            </div>
+          <% end %>
+        <% else %>
+          <li>No Card Data Available</li>
+        <% end %>
+      </div>
+    </div>
+    
+  </div>
+</div>

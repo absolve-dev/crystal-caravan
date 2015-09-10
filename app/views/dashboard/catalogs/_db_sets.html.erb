@@ -1,0 +1,19 @@
+<div class="col-md-6">
+  <div class="list-group">
+    <div class="list-group-item">
+      <h3>Database Sets</h3>
+    </div>
+      <% if @db_sets.length > 0 %>
+          <% for set in @db_sets do %>
+            <a href="<%= dashboard_catalog_set_path(set) %>" class="list-group-item<%= ' active' if @db_set && @db_set == set %>">
+              <span class="badge"><%= set.catalog_cards.count %></span>
+              <%= set.name  %>
+            </a>
+          <% end %>
+      <% else %>
+        <div class="list-group-item">
+          Database did not return any sets
+        </div>
+      <% end %>
+  </div>
+</div>

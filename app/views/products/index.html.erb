@@ -38,7 +38,7 @@
     <% @products.each do |product| %>
       <tr>
         <td class="col-xs-1"><%= product.category_id %></td>
-        <td class="col-xs-1"><%= product.name %></td>
+        <td class="col-xs-1"><%= link_to product.name, product_path(product) %></td>
         <td class="col-xs-1"><%= product.permalink %></td>
         <td class="col-xs-1"><%= product.description or "N/A" %></td>
         <td class="col-xs-1"><%= product.short_description or "N/A" %></td>

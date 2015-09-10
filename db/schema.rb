@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901192626) do
+ActiveRecord::Schema.define(version: 20150903223111) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -38,6 +38,31 @@ ActiveRecord::Schema.define(version: 20150901192626) do
     t.string   "session_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "catalog_cards", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "catalog_set_id"
+    t.string   "card_data_json"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "product_image"
+    t.integer  "product_id"
+  end
+
+  create_table "catalog_sets", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "catalog_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "category_id"
+  end
+
+  create_table "catalogs", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "library_name"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -120,7 +145,7 @@ ActiveRecord::Schema.define(version: 20150901192626) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "default_listing_id"
-    t.string   "default_picture"
+    t.string   "product_image"
   end
 
   create_table "stock_adjustments", force: :cascade do |t|

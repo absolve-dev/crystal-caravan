@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <%= link_to 'Update', dashboard_catalog_sync_path(@catalog) %> | 
+      <%= link_to 'Wipe Database', dashboard_catalog_wipe_path(@catalog) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3>API Sets</h3>
+      <% if @api_sets && @api_sets.respond_to?(:length) && @api_sets.length > 0 %>
+        <ul class="list-group">
+          <% for set in @api_sets do %>
+            <li class="list-group-item"><%= set %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        API did not return any sets
+      <% end %>
+    </div>
+    <%= render 'db_list' %>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_dashboard_catalog_path(@catalog) %> |
+<%= link_to 'Back', dashboard_catalogs_path %>

@@ -1,21 +1,25 @@
 Rails.application.routes.draw do
   
-  devise_for :admins, controllers: { registrations: "admins/registrations" }
+  devise_for :admins, controllers: { registrations: "admins/registrations" }  
+  devise_for :users
   
   namespace :dashboard do
     root 'panel#index'
     resources :categories, constraints: { format: 'html' }
     resources :products, constraints: { format: 'html' }
+    resources :catalogs, constraints: { format: 'html' }
+    get 'catalogs/:id/sync' => 'catalogs#sync', as: :catalog_sync
+    get 'catalogs/:id/wipe' => 'catalogs#wipe', as: :catalog_wipe
+    get 'catalogs/set/:set_id' => 'catalogs#set', as: :catalog_set
+    get 'catalogs/card/:card_id' => 'catalogs#card', as: :catalog_card
   end
   
-  devise_for :users
-  
-  resources :orders
-  resources :line_items
-  resources :carts
-  resources :products, only: [:index, :show]
   resources :categories, only: [:index, :show]
+  resources :products, only: [:index, :show]
   resources :listings
+  resources :carts
+  resources :line_items
+  resources :orders
   
   root 'static_pages#home'
   

@@ -18,7 +18,7 @@ category_one = Category.create({name:'Big Boy',permalink:'big-boy',default_pictu
 category_two = Category.create({name:'Little Man',permalink:'little-man',category_id:category_one.id})
 
 product_one_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'little-thing.jpg'), 'rb')
-product_one = Product.create({name:'Little Thing',permalink:'little-thing', category_id:category_two.id,weight:5.67,default_picture:product_one_image})
+product_one = Product.create({name:'Little Thing',permalink:'little-thing', category_id:category_two.id,weight:5.67,product_image:product_one_image})
 
 
 listing_one = Listing.create({name:'Brand New',price:1.00,product_id:product_one.id,quantity:12})
