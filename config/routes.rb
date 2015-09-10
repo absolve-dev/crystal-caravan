@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     get 'catalogs/:id/wipe' => 'catalogs#wipe', as: :catalog_wipe
     get 'catalogs/set/:set_id' => 'catalogs#set', as: :catalog_set
     get 'catalogs/card/:card_id' => 'catalogs#card', as: :catalog_card
+    resources :orders
+    resources :shipping_services
   end
   
   resources :categories, only: [:index, :show]
