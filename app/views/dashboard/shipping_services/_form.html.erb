@@ -19,6 +19,20 @@
     <%= f.label :active %>
     <%= f.check_box :active %>
   </div>
+  
+  <h3>Shipping Methods:</h3>
+  <ul>
+    <%= f.fields_for :shipping_methods do |method_f| %>
+      <li>
+        Name: <%= method_f.object.respond_to?(:name) && method_f.object.name != nil ? method_f.object.name : method_f.text_field(:name) %><br>
+        Price: <%= method_f.text_field :price %><br>
+        Active: <%= method_f.check_box :active %><br>
+        <%= link_to('Destroy', dashboard_shipping_method_delete_path(method_f.object.id),
+            :confirm => 'Are you sure?', :method => :delete) if method_f.object.id %>
+      </li>
+    <% end %>
+  </ul>
+  
   <div class="actions">
     <%= f.submit %>
   </div>

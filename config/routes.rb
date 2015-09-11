@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get 'catalogs/card/:card_id' => 'catalogs#card', as: :catalog_card
     resources :orders
     resources :shipping_services
+    delete 'shipping_services/shipping_method_destroy/:method_id' => 'shipping_services#destroy_shipping_method', as: :shipping_method_delete
   end
   
   resources :categories, only: [:index, :show]
