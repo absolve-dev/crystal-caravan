@@ -1,0 +1,47 @@
+ 
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a<%= ' href="#bill_info" data-toggle="tab"'.html_safe if @order[:order_status] >= Order.order_statuses[:empty] %>>
+          Billing Information
+        </a>
+      </li>
+      <li>
+        <a<%= ' href="#ship_info" data-toggle="tab"'.html_safe if @order[:order_status] >= Order.order_statuses[:bill_info_completed] %>>
+          Shipping Information
+        </a>
+      </li>
+      <li>
+        <a<%= ' href="#ship_options" data-toggle="tab"'.html_safe if @order[:order_status] >= Order.order_statuses[:ship_info_completed] %>>
+          Shipping Options
+        </a>
+      </li>
+      <li>
+        <a<%= ' href="#payment" data-toggle="tab"'.html_safe if @order[:order_status] >= Order.order_statuses[:ship_options_completed] %>>
+          Payment
+        </a>
+      </li>
+      <li>
+        <a<%= ' href="#confirm" data-toggle="tab"'.html_safe if @order[:order_status] >= Order.order_statuses[:payment_completed] %>>
+          Confirm Order
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="bill_info">
+        <%= render 'bill_info_form' %>
+      </div>
+      <div class="tab-pane" id="ship_info">
+        <%= render 'ship_info_form' %>
+      </div>
+      <div class="tab-pane" id="ship_options">
+        <%= render 'ship_options_form' %>
+      </div>
+      <div class="tab-pane" id="payment">
+        <%= render 'payment_form' %>
+      </div>
+      <div class="tab-pane" id="confirm">
+        <%= render 'checkout_form' %>
+      </div>
+    </div>
+  </div>

@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   resources :carts
   resources :line_items
   resources :orders
+  post 'orders/bill_info' => 'orders#bill_info', as: :order_bill_info, constraints: { format: 'json' }
+  post 'orders/ship_info' => 'orders#ship_info', as: :order_ship_info, constraints: { format: 'json' }
+  post 'orders/ship_options' => 'orders#ship_options', as: :order_ship_options, constraints: { format: 'json' }
+  post 'orders/payment' => 'orders#payment', as: :order_payment, constraints: { format: 'json' }
+  post 'orders/checkout' => 'orders#checkout', as: :order_checkout, constraints: { format: 'html' }
   
   root 'static_pages#home'
   

@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order_for_checkout, only: [:new, :bill_info, :ship_info, :ship_options, :payment, :checkout]
 
   # GET /orders
   # GET /orders.json
@@ -14,7 +15,6 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    @order = Order.new
   end
 
   # GET /orders/1/edit
@@ -60,15 +60,59 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  # Following checkout actions must check for proper pre-completion
+  
+  # POST /orders/bill_info
+  def bill_info
+    if @order.update(order_params)
+      @order.update(order_status: :bill_info_completed) if @order[:order_status] < Order.order_statuses[:bill_info_completed]
+      render json: @order, status: :ok
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
+  end
+  
+  # POST /orders/ship_info
+  def ship_info
+    if @order.update(order_params)
+      @order.update(order_status: :ship_info_completed) if @order[:order_status] < Order.order_statuses[:ship_info_completed]
+      render json: @order, status: :ok
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
+  end
+  
+  # POST /orders/ship_options
+  def ship_options
+    @order.update(order_status: :ship_options_completed) if @order[:order_status] < Order.order_statuses[:ship_options_completed]
+    render json: @order, status: :ok
+  end
+  
+  # POST /orders/payment
+  def payment
+    @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
+    render json: @order, status: :ok
+  end
+  
+  # POST /orders/checkout
+  def checkout
+    @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
     end
-
+    
+    def set_order_for_checkout
+      @order = Order.where(:cart_id => @cart.id).first
+      @order ||= Order.new(:cart_id => @cart.id)
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:first_name_billing, :last_name_billing, :company_billing, :address_line_one_billing, :address_line_two_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :phone_billing, :first_name_shipping, :last_name_shipping, :company_shipping, :address_line_one_shipping, :address_line_two_shipping, :city_shipping, :country_shipping, :state_shipping, :zip_shipping, :phone_shipping)
+      params.require(:order).permit!.except(:order_status)
     end
 end
