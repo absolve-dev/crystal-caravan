@@ -1,6 +1,6 @@
 class Dashboard::ShippingServicesController < ApplicationController
   before_action :set_shipping_service, only: [:show, :edit, :update, :destroy]
-  before_action :set_form_path, only: [:new, :edit]
+  before_action :set_form_path, only: [:new, :edit, :update]
 
   # GET /shipping_services
   # GET /shipping_services.json
@@ -39,6 +39,7 @@ class Dashboard::ShippingServicesController < ApplicationController
   # PATCH/PUT /shipping_services/1
   # PATCH/PUT /shipping_services/1.json
   def update
+    @shipping_service.shipping_methods[-1].destroy if @shipping_service.shipping_methods.last.name == '' || @shipping_service.shipping_methods.last.price == nil
     if @shipping_service.update(shipping_service_params)
       redirect_to dashboard_shipping_service_path(@shipping_service), notice: 'Shipping service was successfully updated.'
     else
