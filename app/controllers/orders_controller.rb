@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :set_order_for_checkout, only: [:new, :bill_info, :ship_info, :ship_options, :payment, :checkout]
+  before_action :set_order_for_checkout, only: [:new, :bill_info_form, :bill_info_update, :ship_info_form, :ship_info_update, :ship_options_form, :ship_options_update, :payment_form, :payment_update, :checkout_form, :checkout_update]
 
   # GET /orders
   # GET /orders.json
@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+    redirect_to :order_bill_info_form
   end
 
   # GET /orders/1/edit
@@ -61,42 +62,60 @@ class OrdersController < ApplicationController
     end
   end
   
-  # Following checkout actions must check for proper pre-completion
+  # GET /orders/bill_info
+  def bill_info_form
+  end
+  
+  # GET /orders/ship_info
+  def ship_info_form
+  end
+  
+  # GET /orders/ship_options
+  def ship_options_form
+  end
+  
+  # GET /orders/payment
+  def payment_form
+  end
+  
+  # GET /orders/checkout
+  def checkout_form
+  end
   
   # POST /orders/bill_info
-  def bill_info
+  def bill_info_update
     if @order.update(order_params)
       @order.update(order_status: :bill_info_completed) if @order[:order_status] < Order.order_statuses[:bill_info_completed]
-      render json: @order, status: :ok
+      redirect_to :order_ship_info_form
     else
       render json: @order.errors, status: :unprocessable_entity
     end
   end
   
   # POST /orders/ship_info
-  def ship_info
+  def ship_info_update
     if @order.update(order_params)
       @order.update(order_status: :ship_info_completed) if @order[:order_status] < Order.order_statuses[:ship_info_completed]
-      render json: @order, status: :ok
+      redirect_to :order_ship_options_form
     else
       render json: @order.errors, status: :unprocessable_entity
     end
   end
   
   # POST /orders/ship_options
-  def ship_options
+  def ship_options_update
     @order.update(order_status: :ship_options_completed) if @order[:order_status] < Order.order_statuses[:ship_options_completed]
-    render json: @order, status: :ok
+      redirect_to :order_payment_form
   end
   
   # POST /orders/payment
-  def payment
+  def payment_update
     @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
-    render json: @order, status: :ok
+      redirect_to :order_checkout_form
   end
   
   # POST /orders/checkout
-  def checkout
+  def checkout_update
     @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
   end
 

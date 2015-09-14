@@ -1,4 +1,4 @@
-<%= form_for(:order, url: order_checkout_path, html: {id: :checkout}) do |f| %>
+<%= form_for(:order, url: order_checkout_update_path, html: {id: :checkout}) do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>

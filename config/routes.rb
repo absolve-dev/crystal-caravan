@@ -22,12 +22,17 @@ Rails.application.routes.draw do
   resources :listings
   resources :carts
   resources :line_items
+  post 'orders/bill_info' => 'orders#bill_info_update', as: :order_bill_info_update
+  get 'orders/bill_info' => 'orders#bill_info_form', as: :order_bill_info_form
+  post 'orders/ship_info' => 'orders#ship_info_update', as: :order_ship_info_update
+  get 'orders/ship_info' => 'orders#ship_info_form', as: :order_ship_info_form
+  post 'orders/ship_options' => 'orders#ship_options_update', as: :order_ship_options_update
+  get 'orders/ship_options' => 'orders#ship_options_form', as: :order_ship_options_form
+  post 'orders/payment' => 'orders#payment_update', as: :order_payment_update
+  get 'orders/payment' => 'orders#payment_form', as: :order_payment_form
+  post 'orders/checkout' => 'orders#checkout_update', as: :order_checkout_update
+  get 'orders/checkout' => 'orders#checkout_form', as: :order_checkout_form
   resources :orders
-  post 'orders/bill_info' => 'orders#bill_info', as: :order_bill_info, constraints: { format: 'json' }
-  post 'orders/ship_info' => 'orders#ship_info', as: :order_ship_info, constraints: { format: 'json' }
-  post 'orders/ship_options' => 'orders#ship_options', as: :order_ship_options, constraints: { format: 'json' }
-  post 'orders/payment' => 'orders#payment', as: :order_payment, constraints: { format: 'json' }
-  post 'orders/checkout' => 'orders#checkout', as: :order_checkout, constraints: { format: 'html' }
   
   root 'static_pages#home'
   

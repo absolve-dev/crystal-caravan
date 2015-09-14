@@ -1,0 +1,28 @@
+
+<ul class="nav nav-pills nav-justified">
+  <li<%= ' class="active"'.html_safe if params[:action] == 'bill_info_form' %>>
+    <a href="<%= order_bill_info_form_path %>">
+      Billing Information
+    </a>
+  </li>
+  <li<%= ' class="active"'.html_safe if params[:action] == 'ship_info_form' %>>
+    <a href="<%= order_ship_info_form_path %>">
+      Shipping Information
+    </a>
+  </li>
+  <li<%= ' class="active"'.html_safe if params[:action] == 'ship_options_form' %>>
+    <a href="<%= order_ship_options_form_path %>">
+      Shipping Options
+    </a>
+  </li>
+  <li<%= ' class="active"'.html_safe if params[:action] == 'payment_form' %>>
+    <a href="<%= order_payment_form_path %>">
+      Payment
+    </a>
+  </li>
+  <li<%= ' class="active"'.html_safe if params[:action] == 'checkout_form' %>>
+    <a href="<%= order_checkout_form_path %>">
+      Confirm Order
+    </a>
+  </li>
+</ul>
