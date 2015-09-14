@@ -72,6 +72,9 @@ class OrdersController < ApplicationController
   
   # GET /orders/ship_options
   def ship_options_form
+    @shipping_methods_select = ShippingMethod.all.collect do |method| 
+      method.shipping_service && method.shipping_service.active && method.active ? ["#{method.shipping_service.name} #{method.name} - #{method.price}", method.id] : nil
+    end.compact!
   end
   
   # GET /orders/payment
@@ -104,8 +107,12 @@ class OrdersController < ApplicationController
   
   # POST /orders/ship_options
   def ship_options_update
-    @order.update(order_status: :ship_options_completed) if @order[:order_status] < Order.order_statuses[:ship_options_completed]
+    if @order.update(order_params)
+      @order.update(order_status: :ship_options_completed) if @order[:order_status] < Order.order_statuses[:ship_options_completed]
       redirect_to :order_payment_form
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
   end
   
   # POST /orders/payment
