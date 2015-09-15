@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row" style="padding-bottom:15px;">
+    <div class="col-xs-12">
+      <h1>Shipping Services</h1>
+      <%= link_to 'New Shipping Service', new_dashboard_shipping_service_path, class: "btn btn-default" %>
+    </div>
+  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <td class="field-label">Name</td>
+        <td class="field-label">Active</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @shipping_services.each do |shipping_service| %>
+        <tr>
+          <td><%= shipping_service.name %></td>
+          <td><%= shipping_service.active %></td>
+          <td><%= link_to 'Show', dashboard_shipping_service_path(shipping_service) %></td>
+          <td><%= link_to 'Edit', edit_dashboard_shipping_service_path(shipping_service) %></td>
+          <td><%= link_to 'Destroy', dashboard_shipping_service_path(shipping_service), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

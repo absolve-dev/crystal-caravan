@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Orders</h1>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td class="field-label">
+              Order Number
+            </td>
+            <td class="field-label">
+              Order Status
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <% for order in @orders %>
+            <tr>
+              <td><%= link_to order.id, dashboard_order_path(order) %></td>
+              <td><%= order.order_status %></td>
+            </td>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

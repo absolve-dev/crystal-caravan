@@ -1,0 +1,56 @@
+<%= form_for(:order, url: order_bill_info_update_path, html: {id: :bill_info}) do |f| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+      <% @order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :first_name_billing %><br>
+    <%= f.text_field :first_name_billing %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name_billing %><br>
+    <%= f.text_field :last_name_billing %>
+  </div>
+  <div class="field">
+    <%= f.label :company_billing %><br>
+    <%= f.text_field :company_billing %>
+  </div>
+  <div class="field">
+    <%= f.label :address_line_one_billing %><br>
+    <%= f.text_field :address_line_one_billing %>
+  </div>
+  <div class="field">
+    <%= f.label :address_line_two_billing %><br>
+    <%= f.text_field :address_line_two_billing %>
+  </div>
+  <div class="field">
+    <%= f.label :city_billing %><br>
+    <%= f.text_field :city_billing %>
+  </div>
+  <div class="field">
+    <%= f.label :country_billing %><br>
+    <%= f.text_field :country_billing %>
+  </div>
+  <div class="field">
+    <%= f.label :state_billing %><br>
+    <%= f.text_field :state_billing %>
+  </div>
+  <div class="field">
+    <%= f.label :zip_billing %><br>
+    <%= f.number_field :zip_billing %>
+  </div>
+  <div class="field">
+    <%= f.label :phone_billing %><br>
+    <%= f.text_field :phone_billing %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

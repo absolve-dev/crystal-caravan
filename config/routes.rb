@@ -12,6 +12,11 @@ Rails.application.routes.draw do
     get 'catalogs/:id/wipe' => 'catalogs#wipe', as: :catalog_wipe
     get 'catalogs/set/:set_id' => 'catalogs#set', as: :catalog_set
     get 'catalogs/card/:card_id' => 'catalogs#card', as: :catalog_card
+    resources :orders
+    get 'orders/:id/fulfill' => 'orders#fulfill', as: :order_fulfill
+    get 'orders/:id/cancel' => 'orders#cancel', as: :order_cancel
+    resources :shipping_services
+    delete 'shipping_services/shipping_method_destroy/:method_id' => 'shipping_services#destroy_shipping_method', as: :shipping_method_delete
   end
   
   resources :categories, only: [:index, :show]
@@ -19,6 +24,17 @@ Rails.application.routes.draw do
   resources :listings
   resources :carts
   resources :line_items
+  get 'orders/:id/cancel' => 'orders#cancel', as: :order_cancel
+  post 'orders/bill_info' => 'orders#bill_info_update', as: :order_bill_info_update
+  get 'orders/bill_info' => 'orders#bill_info_form', as: :order_bill_info_form
+  post 'orders/ship_info' => 'orders#ship_info_update', as: :order_ship_info_update
+  get 'orders/ship_info' => 'orders#ship_info_form', as: :order_ship_info_form
+  post 'orders/ship_options' => 'orders#ship_options_update', as: :order_ship_options_update
+  get 'orders/ship_options' => 'orders#ship_options_form', as: :order_ship_options_form
+  post 'orders/payment' => 'orders#payment_update', as: :order_payment_update
+  get 'orders/payment' => 'orders#payment_form', as: :order_payment_form
+  post 'orders/checkout' => 'orders#checkout_update', as: :order_checkout_update
+  get 'orders/checkout' => 'orders#checkout_form', as: :order_checkout_form
   resources :orders
   
   root 'static_pages#home'

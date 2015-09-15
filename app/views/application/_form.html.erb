@@ -46,6 +46,7 @@
   </div>
   <div id="cart_modal_footer" class="modal-footer">
     <div class="actions">
+      <%= link_to "Checkout", new_order_path, :class => "btn btn-info", :id => "cart-checkout" %>
       <%= f.submit class:"btn btn-default" %>
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>

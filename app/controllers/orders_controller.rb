@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :cancel, :edit, :update, :destroy]
+  before_action :set_order_for_checkout, only: [:new, :bill_info_form, :bill_info_update, :ship_info_form, :ship_info_update, :ship_options_form, :ship_options_update, :payment_form, :payment_update, :checkout_form, :checkout_update]
 
   # GET /orders
   # GET /orders.json
@@ -11,30 +12,16 @@ class OrdersController < ApplicationController
   # GET /orders/1.json
   def show
   end
+  
+  # GET /orders/1/cancel
+  def cancel
+    @order.cancel
+    redirect_to order_path(@order), notice: 'Status was successfully changed'
+  end
 
   # GET /orders/new
   def new
-    @order = Order.new
-  end
-
-  # GET /orders/1/edit
-  def edit
-  end
-
-  # POST /orders
-  # POST /orders.json
-  def create
-    @order = Order.new(order_params)
-
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to :order_bill_info_form
   end
 
   # PATCH/PUT /orders/1
@@ -50,15 +37,72 @@ class OrdersController < ApplicationController
       end
     end
   end
-
-  # DELETE /orders/1
-  # DELETE /orders/1.json
-  def destroy
-    @order.destroy
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
-      format.json { head :no_content }
+  
+  # GET /orders/bill_info
+  def bill_info_form
+  end
+  
+  # GET /orders/ship_info
+  def ship_info_form
+  end
+  
+  # GET /orders/ship_options
+  def ship_options_form
+    @shipping_methods_select = ShippingMethod.all.collect do |method| 
+      method.shipping_service && method.shipping_service.active && method.active ? ["#{method.shipping_service.name} #{method.name} - #{method.price}", method.id] : nil
+    end.compact!
+  end
+  
+  # GET /orders/payment
+  def payment_form
+  end
+  
+  # GET /orders/checkout
+  def checkout_form
+  end
+  
+  # POST /orders/bill_info
+  def bill_info_update
+    if @order.update(order_params)
+      @order.update(order_status: :bill_info_completed) if @order[:order_status] < Order.order_statuses[:bill_info_completed]
+      redirect_to :order_ship_info_form
+    else
+      render json: @order.errors, status: :unprocessable_entity
     end
+  end
+  
+  # POST /orders/ship_info
+  def ship_info_update
+    if @order.update(order_params)
+      @order.update(order_status: :ship_info_completed) if @order[:order_status] < Order.order_statuses[:ship_info_completed]
+      redirect_to :order_ship_options_form
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
+  end
+  
+  # POST /orders/ship_options
+  def ship_options_update
+    if @order.update(order_params)
+      @order.update(order_status: :ship_options_completed) if @order[:order_status] < Order.order_statuses[:ship_options_completed]
+      redirect_to :order_payment_form
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
+  end
+  
+  # POST /orders/payment
+  def payment_update
+    @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
+    redirect_to :order_checkout_form
+  end
+  
+  # POST /orders/checkout
+  def checkout_update
+    @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
+    @cart.persist_line_items
+    @cart.adjust_line_items(@order.id)
+    @cart.update(:active => false)
   end
 
   private
@@ -66,9 +110,14 @@ class OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
-
+    
+    def set_order_for_checkout
+      @order = Order.where(:cart_id => @cart.id).first
+      @order ||= Order.new(:cart_id => @cart.id)
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:first_name_billing, :last_name_billing, :company_billing, :address_line_one_billing, :address_line_two_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :phone_billing, :first_name_shipping, :last_name_shipping, :company_shipping, :address_line_one_shipping, :address_line_two_shipping, :city_shipping, :country_shipping, :state_shipping, :zip_shipping, :phone_shipping)
+      params.require(:order).permit!.except(:order_status)
     end
 end

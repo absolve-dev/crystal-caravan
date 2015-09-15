@@ -1,0 +1,45 @@
+<%= form_for(@shipping_service, url: @form_path) do |f| %>
+  <% if @shipping_service.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@shipping_service.errors.count, "error") %> prohibited this shipping_service from being saved:</h2>
+
+      <ul>
+      <% @shipping_service.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :active %>
+    <%= f.check_box :active %>
+  </div>
+  
+  <h3>Shipping Methods:</h3>
+  <ul>
+    <%= f.fields_for :shipping_methods do |method_f| %>
+      <li>
+        Name:
+        <% if method_f.object.respond_to?(:name) && method_f.object.name != nil %>
+          <%= method_f.object.name %>
+          <%= method_f.hidden_field(:name) %>
+        <% else %>
+          <%= method_f.text_field(:name) %>
+        <% end %><br>
+        Price: <%= method_f.text_field :price %><br>
+        Active: <%= method_f.check_box :active %><br>
+        <%= link_to('Destroy', dashboard_shipping_method_delete_path(method_f.object.id),
+            :confirm => 'Are you sure?', :method => :delete) if method_f.object.id %>
+      </li>
+    <% end %>
+  </ul>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
