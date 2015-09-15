@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'catalogs/set/:set_id' => 'catalogs#set', as: :catalog_set
     get 'catalogs/card/:card_id' => 'catalogs#card', as: :catalog_card
     resources :orders
+    get 'orders/:id/fulfill' => 'orders#fulfill', as: :order_fulfill
     resources :shipping_services
     delete 'shipping_services/shipping_method_destroy/:method_id' => 'shipping_services#destroy_shipping_method', as: :shipping_method_delete
   end

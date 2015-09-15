@@ -1,5 +1,5 @@
 class LineItem < ActiveRecord::Base
-  belongs_to :carts
+  belongs_to :cart
   
   validates :cart_id, :listing_id, :presence => true
   
@@ -12,7 +12,7 @@ class LineItem < ActiveRecord::Base
     self.save
   end
   
-  def create_adjustment
-    StockAdjustment.create(:listing_id => self.listing.id, :quantity => self.quantity)
+  def create_adjustment(order_id)
+    StockAdjustment.create(:listing_id => self.listing.id, :quantity => self.quantity, :order_id => order_id)
   end
 end

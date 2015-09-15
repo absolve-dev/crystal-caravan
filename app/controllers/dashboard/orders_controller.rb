@@ -1,5 +1,5 @@
 class Dashboard::OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :fulfill]
 
   # GET /orders
   # GET /orders.json
@@ -20,7 +20,14 @@ class Dashboard::OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
   end
-
+  
+  # GET /orders/1/fulfill
+  def fulfill
+    @order.fulfill_order
+    @order.update(:order_status => :fulfilled)
+    redirect_to dashboard_order_path(@order), notice: 'Status was successfully changed'
+  end
+  
   # POST /orders
   # POST /orders.json
   def create

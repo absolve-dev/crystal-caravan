@@ -11,9 +11,9 @@ class Cart < ActiveRecord::Base
     end
   end
   
-  def adjust_line_items
+  def adjust_line_items(order_id)
     for item in self.line_items
-      item.create_adjustment
+      item.create_adjustment(order_id)
     end
   end
 end
