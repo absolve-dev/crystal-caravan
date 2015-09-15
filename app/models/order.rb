@@ -7,7 +7,8 @@ class Order < ActiveRecord::Base
     :ship_options_completed,
     :payment_completed,
     :checkout_completed,
-    :fulfilled
+    :fulfilled,
+    :cancelled
   ]
   
   belongs_to :cart # only for foreign-key dependency. does not semantically make sense
@@ -19,6 +20,11 @@ class Order < ActiveRecord::Base
       item.listing.save
     end
     self.destroy_stock_adjustments
+  end
+  
+  def cancel
+    self.destroy_stock_adjustments
+    self.update(:order_status => :cancelled)
   end
   
   def destroy_stock_adjustments

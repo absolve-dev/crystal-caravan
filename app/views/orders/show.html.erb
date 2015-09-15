@@ -2,6 +2,9 @@
   <div class="row">
     <div class="col-xs-12">
       <p>
+        <%= link_to "Cancel Order", order_cancel_path(@order) %>
+      </p>
+      <p>
         <strong>Cart ID:</strong>
         <%= @order.cart_id %>
       </p>

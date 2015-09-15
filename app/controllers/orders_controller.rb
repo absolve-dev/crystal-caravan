@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :cancel, :edit, :update, :destroy]
   before_action :set_order_for_checkout, only: [:new, :bill_info_form, :bill_info_update, :ship_info_form, :ship_info_update, :ship_options_form, :ship_options_update, :payment_form, :payment_update, :checkout_form, :checkout_update]
 
   # GET /orders
@@ -11,6 +11,12 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+  end
+  
+  # GET /orders/1/cancel
+  def cancel
+    @order.cancel
+    redirect_to order_path(@order), notice: 'Status was successfully changed'
   end
 
   # GET /orders/new

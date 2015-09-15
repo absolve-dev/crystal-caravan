@@ -1,5 +1,5 @@
 class Dashboard::OrdersController < ApplicationController
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :fulfill]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :fulfill, :cancel]
 
   # GET /orders
   # GET /orders.json
@@ -25,6 +25,12 @@ class Dashboard::OrdersController < ApplicationController
   def fulfill
     @order.fulfill_order
     @order.update(:order_status => :fulfilled)
+    redirect_to dashboard_order_path(@order), notice: 'Status was successfully changed'
+  end
+  
+  # GET /orders/1/cancel
+  def cancel
+    @order.cancel
     redirect_to dashboard_order_path(@order), notice: 'Status was successfully changed'
   end
   
