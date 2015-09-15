@@ -94,6 +94,7 @@ class OrdersController < ApplicationController
   # POST /orders/checkout
   def checkout_update
     @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
+    @cart.persist_line_items
     @cart.update(:active => false)
   end
 

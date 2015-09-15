@@ -8,4 +8,6 @@ class Order < ActiveRecord::Base
     :payment_completed,
     :checkout_completed
   ]
+  
+  belongs_to :cart # only for foreign-key dependency. does not semantically make sense
 end

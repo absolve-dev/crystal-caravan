@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Order <%= @order.id %></h1>
+      Cart ID <%= @order.cart.id %>:
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <td>Product</td>
+            <td>Listing</td>
+            <td>Quantity</td>
+            <td>Price at Sale</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% for item in @order.cart.line_items %>
+            <tr>
+              <td><%= item.persisted_name %></td>
+              <td><%= item.persisted_listing_name %></td>
+              <td><%= item.quantity %></td>
+              <td><%= item.persisted_price %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to "Back to Orders", dashboard_orders_path %>
+    </div>
+  </div>
+</div>

@@ -53,6 +53,9 @@
               <li class=<%="active" if params[:controller] == 'dashboard/shipping_services' %>>
                 <%= link_to 'Shipping', dashboard_shipping_services_path %>
               </li>
+              <li class=<%="active" if params[:controller] == 'dashboard/orders' %>>
+                <%= link_to 'Orders', dashboard_orders_path %>
+              </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li class="navbar-text">

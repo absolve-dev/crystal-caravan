@@ -4,4 +4,10 @@ class Cart < ActiveRecord::Base
   accepts_nested_attributes_for :line_items, allow_destroy: true
   
   validates :session_id, :presence => true
+  
+  def persist_line_items
+    for item in self.line_items
+      item.persist
+    end
+  end
 end
