@@ -64,7 +64,7 @@
         <% if @listings.length > 0 %>
           <h1>Listings</h1>
           <% @listings.each do |listing| %>
-            <%= listing.name %>: $<%= listing.price %>
+            <%= listing.adjusted_quantity %> <%= listing.name %>: $<%= listing.price %>
             <% @line_item = LineItem.new %>
             <%= form_for(@line_item, remote: true, :html => { :role => "form" }) do |f| %>
               <%= f.hidden_field(:listing_id, :value => listing.id) %>

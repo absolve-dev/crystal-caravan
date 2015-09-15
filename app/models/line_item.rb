@@ -11,4 +11,8 @@ class LineItem < ActiveRecord::Base
     self.persisted_price = self.listing.price
     self.save
   end
+  
+  def create_adjustment
+    StockAdjustment.create(:listing_id => self.listing.id, :quantity => self.quantity)
+  end
 end

@@ -10,4 +10,10 @@ class Cart < ActiveRecord::Base
       item.persist
     end
   end
+  
+  def adjust_line_items
+    for item in self.line_items
+      item.create_adjustment
+    end
+  end
 end
