@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914225036) do
+ActiveRecord::Schema.define(version: 20150915001640) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -36,10 +36,9 @@ ActiveRecord::Schema.define(version: 20150914225036) do
 
   create_table "carts", force: :cascade do |t|
     t.string   "session_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.boolean  "active_order", default: false
-    t.integer  "order_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.boolean  "active",     default: true
   end
 
   create_table "catalog_cards", force: :cascade do |t|

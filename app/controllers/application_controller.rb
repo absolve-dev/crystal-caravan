@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
       @total_items = (@total_items or 0) + line_item.quantity
       @total_price = (@total_items or 0.0) + (listing.price * line_item.quantity.to_f)
       
-      @line_items[line_item[:id]] = { :listing_name => listing.name, :product_name => product.name, :image_url => product.default_picture.path, :price => listing.price }
+      @line_items[line_item[:id]] = { :listing_name => listing.name, :product_name => product.name, :image_url => product.product_image.path, :price => listing.price }
 
     end
   end
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   before_action :set_cart
   
   def set_cart
-      @cart = Cart.where({:session_id => session_id}).first
+      @cart = Cart.where({:session_id => session_id, :active => true}).first
       @cart ||= Cart.create({:session_id => session_id})
   end
   

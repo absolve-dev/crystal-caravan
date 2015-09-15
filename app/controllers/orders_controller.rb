@@ -118,12 +118,13 @@ class OrdersController < ApplicationController
   # POST /orders/payment
   def payment_update
     @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
-      redirect_to :order_checkout_form
+    redirect_to :order_checkout_form
   end
   
   # POST /orders/checkout
   def checkout_update
     @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
+    @cart.update(:active => false)
   end
 
   private
