@@ -44,5 +44,8 @@ Rails.application.config.assets.precompile += %w( dashboard/products.js )
 Rails.application.config.assets.precompile += %w( dashboard/categories.css )
 Rails.application.config.assets.precompile += %w( dashboard/categories.js )
 
+Rails.application.config.assets.precompile += %w( dashboard/games.css )
+Rails.application.config.assets.precompile += %w( dashboard/games.js )
+
 Rails.application.config.assets.precompile += %w( dashboard/orders.css )
 Rails.application.config.assets.precompile += %w( dashboard/orders.js )
