@@ -64,13 +64,18 @@ class Dashboard::CatalogsController < ApplicationController
     def default_permalink(name)
       name.downcase.gsub(/[^a-z0-9]+/, '-').gsub(/^-*|-*$/, '')
     end
+    current_game = @catalog.game
+    current_game ||= Game.create(:name => @catalog.name, :permalink => default_permalink(@catalog.name))
+    @catalog.game_id = current_game.id
+    @catalog.save
+    
     for set in @handler.get_sets
       current_set = CatalogSet.where(:name => set, :catalog_id => @catalog.id).first
       current_set ||= CatalogSet.create(:catalog_id => @catalog.id, :name => set)
       
       # Link to a category
-      current_category = Category.where(:name => set).first
-      current_category ||= Category.create(:name => set, :permalink => default_permalink(set))
+      current_category = current_set.category
+      current_category ||= Category.create(:name => set, :permalink => default_permalink(set), :game_id => current_game.id)
       current_set.category_id = current_category.id 
       current_set.save
       
@@ -85,7 +90,7 @@ class Dashboard::CatalogsController < ApplicationController
         current_card.remote_product_image_url = card_image if card_image
         
         # Link to a product
-        current_product = Product.where(:name => card[:name]).first
+        current_product = current_card.product
         current_product ||= Product.create(:name => card[:name], :category_id => current_set.category_id, :permalink => default_permalink(card[:name]), :weight => 0.1)
         current_card.product_id = current_product.id
         current_card.save

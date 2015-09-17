@@ -12,10 +12,12 @@ Admin.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang', :passwor
 
 # Products and Categories seeds
 
-category_one_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'big-boy.jpg'), 'rb')
-category_one = Category.create({name:'Big Boy',permalink:'big-boy',default_picture:category_one_image})
 
-category_two = Category.create({name:'Little Man',permalink:'little-man',category_id:category_one.id})
+category_one_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'big-boy.jpg'), 'rb')
+game_one = Game.create({name:'The Boss',permalink:'the-boss',default_picture:category_one_image})
+category_one = Category.create({name:'Big Boy', game_id: game_one.id,permalink:'big-boy',default_picture:category_one_image})
+
+category_two = Category.create({name:'Little Man',permalink:'little-man'})
 
 product_one_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'little-thing.jpg'), 'rb')
 product_one = Product.create({name:'Little Thing',permalink:'little-thing', category_id:category_two.id,weight:5.67,product_image:product_one_image})

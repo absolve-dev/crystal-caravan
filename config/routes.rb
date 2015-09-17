@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   
   namespace :dashboard do
     root 'panel#index'
+    resources :games, constraints: { format: 'html' }
     resources :categories, constraints: { format: 'html' }
     resources :products, constraints: { format: 'html' }
     resources :catalogs, constraints: { format: 'html' }
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
     delete 'shipping_services/shipping_method_destroy/:method_id' => 'shipping_services#destroy_shipping_method', as: :shipping_method_delete
   end
   
+  resources :games, only: [:index, :show]
   resources :categories, only: [:index, :show]
   resources :products, only: [:index, :show]
   resources :listings

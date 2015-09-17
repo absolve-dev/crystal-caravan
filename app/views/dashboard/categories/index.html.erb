@@ -13,7 +13,7 @@
   <table class="table table-bordered">
     <tr>
       <td class="field-label col-xs-1">
-        <label>Category ID</label>
+        <label>Game ID</label>
       </td>
       <td class="field-label col-xs-1">
         <label>Name</label>
@@ -34,7 +34,7 @@
         
     <% @categories.each do |category| %>
       <tr>
-        <td class="col-xs-1"><%= category.category_id or "N/A" %></td>
+        <td class="col-xs-1"><%= category.game_id or "N/A" %></td>
         <td class="col-xs-1">
           <div class="btn-group">
             <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= category.name %><span class="caret"></span>

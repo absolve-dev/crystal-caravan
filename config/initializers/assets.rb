@@ -14,6 +14,9 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( static_pages.css )
 Rails.application.config.assets.precompile += %w( static_pages.js )
 
+Rails.application.config.assets.precompile += %w( games.css )
+Rails.application.config.assets.precompile += %w( games.js )
+
 Rails.application.config.assets.precompile += %w( categories.css )
 Rails.application.config.assets.precompile += %w( categories.js )
 

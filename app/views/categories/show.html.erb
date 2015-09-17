@@ -8,10 +8,10 @@
           </p>
           
           <p>
-            <strong>Category:</strong>
-            <%= @category.category_id %>
-            <% if @parent_category %>
-              <p>Parent Category: <%= link_to @parent_category.name, @parent_category %></p>
+            <strong>Game:</strong>
+            <%= @category.game_id %>
+            <% if @game %>
+              <p>Parent Category: <%= link_to @game.name, @game %></p>
             <% end %>
           
           </p>
@@ -43,13 +43,6 @@
               <%= image_tag existing_default %>
             <% end %>
           </p>
-          <% if @sub_categories.length > 0 %>
-            <h2>Sub-categories</h2>
-            <% @sub_categories.each do |sub_category| %>
-              <p><%= link_to sub_category.name, sub_category %></p>
-            <% end %>
-          <% end %>
-          
           <% if @products.length > 0 %>
             <h2>Products</h2>
             <% @products.each do |product| %>

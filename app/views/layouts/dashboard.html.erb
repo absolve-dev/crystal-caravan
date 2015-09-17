@@ -41,6 +41,9 @@
               <li class=<%="active" if params[:controller] == 'panel' %>>
                 <%= link_to 'Dashboard', controller: 'panel', action: 'index' %>
               </li>
+              <li class=<%="active" if params[:controller] == 'dashboard/games' %>>
+                <%= link_to 'Games', dashboard_games_path %>
+              </li>
               <li class=<%="active" if params[:controller] == 'dashboard/categories' %>>
                 <%= link_to 'Categories', dashboard_categories_path %>
               </li>

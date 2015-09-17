@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @game.name %>
+</p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @game.created_at %>
+</p>
+
+<p>
+  <strong>Updated at:</strong>
+  <%= @game.updated_at %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @game.description %>
+</p>
+
+<p>
+  <strong>Permalink:</strong>
+  <%= @game.permalink %>
+</p>
+
+<p>
+  <strong>Default picture:</strong>
+  <%= @game.default_picture %>
+</p>
+
+<%= link_to 'Edit', edit_dashboard_game_path(@game) %> |
+<%= link_to 'Back', dashboard_games_path %>
