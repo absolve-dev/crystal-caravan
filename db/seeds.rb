@@ -6,43 +6,58 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
-# Create Admin
+# Admin
 Admin.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang', :password_confirmation => 'toorgang')
 
-# Products and Categories seeds
+# User
+User.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang' , :password_confirmation => 'toorgang')
 
+# Game
+game = Game.create(:name => 'Test Game 1', :permalink => 'test-game-1')
 
-category_one_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'big-boy.jpg'), 'rb')
-game_one = Game.create({name:'The Boss',permalink:'the-boss',default_picture:category_one_image})
-category_one = Category.create({name:'Big Boy', game_id: game_one.id,permalink:'big-boy',default_picture:category_one_image})
-
-category_two = Category.create({name:'Little Man',permalink:'little-man'})
-
-product_one_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'little-thing.jpg'), 'rb')
-product_one = Product.create({name:'Little Thing',permalink:'little-thing', category_id:category_two.id,weight:5.67,product_image:product_one_image})
-
-
-listing_one = Listing.create({name:'Brand New',price:1.00,product_id:product_one.id,quantity:12})
-
-# Seeds for Cart and LineItems
-cart_products = Array.new
-
-cart_listings = Array.new
-
-cart_category = Category.create({name:'Test Category', permalink:'test-category-1'})
-
-for i in 0..10
-    cart_products[i] = Product.create({name:"Test Product #{i}", permalink:"test-product-#{i}", category_id:cart_category.id, weight:i+0.01})
-    cart_listings[i] = Listing.create({name:"Test Listing #{i}", product_id:cart_products[i].id, price:1.1+i.to_f, quantity:i})
+# Categories
+categories = Array.new
+(1..3).each do |x|
+  category = Category.create(:name => "Test Category #{x}", :permalink => "test-category-#{x}", :game_id => game.id)
+  categories.push(category)
 end
 
-# Cart and LineItem seeds
+# Products
+products = Array.new
+categories.each do |category|
+  (1..3).each do |x|
+    product = Product.create(:name => "Test Product #{category.id}-#{x}", :permalink =>"test-product-#{category.id}-#{x}", :category_id => category.id, :weight => 0.1)
+    products.push(product)
+  end
+end
 
-cart_one = Cart.create({session_id:"909090"})
+# Listings
+listings = Array.new
+products.each do |product|
+  (1..3).each do |x|
+    listing = Listing.create(:name => "Listing #{x}", :product_id => product.id, :price => x, :quantity => x)
+    listing.errors.each{ |x| puts x}
+    listings.push(listing)
+  end
+end
 
+# Shipping Service
+ship_service = ShippingService.create(:name => "Test Ship Service", :active => true)
+
+# Shipping Method
+ship_method = ShippingMethod.create(:name => "Test Ship Method", :price => 1, :active => true)
+
+# Cart
+cart = Cart.create(:session_id => "Test Cart", :active => true)
+
+# Line Items
 line_items = Array.new
-
-for i in 0..10
-    line_items[i] = LineItem.create({quantity:i+1, listing_id:cart_listings[i].id, cart_id:cart_one.id})
+listings.each do |listing|
+  line_item = LineItem.create(:cart_id => cart.id, :listing_id => listing.id, :quantity => 1)
+  line_items.push(line_item)
 end
+
+# Order - Persist and Adjust
+order = Order.create(:order_status => :checkout_completed, :cart_id => cart.id, :shipping_method_id => ship_method.id)
+cart.persist_line_items
+cart.adjust_line_items(order.id)
