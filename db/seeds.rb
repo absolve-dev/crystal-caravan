@@ -11,6 +11,7 @@ admin = Admin.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang', 
 
 # User
 user = User.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang' , :password_confirmation => 'toorgang')
+user2 = User.create(:email => 'rootmin2@nimtoors.com', :password => 'toorgang' , :password_confirmation => 'toorgang')
 
 # Game
 game = Game.create(:name => 'Test Game 1', :permalink => 'test-game-1')
