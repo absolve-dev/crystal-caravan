@@ -7,10 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Admin
-Admin.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang', :password_confirmation => 'toorgang')
+admin = Admin.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang', :password_confirmation => 'toorgang')
 
 # User
-User.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang' , :password_confirmation => 'toorgang')
+user = User.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang' , :password_confirmation => 'toorgang')
 
 # Game
 game = Game.create(:name => 'Test Game 1', :permalink => 'test-game-1')
@@ -58,6 +58,6 @@ listings.each do |listing|
 end
 
 # Order - Persist and Adjust
-order = Order.create(:order_status => :checkout_completed, :cart_id => cart.id, :shipping_method_id => ship_method.id)
+order = Order.create(:email => user.email, :order_status => :checkout_completed, :cart_id => cart.id, :shipping_method_id => ship_method.id)
 cart.persist_line_items
 cart.adjust_line_items(order.id)
