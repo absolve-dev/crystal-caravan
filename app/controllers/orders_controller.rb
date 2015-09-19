@@ -11,6 +11,8 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    authenticate_user!
+    user_signed_in? && @order.email == current_user.email ? @allowed = true : @allowed = false
   end
   
   # GET /orders/1/cancel

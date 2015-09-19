@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
-  devise_for :admins, controllers: { registrations: "admins/registrations" }  
+  devise_for :admins, controllers: { registrations: "admins/registrations" }
+  get '/users/my_account' => 'users#my_account', as: :my_account  
   devise_for :users
   
   namespace :dashboard do
