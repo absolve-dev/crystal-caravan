@@ -62,7 +62,20 @@
               <li class=<%="active" if params[:controller] == 'carts' %>><a href="/carts">Carts</a></li>
               <li class=<%="active" if params[:controller] == 'listings' %>><a href="/listings">Listings</a></li>
               <li><%= link_to "Show Cart", edit_cart_path(Cart.where(:session_id => session.id).first), :remote => true %></li>
-
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <% if user_signed_in? %>
+                <li class="navbar-text">
+                  Logged in as: <%= current_user.email %>
+                </li>
+              <% end %>
+              <li>
+                <% if user_signed_in? %>
+                  <%= link_to('Log Out', destroy_user_session_path, :method => :delete) %>  
+                <% else %>
+                  <%= link_to('Log In', new_user_session_path) %>
+                <% end %>
+              </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
