@@ -51,8 +51,8 @@ class OrdersController < ApplicationController
   # GET /orders/ship_options
   def ship_options_form
     @shipping_methods_select = ShippingMethod.all.collect do |method| 
-      method.shipping_service && method.shipping_service.active && method.active ? ["#{method.shipping_service.name} #{method.name} - #{method.price}", method.id] : nil
-    end.compact!
+      method.shipping_service.active && method.active ? ["#{method.shipping_service.name} #{method.name} - #{method.price}", method.id] : nil
+    end.compact
   end
   
   # GET /orders/payment

@@ -46,7 +46,7 @@ end
 ship_service = ShippingService.create(:name => "Test Ship Service", :active => true)
 
 # Shipping Method
-ship_method = ShippingMethod.create(:name => "Test Ship Method", :price => 1, :active => true)
+ship_method = ShippingMethod.create(:name => "Test Ship Method", :price => 1, :active => true, :shipping_service_id => ship_service.id)
 
 # Cart
 cart = Cart.create(:session_id => "Test Cart", :active => true)
