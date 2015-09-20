@@ -14,6 +14,8 @@ class Order < ActiveRecord::Base
   belongs_to :cart # only for foreign-key dependency. does not semantically make sense
   has_many :stock_adjustments
   
+  belongs_to :shipping_method
+    
   def fulfill_order
     for item in self.cart.line_items
       item.listing.quantity -= item.quantity
@@ -31,5 +33,13 @@ class Order < ActiveRecord::Base
     for adjustment in self.stock_adjustments
       adjustment.destroy
     end
+  end
+  
+  def total
+    total = 0.0
+    for item in self.cart.line_items
+      total += item.listing.price * item.quantity
+    end
+    total + self.shipping_method.price
   end
 end
