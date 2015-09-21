@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     get 'orders/:id/cancel' => 'orders#cancel', as: :order_cancel
     resources :shipping_services
     delete 'shipping_services/shipping_method_destroy/:method_id' => 'shipping_services#destroy_shipping_method', as: :shipping_method_delete
+    resources :discount_codes
   end
   
   resources :games, only: [:index, :show]

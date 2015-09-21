@@ -1,0 +1,37 @@
+<%= form_for(@discount_code, url: @form_path) do |f| %>
+  <% if @discount_code.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@discount_code.errors.count, "error") %> prohibited this discount_code from being saved:</h2>
+
+      <ul>
+      <% @discount_code.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :percentage %><br>
+    <%= f.number_field :percentage %>
+  </div>
+  <div class="field">
+    <%= f.label :deduction %><br>
+    <%= f.text_field :deduction %>
+  </div>
+  <div class="field">
+    <%= f.label :usage_limit %><br>
+    <%= f.number_field :usage_limit %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
