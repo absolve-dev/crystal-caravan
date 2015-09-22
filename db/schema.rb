@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150920224059) do
+ActiveRecord::Schema.define(version: 20150921221026) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20150920224059) do
     t.integer  "payment_id"
     t.integer  "shipping_method_id"
     t.string   "email"
+    t.string   "discount_code"
   end
 
   create_table "payments", force: :cascade do |t|
