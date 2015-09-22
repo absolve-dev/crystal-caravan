@@ -49,3 +49,7 @@ Rails.application.config.assets.precompile += %w( dashboard/games.js )
 
 Rails.application.config.assets.precompile += %w( dashboard/orders.css )
 Rails.application.config.assets.precompile += %w( dashboard/orders.js )
+
+Rails.application.config.assets.precompile += %w( dashboard/discount_codes.css )
+Rails.application.config.assets.precompile += %w( dashboard/discount_codes.js )
+

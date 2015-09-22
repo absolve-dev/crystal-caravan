@@ -46,7 +46,7 @@ end
 ship_service = ShippingService.create(:name => "Test Ship Service", :active => true)
 
 # Shipping Method
-ship_method = ShippingMethod.create(:name => "Test Ship Method", :price => 1, :active => true)
+ship_method = ShippingMethod.create(:name => "Test Ship Method", :price => 1, :active => true, :shipping_service_id => ship_service.id)
 
 # Cart
 cart = Cart.create(:session_id => "Test Cart", :active => true)
@@ -62,3 +62,8 @@ end
 order = Order.create(:email => user.email, :order_status => :checkout_completed, :cart_id => cart.id, :shipping_method_id => ship_method.id)
 cart.persist_line_items
 cart.adjust_line_items(order.id)
+
+# Discount Codes
+discount_percentage = DiscountCode.create(:name => "Percentage Test Code", :code => "percent", :percentage => 50)
+discount_deduct = DiscountCode.create(:name => "Deduction Test Code", :code => "deduct", :deduction => 5.0)
+discount_usage = DiscountCode.create(:name => "Usage Test Code", :code => "usage", :usage_limit => 1)

@@ -5,6 +5,21 @@
       Order Status: <%= @order.order_status %><br>
       <%= link_to "Fulfill Order<br>".html_safe, dashboard_order_fulfill_path if @order[:order_status] < Order.order_statuses[:fulfilled] %>
       <%= link_to "Cancel Order<br>".html_safe, dashboard_order_cancel_path if @order[:order_status] < Order.order_statuses[:fulfilled] %>
+      <p>
+        Sub-total: <%= @order.sub_total %><br>
+        <% if @order.discount_code_valid? %>
+          Discount code used: <%= @order.discount_code %><br>
+          <% if @order.get_discount.multiplier %>
+            Percent discount: <%= @order.get_discount.percentage %>%<br>
+          <% end %>
+          <% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
+            Deduction: -<%= @order.get_discount.deduction %><br>
+          <% end %>
+          Sub-total after discount: <%= @order.sub_total_after_discount %>
+        <% end %>
+      </p>
+      Shipping: <%= @order.shipping_method.price %><br>
+      Order Total: <%= @order.total %><br>
       Cart ID <%= @order.cart.id %>:
       <table class="table table-bordered">
         <thead>

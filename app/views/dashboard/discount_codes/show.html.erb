@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <p id="notice"><%= notice %></p>
+
+      <p>
+        <strong>Name:</strong>
+        <%= @discount_code.name %>
+      </p>
+
+      <p>
+        <strong>Code:</strong>
+        <%= @discount_code.code %>
+      </p>
+
+      <p>
+        <strong>Percentage:</strong>
+        <%= @discount_code.percentage %>
+      </p>
+
+      <p>
+        <strong>Deduction:</strong>
+        <%= @discount_code.deduction %>
+      </p>
+
+      <p>
+        <strong>Usage limit:</strong>
+        <%= @discount_code.usage_limit %>
+      </p>
+
+      <%= link_to 'Edit', edit_dashboard_discount_code_path(@discount_code) %> |
+      <%= link_to 'Back', dashboard_discount_codes_path %>
+    </div>
+  </div>
+</div>

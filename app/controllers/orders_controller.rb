@@ -51,8 +51,8 @@ class OrdersController < ApplicationController
   # GET /orders/ship_options
   def ship_options_form
     @shipping_methods_select = ShippingMethod.all.collect do |method| 
-      method.shipping_service && method.shipping_service.active && method.active ? ["#{method.shipping_service.name} #{method.name} - #{method.price}", method.id] : nil
-    end.compact!
+      method.shipping_service.active && method.active ? ["#{method.shipping_service.name} #{method.name} - #{method.price}", method.id] : nil
+    end.compact
   end
   
   # GET /orders/payment
@@ -96,6 +96,7 @@ class OrdersController < ApplicationController
   # POST /orders/payment
   def payment_update
     @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
+    @order.update(discount_code: params[:order][:discount_code])
     redirect_to :order_checkout_form
   end
   
