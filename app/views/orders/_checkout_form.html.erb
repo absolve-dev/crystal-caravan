@@ -10,8 +10,10 @@
     </div>
   <% end %>
   
+  Sub-total: <%= @order.sub_total %><br>
+  Shipping: <%= @order.shipping_method.price %><br>
+  Total: <%= @order.total %>
   
-  Total = <%= @order.total %>
   <div class="actions">
     <%= f.submit %>
   </div>

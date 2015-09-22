@@ -35,11 +35,18 @@ class Order < ActiveRecord::Base
     end
   end
   
-  def total
-    total = 0.0
+  # only total with line_items
+  def sub_total
+    sub_total = 0.0
     for item in self.cart.line_items
-      total += item.listing.price * item.quantity
+      sub_total += item.listing.price * item.quantity
     end
+    sub_total
+  end
+  
+  def total
+    total = self.sub_total
+    
     total + self.shipping_method.price
   end
 end
