@@ -10,9 +10,21 @@
           <%= @order.cart_id %>
         </p>
         <p>
-          <strong>Order Total:</strong>
-          <%= @order.total %>
+          Sub-total: <%= @order.sub_total %><br>
+          <% if @order.discount_code_valid? %>
+            Discount code used: <%= @order.discount_code %><br>
+            <% if @order.get_discount.multiplier %>
+              Percent discount: <%= @order.get_discount.percentage %>%<br>
+            <% end %>
+            <% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
+              Deduction: -<%= @order.get_discount.deduction %><br>
+            <% end %>
+            Sub-total after discount: <%= @order.sub_total_after_discount %><br>
+          <% end %>
+          Shipping: <%= @order.shipping_method.price %><br>
+          Order Total: <%= @order.total %>
         </p>
+        
         <p>
           <strong>First name billing:</strong>
           <%= @order.first_name_billing %>

@@ -96,6 +96,7 @@ class OrdersController < ApplicationController
   # POST /orders/payment
   def payment_update
     @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
+    @order.update(discount_code: params[:order][:discount_code])
     redirect_to :order_checkout_form
   end
   
