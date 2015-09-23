@@ -31,8 +31,9 @@ class ApplicationController < ActionController::Base
   before_action :set_cart
   
   def set_cart
-      @cart = Cart.where({:session_id => session_id, :active => true}).first
-      @cart ||= Cart.create({:session_id => session_id})
+    session[:hold_id] = true # allows usage of session id because of lazy rails
+    @cart = Cart.where({:session_id => session_id, :active => true}).first
+    @cart ||= Cart.create({:session_id => session_id})
   end
   
   def session_id
