@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925090526) do
+ActiveRecord::Schema.define(version: 20150925103822) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -173,10 +173,11 @@ ActiveRecord::Schema.define(version: 20150925090526) do
     t.decimal  "weight"
     t.datetime "created"
     t.integer  "update_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "default_listing_id"
     t.string   "product_image"
+    t.boolean  "collectible",        default: true
   end
 
   create_table "shipping_methods", force: :cascade do |t|

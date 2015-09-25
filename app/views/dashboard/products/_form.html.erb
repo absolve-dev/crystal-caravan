@@ -47,12 +47,15 @@
     <%= f.label :update_id %><br>
     <%= f.number_field :update_id %>
   </div>
-   <div class="field">
+  <div class="field">
     <%= f.label :product_image %><br>
     <%= f.file_field :product_image %>
   </div>
-  <%= image_tag @product.product_image.url if @product.product_image.url %>
-  <br>
+  <div class="field">
+    <%= f.label :collectible %><br>
+    <%= f.check_box :collectible %>
+  </div>
+  <%= image_tag @product.product_image.url if @product.product_image.url %><br>
   
   Listings:
   <ul>

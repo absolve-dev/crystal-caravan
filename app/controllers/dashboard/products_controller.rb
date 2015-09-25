@@ -77,6 +77,6 @@ class Dashboard::ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :category_id, :permalink, :description, :short_description, :active, :weight, :created, :update_id, :default_picture, listings_attributes: [:id, :quantity, :price, :active])
+      params.require(:product).permit(:name, :category_id, :permalink, :description, :short_description, :active, :weight, :created, :update_id, :default_picture, :collectible, listings_attributes: [:id, :quantity, :price, :active])
     end
 end
