@@ -30,9 +30,9 @@
             <td><%= game.description %></td>
             <td><%= game.permalink %></td>
             <td><%= game.default_picture %></td>
-            <td><%= link_to 'Show', game %></td>
+            <td><%= link_to 'Show', dashboard_game_path(game) %></td>
             <td><%= link_to 'Edit', edit_dashboard_game_path(game) %></td>
-            <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'Destroy', dashboard_game_path(game), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
