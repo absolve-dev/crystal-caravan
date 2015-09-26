@@ -7,14 +7,13 @@
             <%= @category.name %>
           </p>
           
-          <p>
-            <strong>Category:</strong>
-            <%= @category.category_id %>
-            <% if @parent_category %>
-              <p>Parent Category: <%= link_to @parent_category.name, dashboard_category_path(@parent_category) %></p>
-            <% end %>
+          <% if @category.game_id %>
+            <p>
+              <strong>Game:</strong>
+              <%= link_to @category.game.name, dashboard_game_path(@category.game) %>
+            </p>
+          <% end %>
           
-          </p>
           
           <p>
             <strong>Description:</strong>
@@ -43,12 +42,6 @@
               <%= image_tag existing_default %>
             <% end %>
           </p>
-          <% if @sub_categories.length > 0 %>
-            <h2>Sub-categories</h2>
-            <% @sub_categories.each do |sub_category| %>
-              <p><%= link_to sub_category.name, dashboard_category_path(sub_category) %></p>
-            <% end %>
-          <% end %>
           
           <% if @products.length > 0 %>
             <h2>Products</h2>
