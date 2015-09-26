@@ -1,6 +1,6 @@
 class Dashboard::DiscountCodesController < ApplicationController
   before_action :set_discount_code, only: [:show, :edit, :update, :destroy]
-  before_action :set_form_path, only: [:new, :edit]
+  before_action :set_form_path, only: [:new, :edit, :create, :update]
 
   # GET /discount_codes
   # GET /discount_codes.json
@@ -57,7 +57,11 @@ class Dashboard::DiscountCodesController < ApplicationController
     end
     
     def set_form_path
-      @form_path = params[:action] == 'new' ? dashboard_discount_codes_path : dashboard_discount_code_path      
+      if params[:action] == 'new' || params[:action] == 'create'
+        @form_path = dashboard_discount_codes_path
+      else
+        @form_path = dashboard_discount_code_path  
+      end   
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

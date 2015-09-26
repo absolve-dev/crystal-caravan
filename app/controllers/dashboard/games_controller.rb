@@ -1,6 +1,6 @@
 class Dashboard::GamesController < ApplicationController
   before_action :set_game, only: [:show, :edit, :update, :destroy]
-  before_action :set_form_path, only: [:new, :edit]
+  before_action :set_form_path, only: [:new, :edit, :create, :update]
 
   # GET /games
   # GET /games.json
@@ -57,7 +57,11 @@ class Dashboard::GamesController < ApplicationController
     end
     
     def set_form_path
-      @form_path = params[:action] == 'new' ? dashboard_games_path : dashboard_game_path      
+      if params[:action] == 'new' || params[:action] == 'create'
+        @form_path = dashboard_games_path
+      else
+        @form_path = dashboard_game_path  
+      end 
     end
     
     # Never trust parameters from the scary internet, only allow the white list through.

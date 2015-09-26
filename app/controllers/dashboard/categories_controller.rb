@@ -1,7 +1,7 @@
 class Dashboard::CategoriesController < ApplicationController
   
   before_action :set_category, only: [:show, :edit, :update, :destroy]
-  before_action :set_form_path, only: [:new, :edit]
+  before_action :set_form_path, only: [:new, :edit, :create, :update]
   
   # GET /categories
   # GET /categories.json
@@ -72,7 +72,11 @@ class Dashboard::CategoriesController < ApplicationController
     end
     
     def set_form_path
-      @form_path = params[:action] == 'new' ? dashboard_categories_path : dashboard_category_path      
+      if params[:action] == 'new' || params[:action] == 'create'
+        @form_path = dashboard_categories_path
+      else
+        @form_path = dashboard_category_path  
+      end    
     end
     
     # Never trust parameters from the scary internet, only allow the white list through.

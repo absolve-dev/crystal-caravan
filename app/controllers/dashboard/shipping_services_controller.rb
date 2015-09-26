@@ -1,6 +1,6 @@
 class Dashboard::ShippingServicesController < ApplicationController
   before_action :set_shipping_service, only: [:show, :edit, :update, :destroy]
-  before_action :set_form_path, only: [:new, :edit, :update]
+  before_action :set_form_path, only: [:new, :edit, :create, :update]
 
   # GET /shipping_services
   # GET /shipping_services.json
@@ -74,7 +74,11 @@ class Dashboard::ShippingServicesController < ApplicationController
     end
     
     def set_form_path
-      @form_path = params[:action] == 'new' ? dashboard_shipping_services_path : dashboard_shipping_service_path      
+      if params[:action] == 'new' || params[:action] == 'create'
+        @form_path = dashboard_shipping_services_path
+      else
+        @form_path = dashboard_shipping_service_path  
+      end     
     end
     
     # Never trust parameters from the scary internet, only allow the white list through.

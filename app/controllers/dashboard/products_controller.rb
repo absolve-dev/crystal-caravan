@@ -1,7 +1,7 @@
 class Dashboard::ProductsController < ApplicationController
   
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :set_form_path, only: [:new, :edit]
+  before_action :set_form_path, only: [:new, :edit, :create, :update]
   
   # GET /products
   # GET /products.json
@@ -72,7 +72,11 @@ class Dashboard::ProductsController < ApplicationController
     end
 
     def set_form_path
-      @form_path = params[:action] == 'new' ? dashboard_products_path : dashboard_product_path      
+      if params[:action] == 'new' || params[:action] == 'create'
+        @form_path = dashboard_products_path
+      else
+        @form_path = dashboard_product_path  
+      end   
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
