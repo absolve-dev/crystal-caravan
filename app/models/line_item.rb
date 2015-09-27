@@ -14,7 +14,7 @@ class LineItem < ActiveRecord::Base
   
   belongs_to :listing
   
-  validates :quantity, :presence => true, :listing_quantity => true
+  validates :quantity, :presence => true, :numericality => {:greater_than => 0}, :listing_quantity => true
   
   def persist
     self.persisted_name = self.listing.product.name
