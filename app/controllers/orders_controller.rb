@@ -23,7 +23,11 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
-    redirect_to :order_bill_info_form
+    if @cart.line_items.length < 1
+      redirect_to show_cart_path, alert: "Cart cannot be empty for checkout."
+    else
+      redirect_to :order_bill_info_form
+    end
   end
 
   # PATCH/PUT /orders/1
