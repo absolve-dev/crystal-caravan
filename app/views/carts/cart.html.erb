@@ -3,21 +3,11 @@
     <div class="col-xs-12">
       <%= form_for(@cart) do |f| %>
         <h1>Your Cart</h1>
-        <% if @cart.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@cart.errors.count, "error") %> prohibited this cart from being saved:</h2>
-            <ul>
-            <% @cart.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-            </ul>
-          </div>
-        <% end %>
         <table class="table table-bordered">
           <thead>
             <tr>
               <td class="field-label">
-                <label>Item Name</label>
+                <label>Line Item</label>
               </td>
               <td class="field-label">
                 <label>Price</label>

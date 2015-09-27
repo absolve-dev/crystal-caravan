@@ -18,7 +18,7 @@ class CartsController < ApplicationController
         format.html { redirect_to show_cart_path, notice: 'Cart was successfully updated.' }
         format.json { render :show, status: :ok, location: @cart }
       else
-        format.html { redirect_to show_cart_path }
+        format.html { redirect_to show_cart_path, alert: @cart.errors.full_messages.to_sentence }
         format.json { render json: @cart.errors, status: :unprocessable_entity }
       end
     end
