@@ -11,7 +11,6 @@ class ProductsController < ApplicationController
   # GET /products/1.json
   def show
     @parent_category = Category.find(@product.category_id)
-    @listings = @product.listings
   end
   
   private

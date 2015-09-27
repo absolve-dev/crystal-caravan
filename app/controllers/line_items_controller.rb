@@ -44,7 +44,7 @@ class LineItemsController < ApplicationController
         format.html { redirect_to show_cart_path, notice: "'#{@line_item.listing.product.name} - #{@line_item.listing.name}' was successfully added to your cart." }
         format.json { render json: @line_item }
       else
-        format.html { render :new }
+        format.html { redirect_to product_path(@line_item.listing.product), alert: @line_item.errors.full_messages.to_sentence }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
