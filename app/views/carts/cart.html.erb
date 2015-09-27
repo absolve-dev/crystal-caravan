@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <%= form_for(@cart) do |f| %>
+        <h1>Your Cart</h1>
+        <% if @cart.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@cart.errors.count, "error") %> prohibited this cart from being saved:</h2>
+            <ul>
+            <% @cart.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <td class="field-label">
+                <label>Item Name</label>
+              </td>
+              <td class="field-label">
+                <label>Price</label>
+              </td>
+              <td class="field-label">
+                <label>Quantity</label>
+              </td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cart.line_items.each do |line_item| %>
+              <tr>
+                  <td>
+                    <%= line_item.listing.product.name %><br>
+                    <%= line_item.listing.name %>
+                  </td>
+                  <td><%= line_item.listing.price %></td>
+                  <%= f.fields_for :line_items, line_item do |line_item_fields| %>
+                    <td><%= line_item_fields.number_field :quantity, class: "line_item_qty_field" %></td>
+                  <% end %>
+                  <td>
+                    <%= link_to 'Remove', line_item, method: :delete, class:"btn btn-default btn-xs" %>
+                  </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="actions">
+          <%= link_to "Checkout", new_order_path, :class => "btn btn-info", :id => "cart-checkout" %>
+          <%= f.submit class:"btn btn-default" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

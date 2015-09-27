@@ -29,13 +29,6 @@
     
   </head>
   <body>
-    
-    <div id="cart_modal" class="modal fade">
-      <div class="modal-dialog">
-        <div class="modal-content" id="cart">
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
 
     <div id="wrapper">
       <nav class="navbar navbar-default navbar">
@@ -55,15 +48,14 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <!-- Let's make this generation automatic in the future -->
-              <li class=<%="active" if params[:controller] == 'static_pages' %>><a href="/">Home</a></li>
+              <li class=<%="active" if params[:controller] == 'static_pages' && params[:action] == 'home' %>><a href="/">Home</a></li>
               <li class=<%="active" if params[:controller] == 'games' %>><a href="/games">Games</a></li>
               <li class=<%="active" if params[:controller] == 'categories' %>><a href="/categories">Categories</a></li>
               <li class=<%="active" if params[:controller] == 'products' %>><a href="/products">Products</a></li>
-              <li class=<%="active" if params[:controller] == 'carts' %>><a href="/carts">Carts</a></li>
               <li class=<%="active" if params[:controller] == 'listings' %>><a href="/listings">Listings</a></li>
-              <li><%= link_to "Show Cart", edit_cart_path(Cart.where(:session_id => session.id).first), :remote => true %></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li class=<%="active" if params[:controller] == 'carts' && params[:action] == 'cart' %>><%= link_to "Show Cart", show_cart_path %></li>
               <% if user_signed_in? %>
                 <li class="navbar-text">
                   Logged in as: <%= link_to(current_user.email, my_account_path, style: "padding:0px; display:inline;") %>
@@ -80,7 +72,6 @@
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
-      
       <div id="content">
         <%= yield %>
       </div>

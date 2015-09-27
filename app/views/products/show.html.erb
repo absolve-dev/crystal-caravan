@@ -66,7 +66,7 @@
           <% @listings.each do |listing| %>
             <%= listing.adjusted_quantity %> <%= listing.name %>: $<%= listing.price %>
             <% @line_item = LineItem.new %>
-            <%= form_for(@line_item, remote: true, :html => { :role => "form" }) do |f| %>
+            <%= form_for(@line_item, :html => { :role => "form" }) do |f| %>
               <%= f.hidden_field(:listing_id, :value => listing.id) %>
               <%= f.number_field(:quantity) %>
               <%= f.submit "Add to Cart", class:"btn btn-default" %>
