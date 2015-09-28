@@ -2,12 +2,6 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :cancel, :edit, :update, :destroy]
   before_action :set_order_for_checkout, only: [:new, :bill_info_form, :bill_info_update, :ship_info_form, :ship_info_update, :ship_options_form, :ship_options_update, :payment_form, :payment_update, :checkout_form, :checkout_update]
 
-  # GET /orders
-  # GET /orders.json
-  def index
-    @orders = Order.all
-  end
-
   # GET /orders/1
   # GET /orders/1.json
   def show
@@ -27,20 +21,6 @@ class OrdersController < ApplicationController
       redirect_to show_cart_path, alert: "Cart cannot be empty for checkout."
     else
       redirect_to :order_bill_info_form
-    end
-  end
-
-  # PATCH/PUT /orders/1
-  # PATCH/PUT /orders/1.json
-  def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
-        format.json { render :show, status: :ok, location: @order }
-      else
-        format.html { render :edit }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
     end
   end
   

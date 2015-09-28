@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   get 'orders/payment' => 'orders#payment_form', as: :order_payment_form
   post 'orders/checkout' => 'orders#checkout_update', as: :order_checkout_update
   get 'orders/checkout' => 'orders#checkout_form', as: :order_checkout_form
-  resources :orders
+  resources :orders, only: [:show, :new]
   
   root 'static_pages#home'
   
