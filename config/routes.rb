@@ -25,7 +25,6 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :show]
   resources :categories, only: [:index, :show]
   resources :products, only: [:index, :show]
-  resources :listings
   resources :carts, only: [:update]
   get 'cart' => 'carts#cart', as: :show_cart
   resources :line_items, only: [:create, :destroy]
