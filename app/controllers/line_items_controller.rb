@@ -1,38 +1,10 @@
 class LineItemsController < ApplicationController
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
-  before_action :set_cart
   before_action :set_line_items, only: [:destroy]
-  
-  
-  
-  # GET /line_items
-  # GET /line_items.json
-  def index
-    @line_items = LineItem.all
-  end
-
-  # GET /line_items/1
-  # GET /line_items/1.json
-  def show
-  end
-
-  # GET /line_items/new
-  def new
-    @line_item = LineItem.new
-  end
-
-  # GET /line_items/1/edit
-  def edit
-  end
-  
-  # BCK DEFINED METHODS
-
-  #
 
   # POST /line_items
   # POST /line_items.json
   def create
-
     @line_item = LineItem.where({ :listing_id => params[:line_item][:listing_id], :cart_id => @cart.id }).first
     
     if @line_item
@@ -43,24 +15,10 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to @line_item, notice: 'Line item was successfully created.' }
-        format.js
+        format.html { redirect_to show_cart_path, notice: "'#{@line_item.listing.product.name} - #{@line_item.listing.name}' was successfully added to your cart." }
+        format.json { render json: @line_item }
       else
-        format.html { render :new }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /line_items/1
-  # PATCH/PUT /line_items/1.json
-  def update
-    respond_to do |format|
-      if @line_item.update(line_item_params)
-        format.html { redirect_to @line_item, notice: 'Line item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @line_item }
-      else
-        format.html { render :edit }
+        format.html { redirect_to product_path(@line_item.listing.product), alert: @line_item.errors.full_messages.to_sentence }
         format.json { render json: @line_item.errors, status: :unprocessable_entity }
       end
     end
@@ -70,14 +28,7 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1.json
   def destroy
     @line_item.destroy
-    
-    redirect_to(edit_cart_url(@cart), status: 303)
-    
-    # deprecated functionality that might need resuscitation. on standby. -BCK 2015-8-29
-    # set_cart
-    # respond_to do |format|
-      # format.js
-    # end
+    redirect_to(show_cart_path, notice: "'#{@line_item.listing.product.name} - #{@line_item.listing.name}' was successfully removed from your cart.")
   end
 
   private

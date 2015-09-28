@@ -26,7 +26,8 @@ Rails.application.routes.draw do
   resources :categories, only: [:index, :show]
   resources :products, only: [:index, :show]
   resources :listings
-  resources :carts
+  resources :carts, only: [:update]
+  get 'cart' => 'carts#cart', as: :show_cart
   resources :line_items
   get 'orders/:id/cancel' => 'orders#cancel', as: :order_cancel
   post 'orders/bill_info' => 'orders#bill_info_update', as: :order_bill_info_update
