@@ -90,10 +90,16 @@ class OrdersController < ApplicationController
   
   # POST /orders/checkout
   def checkout_update
-    @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
-    @cart.persist_line_items
-    @cart.adjust_line_items(@order.id)
-    @cart.update(:active => false)
+    # check if line items are valid
+    check = @cart.check_stock
+    if check.is_a?(Array)
+      redirect_to :order_checkout_form, alert: check.join(" ")
+    else
+      @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
+      @cart.persist_line_items
+      @cart.adjust_line_items(@order.id)
+      @cart.update(:active => false)
+    end
   end
 
   private
