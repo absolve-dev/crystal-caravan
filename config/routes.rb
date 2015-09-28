@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :listings
   resources :carts, only: [:update]
   get 'cart' => 'carts#cart', as: :show_cart
-  resources :line_items
+  resources :line_items, only: [:create, :destroy]
   get 'orders/:id/cancel' => 'orders#cancel', as: :order_cancel
   post 'orders/bill_info' => 'orders#bill_info_update', as: :order_bill_info_update
   get 'orders/bill_info' => 'orders#bill_info_form', as: :order_bill_info_form
