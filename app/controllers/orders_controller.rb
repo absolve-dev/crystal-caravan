@@ -30,10 +30,12 @@ class OrdersController < ApplicationController
   
   # GET /orders/ship_info
   def ship_info_form
+    return redirect_backwards_in_checkout if @order[:order_status] < Order.order_statuses[:bill_info_completed]
   end
   
   # GET /orders/ship_options
   def ship_options_form
+    return redirect_backwards_in_checkout if @order[:order_status] < Order.order_statuses[:ship_info_completed]
     @shipping_methods_select = ShippingMethod.all.collect do |method| 
       method.shipping_service.active && method.active ? ["#{method.shipping_service.name} #{method.name} - #{method.price}", method.id] : nil
     end.compact
@@ -41,10 +43,12 @@ class OrdersController < ApplicationController
   
   # GET /orders/payment
   def payment_form
+    redirect_backwards_in_checkout if @order[:order_status] < Order.order_statuses[:ship_options_completed]
   end
   
   # GET /orders/checkout
   def checkout_form
+    redirect_backwards_in_checkout if @order[:order_status] < Order.order_statuses[:payment_completed]
   end
   
   # POST /orders/bill_info
@@ -106,5 +110,18 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit!.except(:order_status)
+    end
+    
+    def redirect_backwards_in_checkout
+      case @order[:order_status]
+      when Order.order_statuses[:empty]
+        redirect_to :order_bill_info_form, alert: "Please complete billing information."
+      when Order.order_statuses[:bill_info_completed]
+        redirect_to :order_ship_info_form, alert: "Please complete shipping information."
+      when Order.order_statuses[:ship_info_completed]
+        redirect_to :order_ship_options_form, alert: "Please choose shipping options."
+      when Order.order_statuses[:ship_options_completed]
+        redirect_to :order_payment_form, alert: "Please enter payment information."
+      end
     end
 end
