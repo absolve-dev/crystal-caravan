@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150925103822) do
+ActiveRecord::Schema.define(version: 20150929021703) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 20150925103822) do
     t.string   "permalink"
     t.string   "description"
     t.string   "short_description"
-    t.boolean  "active"
+    t.boolean  "active",             default: true
     t.decimal  "weight"
     t.datetime "created"
     t.integer  "update_id"

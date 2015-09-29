@@ -4,13 +4,12 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product.all.reject{ |p| p.active == false }
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
-    @parent_category = Category.find(@product.category_id)
   end
   
   private

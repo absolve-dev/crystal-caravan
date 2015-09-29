@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
     if @category.game_id
       @game = Game.find(@category.game_id)
     end
-    @products = @category.products
+    @products = @category.products.reject{ |p| p.active == false }
   end
 
   private
