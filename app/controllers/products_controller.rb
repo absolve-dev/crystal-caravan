@@ -10,6 +10,8 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    require "json"
+    @card_data = JSON.parse( @product.catalog_card.card_data_json ) rescue false
   end
   
   private

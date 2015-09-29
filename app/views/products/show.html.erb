@@ -1,85 +1,73 @@
 <div class="container">  
   <div class="row">
-    <div class="col-xs-12">      
-      <h1>Product</h1>
-      <p>
-        <strong>Name:</strong>
-        <%= @product.name %>
-      </p>
-      
-      <p>
-        <strong>Category:</strong>
-        <%= @product.category_id %>
-        <% if @parent_category %>
-        <p><strong>Parent Category:</strong> <%= link_to @parent_category.name, @parent_category %></p>
-        <% end %>
-      </p>
-      
-      <p>
-        <strong>Permalink:</strong>
-        <%= @product.permalink %>
-      </p>
-      
-      <p>
-        <strong>Description:</strong>
-        <%= @product.description %>
-      </p>
-      
-      <p>
-        <strong>Short description:</strong>
-        <%= @product.short_description %>
-      </p>
-      
-      <p>
-        <strong>Active:</strong>
-        <%= @product.active %>
-      </p>
-      
-      <p>
-        <strong>Weight:</strong>
-        <%= @product.weight %>
-      </p>
-      
-      <p>
-        <strong>Created:</strong>
-        <%= @product.created %>
-      </p>
-      
-      <p>
-        <strong>Update:</strong>
-        <%= @product.update_id %>
-      </p>
-      
-      <p>
-          <strong>Picture:</strong><br>
-        <% if @product.product_image.url %>
-          <%= image_tag @product.product_image.url %>
-        <% elsif @product.catalog_card && @product.catalog_card.product_image.url %>
-          <%= image_tag @product.catalog_card.product_image.url %>
-        <% else %>
-          No picture available
-        <% end %>
-      </p>
-      
-      <% if @product.listings.length > 0 %>
-        <h1>Listings</h1>
-        <% @product.listings.each do |listing| %>
+    <div class="col-sm-2">
+      <% if @product.category %>
+        <%= link_to "Back to Category", category_path(@product.category), class:"btn btn-default" %>
+      <% else %>
+        <%= link_to 'Back', products_path, class:"btn btn-default" %>
+      <% end %>
+    </div>
+    <div class="col-sm-10">
+      <div class="row">
+        <div class="col-sm-5">
           <p>
-            <%= listing.adjusted_quantity %> <%= listing.name %>: $<%= listing.price %>
-            <% if listing.quantity > 0 %>
-              <% @line_item = LineItem.new %>
-              <%= form_for(@line_item, :html => { :role => "form" }) do |f| %>
-                <%= f.hidden_field(:listing_id, :value => listing.id) %>
-                <%= f.number_field(:quantity) %>
-                <%= f.submit "Add to Cart", class:"btn btn-default" %>
-              <% end %>
+            <% if @product.product_image.url %>
+              <%= image_tag @product.product_image.url %>
+            <% elsif @product.catalog_card && @product.catalog_card.product_image.url %>
+              <%= image_tag @product.catalog_card.product_image.url %>
             <% else %>
-              <br>Out of stock
+              No picture available
             <% end %>
           </p>
-        <% end %>
-      <% end %>
-      <%= link_to 'Back', products_path, class:"btn btn-default" %>
+        </div>
+        <div class="col-sm-7">
+          <h1><%= @product.name %></h1>  
+          <p>
+            <strong>Category:</strong>
+            <%= link_to @product.category.name, category_path(@product.category) %>
+          </p>
+      
+          <p>
+            <strong>Description:</strong>
+            <%= @product.description %>
+          </p>
+      
+          <p>
+            <strong>Short description:</strong>
+            <%= @product.short_description %>
+          </p>
+      
+          <% if @card_data %>
+            <ul>
+              <% @card_data.each do |key,value| %>
+                <% if value %>
+                  <li><%= key %>: <%= value %>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+      
+      
+          <% if @product.listings.length > 0 %>
+            <h1>Listings</h1>
+            <% @product.listings.each do |listing| %>
+              <p>
+                <%= listing.adjusted_quantity %> <%= listing.name %>: $<%= listing.price %>
+                <% if listing.quantity > 0 %>
+                  <% @line_item = LineItem.new %>
+                  <%= form_for(@line_item, :html => { :role => "form" }) do |f| %>
+                    <%= f.hidden_field(:listing_id, :value => listing.id) %>
+                    <%= f.number_field(:quantity) %>
+                    <%= f.submit "Add to Cart", class:"btn btn-default" %>
+                  <% end %>
+                <% else %>
+                  <br>Out of stock
+                <% end %>
+              </p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
