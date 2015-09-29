@@ -39,6 +39,11 @@ input.line_item_qty_field {
   width: 100%;
 }
 
-h1{
+h1 {
   margin-top: 0px !important;
+}
+
+/* visited link buttons are white */
+a.btn.btn-primary:visited{
+  color: #FFF;
 }
