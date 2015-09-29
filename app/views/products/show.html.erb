@@ -64,13 +64,19 @@
       <% if @product.listings.length > 0 %>
         <h1>Listings</h1>
         <% @product.listings.each do |listing| %>
-          <%= listing.adjusted_quantity %> <%= listing.name %>: $<%= listing.price %>
-          <% @line_item = LineItem.new %>
-          <%= form_for(@line_item, :html => { :role => "form" }) do |f| %>
-            <%= f.hidden_field(:listing_id, :value => listing.id) %>
-            <%= f.number_field(:quantity) %>
-            <%= f.submit "Add to Cart", class:"btn btn-default" %>
-          <% end %>
+          <p>
+            <%= listing.adjusted_quantity %> <%= listing.name %>: $<%= listing.price %>
+            <% if listing.quantity > 0 %>
+              <% @line_item = LineItem.new %>
+              <%= form_for(@line_item, :html => { :role => "form" }) do |f| %>
+                <%= f.hidden_field(:listing_id, :value => listing.id) %>
+                <%= f.number_field(:quantity) %>
+                <%= f.submit "Add to Cart", class:"btn btn-default" %>
+              <% end %>
+            <% else %>
+              <br>Out of stock
+            <% end %>
+          </p>
         <% end %>
       <% end %>
       <%= link_to 'Back', products_path, class:"btn btn-default" %>
