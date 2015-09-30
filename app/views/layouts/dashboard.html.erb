@@ -38,28 +38,28 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li class=<%="active" if params[:controller] == 'panel' %>>
+              <li<%=' class="active"'.html_safe if params[:controller] == 'panel' %>>
                 <%= link_to 'Dashboard', controller: 'panel', action: 'index' %>
               </li>
-              <li class=<%="active" if params[:controller] == 'dashboard/games' %>>
+              <li<%=' class="active"'.html_safe if params[:controller] == 'dashboard/games' %>>
                 <%= link_to 'Games', dashboard_games_path %>
               </li>
-              <li class=<%="active" if params[:controller] == 'dashboard/categories' %>>
+              <li<%=' class="active"'.html_safe if params[:controller] == 'dashboard/categories' %>>
                 <%= link_to 'Categories', dashboard_categories_path %>
               </li>
-              <li class=<%="active" if params[:controller] == 'dashboard/catalogs' %>>
+              <li<%=' class="active"'.html_safe if params[:controller] == 'dashboard/catalogs' %>>
                 <%= link_to 'Catalogs', dashboard_catalogs_path %>
               </li>
-              <li class=<%="active" if params[:controller] == 'dashboard/products' %>>
+              <li<%=' class="active"'.html_safe if params[:controller] == 'dashboard/products' %>>
                 <%= link_to 'Products', dashboard_products_path %>
               </li>
-              <li class=<%="active" if params[:controller] == 'dashboard/shipping_services' %>>
+              <li<%=' class="active"'.html_safe if params[:controller] == 'dashboard/shipping_services' %>>
                 <%= link_to 'Shipping', dashboard_shipping_services_path %>
               </li>
-              <li class=<%="active" if params[:controller] == 'dashboard/orders' %>>
+              <li<%=' class="active"'.html_safe if params[:controller] == 'dashboard/orders' %>>
                 <%= link_to 'Orders', dashboard_orders_path %>
               </li>
-              <li class=<%="active" if params[:controller] == 'dashboard/discount_codes' %>>
+              <li<%=' class="active"'.html_safe if params[:controller] == 'dashboard/discount_codes' %>>
                 <%= link_to 'Discounts', dashboard_discount_codes_path %>
               </li>
             </ul>
