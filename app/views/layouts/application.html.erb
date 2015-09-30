@@ -50,8 +50,6 @@
               <!-- Let's make this generation automatic in the future -->
               <li class=<%="active" if params[:controller] == 'static_pages' && params[:action] == 'home' %>><a href="/">Home</a></li>
               <li class=<%="active" if params[:controller] == 'games' %>><a href="/games">Games</a></li>
-              <li class=<%="active" if params[:controller] == 'categories' %>><a href="/categories">Categories</a></li>
-              <li class=<%="active" if params[:controller] == 'products' %>><a href="/products">Products</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li class=<%="active" if params[:controller] == 'carts' && params[:action] == 'cart' %>><%= link_to "Show Cart", show_cart_path %></li>
