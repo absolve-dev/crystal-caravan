@@ -1,41 +1,24 @@
 <div class="container">  
   <div class="row">
-      <div class="col-xs-5">
-          <h1>Category</h1>
-          <p>
-            <strong>Name:</strong>
-            <%= @category.name %>
-          </p>
-          
+    <div class="col-xs-12">
+      <div class="row">
+        
+        <div class="col-xs-2">
+          <%= link_to 'Back to Game', game_path(@category.game), class:"btn btn-default" %>
+        </div>
+        <div class="col-xs-10">
+          <h1><%= @category.name %></h1>
+    
           <p>
             <strong>Game:</strong>
-            <%= @category.game_id %>
-            <% if @game %>
-              <p>Parent Category: <%= link_to @game.name, @game %></p>
-            <% end %>
-          
+            <%= link_to @game.name, @game %>
           </p>
-          
+    
           <p>
             <strong>Description:</strong>
             <%= @category.description %>
           </p>
-          
-          <p>
-            <strong>Permalink:</strong>
-            <%= @category.permalink %>
-          </p>
-          
-          <p>
-            <strong>Created:</strong>
-            <%= @category.created %>
-          </p>
-          
-          <p>
-            <strong>Update:</strong>
-            <%= @category.update_id %>
-          </p>
-          
+    
           <p>
             <% existing_default = @category.default_picture.url %>
             <% if existing_default %>
@@ -43,14 +26,41 @@
               <%= image_tag existing_default %>
             <% end %>
           </p>
-          <% if @products.length > 0 %>
-            <h2>Products</h2>
-            <% @products.each do |product| %>
-              <p><%= link_to product.name, product %></p>
-            <% end %>
-          <% end %>
           
-          <%= link_to 'Back', categories_path, class:"btn btn-default" %>
+          <% if @products.length < 1 %>
+            <p>
+              No products available
+            </p>
+          <% end %>
+        </div>
+        <% if @products.length > 0 %>
+          <% product_counter = 1 %>
+          <% @products.each do |product| %>
+            <%= '<div class="row">'.html_safe if (product_counter - 1) % 6 == 0 %>
+            <div class="col-sm-6 col-md-2">
+                <div class="thumbnail">
+                  <a href="<%= product_path(product) %>">
+                    <% if product.product_image.url %>
+                      <%= image_tag product.product_image.url %>
+                    <% elsif product.catalog_card && product.catalog_card.product_image.url %>
+                      <%= image_tag product.catalog_card.product_image.url %>
+                    <% else %>
+                      <center>No picture available</center>
+                    <% end %>
+                  </a>
+                  <div class="caption">
+                    <b><%= product.name %></b><br>
+                    <%= product_listing_text(product) %><br>
+                    <%= link_to "View Product", product, :class => "btn btn-default product_link" %>
+                  </div>
+                </div>
+            </div>
+            <%= '</div>'.html_safe if product_counter % 6 == 0 || product_counter > @products.length %>
+            <% product_counter += 1 %>
+          <% end %>
+        <% end %>
+        
       </div>
+    </div>
   </div>
 </div>

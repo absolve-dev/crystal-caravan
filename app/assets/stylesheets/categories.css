@@ -1,0 +1,11 @@
+a.product_link:hover {
+  background-color:white;
+}
+
+a.product_link {
+  margin-top: 8px;
+}
+
+div.caption {
+  text-align: center;
+}
