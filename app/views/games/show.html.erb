@@ -1,45 +1,53 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-2">
+      <%= link_to 'All Games', games_path, :class => "btn btn-default" %>
+    </div>
+    <div class="col-sm-10">
       <p>
         <strong>Name:</strong>
         <%= @game.name %>
       </p>
 
       <p>
-        <strong>Created at:</strong>
-        <%= @game.created_at %>
-      </p>
-
-      <p>
-        <strong>Updated at:</strong>
-        <%= @game.updated_at %>
-      </p>
-
-      <p>
         <strong>Description:</strong>
         <%= @game.description %>
       </p>
-
-      <p>
-        <strong>Permalink:</strong>
-        <%= @game.permalink %>
-      </p>
-
+      
       <p>
         <% if @game.default_picture.url %>
           <strong>Picture:</strong><br>
           <%= image_tag @game.default_picture.url %>
         <% end %>
       </p>
-      <% if @game.categories.length > 0 %>
-        <h2>Categories</h2>
+    </div>
+  </div>
+  <div class="row">
+    <% if @game.categories.length > 0 %>
+        <% category_counter = 1 %>
         <% @game.categories.each do |category| %>
-          <p><%= link_to category.name, category %></p>
+          <% if category.products.length > 0 %>
+            <%= '<div class="row">'.html_safe if (category_counter - 1) % 4 == 0 %>
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                  <a href="<%= category_path(category) %>">
+                    <% if category.default_picture.url %>
+                      <%= image_tag category.category_image.url %>
+                    <% else %>
+                      <center>No picture available</center>
+                    <% end %>
+                  </a>
+                  <div class="caption">
+                    <b><%= category.name %></b><br>
+                    <%= link_to "View category", category, :class => "btn btn-default category_link" %>
+                  </div>
+                </div>
+            </div>
+            <%= '</div>'.html_safe if category_counter % 4 == 0 || category_counter > @game.categories.length %>
+            <% category_counter += 1 %>
+          <% end %>
         <% end %>
       <% end %>
-
-      <%= link_to 'Back', games_path %>
     </div>
   </div>
 </div>

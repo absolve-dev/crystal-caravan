@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <title>Crystal Caravan</title>
+    <title>Absolve Gaming</title>
   
     <%= stylesheet_link_tag 'application', params[:controller], media: 'all' %>
   
@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Crystal Caravan</a>
+          <a class="navbar-brand" href="/">Absolve Gaming</a>
         </div>
         <div class="container">
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -50,8 +50,6 @@
               <!-- Let's make this generation automatic in the future -->
               <li class=<%="active" if params[:controller] == 'static_pages' && params[:action] == 'home' %>><a href="/">Home</a></li>
               <li class=<%="active" if params[:controller] == 'games' %>><a href="/games">Games</a></li>
-              <li class=<%="active" if params[:controller] == 'categories' %>><a href="/categories">Categories</a></li>
-              <li class=<%="active" if params[:controller] == 'products' %>><a href="/products">Products</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li class=<%="active" if params[:controller] == 'carts' && params[:action] == 'cart' %>><%= link_to "Show Cart", show_cart_path %></li>

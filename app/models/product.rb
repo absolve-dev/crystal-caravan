@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   has_many :listings
   accepts_nested_attributes_for :listings
   
-  belongs_to :categories
+  belongs_to :category
   
   mount_uploader :product_image, ProductImageUploader
   

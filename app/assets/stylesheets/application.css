@@ -16,7 +16,6 @@
  
 @import "bootstrap-sprockets";
 @import "bootstrap";
- 
 
 html, body{
   height: 100%;
@@ -38,4 +37,13 @@ div#content{
 
 input.line_item_qty_field {
   width: 100%;
+}
+
+h1 {
+  margin-top: 0px !important;
+}
+
+/* visited link buttons are white */
+a.btn.btn-primary:visited{
+  color: #FFF;
 }

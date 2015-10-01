@@ -24,6 +24,8 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 # Use carrierwave for asset upload
 gem 'carrierwave'
+# Use fog for S3 storage
+gem 'fog'
 
 # Use Bootstrap
 gem 'bootstrap-sass'
