@@ -3,6 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  
+  def record_not_found
+    redirect_to root_url, alert: "Page Not Found"
+  end
+  
   def set_line_items
     @line_items = { }
     for line_item in @cart.line_items do
