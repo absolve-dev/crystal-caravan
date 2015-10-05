@@ -17,6 +17,6 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id].to_i) rescue Product.where(:permalink => params[:id]).first
+      @product = Product.find(params[:id].to_i)
     end
 end

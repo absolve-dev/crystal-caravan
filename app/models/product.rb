@@ -25,4 +25,8 @@ class Product < ActiveRecord::Base
     end
   end
   
+  def to_param
+    self.permalink ? "#{id}-#{self.permalink}" : "{id}"
+  end
+  
 end

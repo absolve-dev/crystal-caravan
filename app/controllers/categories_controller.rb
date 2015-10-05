@@ -31,6 +31,6 @@ class CategoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = Category.find(params[:id].to_i) rescue Category.where(:permalink => params[:id]).first
+      @category = Category.find(params[:id].to_i)
     end
 end
