@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006025002) do
+ActiveRecord::Schema.define(version: 20151006061103) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -100,24 +100,24 @@ ActiveRecord::Schema.define(version: 20151006025002) do
 
   create_table "line_items", force: :cascade do |t|
     t.integer  "cart_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.integer  "listing_id"
     t.integer  "quantity"
     t.string   "persisted_name"
     t.string   "persisted_listing_name"
-    t.decimal  "persisted_price"
+    t.decimal  "persisted_price",        precision: 8, scale: 2
   end
 
   create_table "listings", force: :cascade do |t|
     t.string   "name"
     t.integer  "product_id"
-    t.decimal  "price"
+    t.decimal  "price",      precision: 8, scale: 2
     t.integer  "quantity"
     t.boolean  "active"
     t.datetime "update_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "orders", force: :cascade do |t|
@@ -183,9 +183,9 @@ ActiveRecord::Schema.define(version: 20151006025002) do
   create_table "shipping_methods", force: :cascade do |t|
     t.string   "name"
     t.boolean  "active"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.decimal  "price"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.decimal  "price",               precision: 8, scale: 2
     t.integer  "shipping_service_id"
   end
 
