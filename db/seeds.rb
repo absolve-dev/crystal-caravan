@@ -14,20 +14,24 @@ user = User.create(:email => 'rootmin@nimtoors.com', :password => 'toorgang' , :
 user2 = User.create(:email => 'rootmin2@nimtoors.com', :password => 'toorgang' , :password_confirmation => 'toorgang')
 
 # Game
-game = Game.create(:name => 'Test Game 1', :permalink => 'test-game-1')
+game_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'biggest-boy.jpg'), 'rb')
+game = Game.create(:name => 'Test Game 1', :permalink => 'test-game-1', :default_image => game_image)
+
 
 # Categories
+category_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'big-boy.jpg'), 'rb')
 categories = Array.new
-(1..3).each do |x|
-  category = Category.create(:name => "Test Category #{x}", :permalink => "test-category-#{x}", :game_id => game.id)
+(1..5).each do |x|
+  category = Category.create(:name => "Test Category #{x}", :permalink => "test-category-#{x}", :game_id => game.id, :default_image => category_image)
   categories.push(category)
 end
 
 # Products
+product_image = File.open(File.join(Rails.application.root, 'db', 'seeds_images', 'little-boy.jpg'), 'rb')
 products = Array.new
 categories.each do |category|
-  (1..3).each do |x|
-    product = Product.create(:name => "Test Product #{category.id}-#{x}", :permalink =>"test-product-#{category.id}-#{x}", :category_id => category.id, :weight => 0.1)
+  (1..7).each do |x|
+    product = Product.create(:name => "Test Product #{category.id}-#{x}", :permalink =>"test-product-#{category.id}-#{x}", :category_id => category.id, :weight => 0.1, :product_image => product_image)
     products.push(product)
   end
 end
