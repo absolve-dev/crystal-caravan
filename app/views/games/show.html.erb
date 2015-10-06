@@ -1,25 +1,29 @@
 <div class="container">
-  <div class="row">
+  <div class="row header">
     <div class="col-sm-2">
-      <%= link_to 'All Games', games_path, :class => "btn btn-default" %>
+      <%= link_to 'Games', games_path, :class => "btn btn-default back-nav" %>
     </div>
     <div class="col-sm-10">
-      <p>
-        <strong>Name:</strong>
-        <%= @game.name %>
-      </p>
+      <div class="row">
+        <div class="col-sm-4 header-image">
+          <% if @game.default_image.url %>
+            <%= image_tag @game.default_image.url %>
+          <% else %>
+            <center>No picture available</center>
+          <% end %>
+        </div>
+        <div class="col-sm-8">
+          <h2>
+            <%= @game.name %>
+          </h2>
 
-      <p>
-        <strong>Description:</strong>
-        <%= @game.description %>
-      </p>
-      
-      <p>
-        <% if @game.default_image.url %>
-          <strong>Picture:</strong><br>
-          <%= image_tag @game.default_image.url %>
-        <% end %>
-      </p>
+          <% if @game.description %>
+            <p>
+              <%= @game.description %>
+            </p>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -39,7 +43,7 @@
                 </a>
                 <div class="caption">
                   <b><%= category.name %></b><br>
-                  <%= link_to "View category", category, :class => "btn btn-default category_link" %>
+                  <br><%= link_to "View category", category, :class => "btn btn-default category_link" %>
                 </div>
               </div>
             </div>

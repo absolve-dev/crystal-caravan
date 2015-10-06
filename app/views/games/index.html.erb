@@ -17,8 +17,10 @@
                 </div>
                 <div class="col-xs-12 col-sm-9">
                   <div class="caption game">
-                    <b><%= game.name %></b><br>
-                    Description: <%= game.description %><br>
+                    <h2><%= game.name %></h2>
+                    <% if game.description %>
+                      <p><%= game.description %></p>
+                    <% end %>
                     <%= link_to "View Game", game, :class => "btn btn-default category_link" %>
                   </div>
                 </div>

@@ -2,23 +2,19 @@
   <div class="row">
     <div class="col-sm-2">
       <% if @product.category %>
-        <%= link_to "Back to Category", category_path(@product.category), class:"btn btn-default" %>
-      <% else %>
-        <%= link_to 'Back', products_path, class:"btn btn-default" %>
+        <%= link_to "Back", category_path(@product.category), class:"btn btn-default back-nav" %>
       <% end %>
     </div>
     <div class="col-sm-10">
       <div class="row">
-        <div class="col-sm-5">
-          <p>
-            <% if @product.product_image.url %>
-              <%= image_tag @product.product_image.url %>
-            <% elsif @product.catalog_card && @product.catalog_card.product_image.url %>
-              <%= image_tag @product.catalog_card.product_image.url %>
-            <% else %>
-              No picture available
-            <% end %>
-          </p>
+        <div class="col-sm-5 header-image">
+          <% if @product.product_image.url %>
+            <%= image_tag @product.product_image.url %>
+          <% elsif @product.catalog_card && @product.catalog_card.product_image.url %>
+            <%= image_tag @product.catalog_card.product_image.url %>
+          <% else %>
+            No picture available
+          <% end %>
         </div>
         <div class="col-sm-7">
           <h1><%= @product.name %></h1>  
@@ -46,8 +42,7 @@
               <% end %>
             </ul>
           <% end %>
-      
-      
+          
           <% if @product.listings.length > 0 %>
             <h1>Listings</h1>
             <% @product.listings.each do |listing| %>

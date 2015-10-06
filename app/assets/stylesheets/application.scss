@@ -15,10 +15,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-html, body{
-  height: 100%;
-  margin: 0px;
-  padding: 0px;
+html, body {
+  width: auto !important;
+  overflow-x: hidden !important;
 }
 div#wrapper{
   min-height: 100%;
@@ -37,11 +36,47 @@ input.line_item_qty_field {
   width: 100%;
 }
 
-h1 {
+h1, h2 {
   margin-top: 0px !important;
+}
+
+div.row.header {
+  margin-bottom: 10px;
+}
+div.header-image img{
+  width:100%;
+}/* Large desktop */
+@media (min-width: 1200px) {
+	
+}
+/* Between Large and Portrait 8 */
+@media (min-width:992px) and (max-width:1200px){
+
+}
+/* Portrait and Below */
+@media (max-width:991px){
+  
+}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  div.thumbnail {
+    text-align: center;
+  }
+	div.caption{
+	  text-align: center;
+	}
 }
 
 /* visited link buttons are white */
 a.btn.btn-primary:visited{
   color: #FFF;
+}
+
+a.btn.back-nav{
+  margin-bottom: 8px;
+  width:100%;
 }
