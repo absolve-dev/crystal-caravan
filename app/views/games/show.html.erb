@@ -15,9 +15,9 @@
       </p>
       
       <p>
-        <% if @game.default_picture.url %>
+        <% if @game.default_image.url %>
           <strong>Picture:</strong><br>
-          <%= image_tag @game.default_picture.url %>
+          <%= image_tag @game.default_image.url %>
         <% end %>
       </p>
     </div>
@@ -29,19 +29,19 @@
           <% if category.products.length > 0 %>
             <%= '<div class="row">'.html_safe if (category_counter - 1) % 4 == 0 %>
             <div class="col-sm-6 col-md-3">
-                <div class="thumbnail">
-                  <a href="<%= category_path(category) %>">
-                    <% if category.default_picture.url %>
-                      <%= image_tag category.category_image.url %>
-                    <% else %>
-                      <center>No picture available</center>
-                    <% end %>
-                  </a>
-                  <div class="caption">
-                    <b><%= category.name %></b><br>
-                    <%= link_to "View category", category, :class => "btn btn-default category_link" %>
-                  </div>
+              <div class="thumbnail">
+                <a href="<%= category_path(category) %>">
+                  <% if category.default_image.url %>
+                    <%= image_tag category.default_image.url %>
+                  <% else %>
+                    <center>No picture available</center>
+                  <% end %>
+                </a>
+                <div class="caption">
+                  <b><%= category.name %></b><br>
+                  <%= link_to "View category", category, :class => "btn btn-default category_link" %>
                 </div>
+              </div>
             </div>
             <%= '</div>'.html_safe if category_counter % 4 == 0 || category_counter > @game.categories.length %>
             <% category_counter += 1 %>

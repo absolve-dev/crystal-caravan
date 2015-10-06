@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929021703) do
+ActiveRecord::Schema.define(version: 20151006025002) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -73,9 +73,9 @@ ActiveRecord::Schema.define(version: 20150929021703) do
     t.string   "permalink"
     t.datetime "created"
     t.integer  "update_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "default_picture"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "default_image"
     t.integer  "game_id"
   end
 
@@ -91,11 +91,11 @@ ActiveRecord::Schema.define(version: 20150929021703) do
 
   create_table "games", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "description"
     t.string   "permalink"
-    t.string   "default_picture"
+    t.string   "default_image"
   end
 
   create_table "line_items", force: :cascade do |t|

@@ -20,10 +20,9 @@
           </p>
     
           <p>
-            <% existing_default = @category.default_picture.url %>
-            <% if existing_default %>
+            <% if @category.default_image.url %>
               <strong>Picture:</strong><br>
-              <%= image_tag existing_default %>
+              <%= image_tag @category.default_image.url %>
             <% end %>
           </p>
           

@@ -5,7 +5,7 @@ class Category < ActiveRecord::Base
   
   has_many :products
   
-  mount_uploader :default_picture, CategoryImageUploader
+  mount_uploader :default_image, ThumbnailImageUploader
   
   validates :name, :presence => true, :uniqueness => true
   validates :permalink, :presence => true, :permalink => true

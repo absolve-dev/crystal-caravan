@@ -8,8 +8,8 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-3">
                   <a href="<%= game_path(game) %>">
-                    <% if game.default_picture.url %>
-                      <%= image_tag game.default_picture.url %>
+                    <% if game.default_image.url %>
+                      <%= image_tag game.default_image.url %>
                     <% else %>
                       No picture available
                     <% end %>
