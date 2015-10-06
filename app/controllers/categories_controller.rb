@@ -17,15 +17,15 @@ class CategoriesController < ApplicationController
   
   end
   
-  helper_method :product_listing_text
+  helper_method :lowest_listing
   
-  def product_listing_text(product)
+  def lowest_listing(product)
     product.listings.each do |listing|
       if listing.price > 0.0 && listing.quantity > 0
-        return "#{listing.name} - #{listing.price}"
+        return listing
       end
     end
-    return "Out of Stock"
+    return false
   end
 
   private

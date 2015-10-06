@@ -47,7 +47,7 @@
             <h1>Listings</h1>
             <% @product.listings.each do |listing| %>
               <p>
-                <%= listing.adjusted_quantity %> <%= listing.name %>: $<%= listing.price %>
+                <%= listing.adjusted_quantity %> <%= listing.name %>: <%= number_to_currency(listing.price, :unit => "$") %>
                 <% if listing.adjusted_quantity > 0 %>
                   <% @line_item = LineItem.new %>
                   <%= form_for(@line_item, :html => { :role => "form" }) do |f| %>

@@ -43,8 +43,13 @@
                   </a>
                   <div class="caption">
                     <b><%= product.name %></b><br>
-                    <%= product_listing_text(product) %><br>
-                    <%= link_to "View Product", product, :class => "btn btn-default product_link" %>
+                    <% lowest = lowest_listing(product) %>
+                    <% if lowest %>
+                      <%= "#{lowest.name} - #{ number_to_currency(lowest.price, :unit => "$") }" %>
+                    <% else %>
+                      Out of Stock
+                    <% end %>
+                    <br><%= link_to "View Product", product, :class => "btn btn-default product_link" %>
                   </div>
                 </div>
             </div>

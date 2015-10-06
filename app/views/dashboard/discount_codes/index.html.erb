@@ -23,7 +23,7 @@
               <td><%= discount_code.name %></td>
               <td><%= discount_code.code %></td>
               <td><%= discount_code.percentage %></td>
-              <td><%= discount_code.deduction %></td>
+              <td><%= number_to_currency(discount_code.deduction, :unit => "$") %></td>
               <td><%= discount_code.usage_limit %></td>
               <td><%= link_to 'Show', dashboard_discount_code_path(discount_code) %></td>
               <td><%= link_to 'Edit', edit_dashboard_discount_code_path(discount_code) %></td>

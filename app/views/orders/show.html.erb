@@ -10,19 +10,19 @@
           <%= @order.cart_id %>
         </p>
         <p>
-          Sub-total: <%= @order.sub_total %><br>
+          Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %><br>
           <% if @order.discount_code_valid? %>
             Discount code used: <%= @order.discount_code %><br>
             <% if @order.get_discount.multiplier %>
               Percent discount: <%= @order.get_discount.percentage %>%<br>
             <% end %>
             <% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
-              Deduction: -<%= @order.get_discount.deduction %><br>
+              Deduction: -<%= number_to_currency(@order.get_discount.deduction, :unit => "$") %><br>
             <% end %>
-            Sub-total after discount: <%= @order.sub_total_after_discount %><br>
+            Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %><br>
           <% end %>
-          Shipping: <%= @order.shipping_method.price %><br>
-          Order Total: <%= @order.total %>
+          Shipping: <%= number_to_currency(@order.shipping_method.price, :unit => "$") %><br>
+          Order Total: <%= number_to_currency(@order.total, :unit => "$") %>
         </p>
         
         <p>
