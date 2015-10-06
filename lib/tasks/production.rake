@@ -21,9 +21,10 @@ namespace :production do
     require 'catalog_lib/LibraryHandler'
     handler = LibraryHandler.new
     handler.set_library(ygo_catalog.library_name)
-  
+    
+    ygo_logo = File.open(File.join(Rails.application.root, 'db', 'production_default', 'ygo_logo.png'), 'rb')
     current_game = ygo_catalog.game
-    current_game ||= Game.create(:name => ygo_catalog.name, :permalink => default_permalink(ygo_catalog.name))
+    current_game ||= Game.create(:name => ygo_catalog.name, :permalink => default_permalink(ygo_catalog.name), :default_image => ygo_logo)
     ygo_catalog.game_id = current_game.id
     ygo_catalog.save
   
