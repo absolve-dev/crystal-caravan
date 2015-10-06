@@ -1,3 +1,43 @@
+div.thumbnail.game {
+}
+div.thumbnail.game a{
+  display: inline-block;
+  text-align: center;
+  vertical-align: center;
+}
+div.caption.game{
+  display: block;
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+	
+}
+/* Between Large and Portrait 8 */
+@media (min-width:992px) and (max-width:1200px){
+
+}
+/* Portrait and Below */
+@media (max-width:991px){
+  
+}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  div.thumbnail.game {
+    text-align: center;
+  }
+	div.caption.game{
+	  text-align: center;
+	}
+}
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+	
+}
+
 a.category_link {
   margin-top: 8px;
 }

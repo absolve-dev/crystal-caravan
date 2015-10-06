@@ -1,33 +1,32 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <h1>Listing Games</h1>
-
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Created at</th>
-            <th>Updated at</th>
-            <th>Description</th>
-            <th>Permalink</th>
-            <th>Default picture</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @games.each do |game| %>
-            <tr>
-              <td><%= link_to game.name, game %></td>
-              <td><%= game.created_at %></td>
-              <td><%= game.updated_at %></td>
-              <td><%= game.description %></td>
-              <td><%= game.permalink %></td>
-              <td><%= game.default_picture %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+      <% @games.each do |game| %>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="thumbnail game">
+              <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                  <a href="<%= game_path(game) %>">
+                    <% if game.default_picture.url %>
+                      <%= image_tag game.default_picture.url %>
+                    <% else %>
+                      No picture available
+                    <% end %>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-sm-9">
+                  <div class="caption game">
+                    <b><%= game.name %></b><br>
+                    Description: <%= game.description %><br>
+                    <%= link_to "View Game", game, :class => "btn btn-default category_link" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
