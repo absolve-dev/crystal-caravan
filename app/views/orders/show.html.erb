@@ -1,129 +1,81 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
+      <h1>Order #<%= @order.id %></h1>
       <% if @allowed %>
-        <p>
-          <%= link_to "Cancel Order", order_cancel_path(@order) %>
-        </p>
-        <p>
-          <strong>Cart ID:</strong>
-          <%= @order.cart_id %>
-        </p>
-        <p>
-          Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %><br>
-          <% if @order.discount_code_valid? %>
-            Discount code used: <%= @order.discount_code %><br>
-            <% if @order.get_discount.multiplier %>
-              Percent discount: <%= @order.get_discount.percentage %>%<br>
+        <div class="row">
+          <div class="col-sm-5">
+            <p>
+              <%= link_to "Cancel Order", order_cancel_path(@order) %>
+            </p>
+            <p>
+              Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %><br>
+              <% if @order.discount_code_valid? %>
+                Discount code used: <%= @order.discount_code %><br>
+                <% if @order.get_discount.multiplier %>
+                  Percent discount: <%= @order.get_discount.percentage %>%<br>
+                <% end %>
+                <% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
+                  Deduction: -<%= number_to_currency(@order.get_discount.deduction, :unit => "$") %><br>
+                <% end %>
+                Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %><br>
+              <% end %>
+              Shipping: <%= number_to_currency(@order.shipping_method.price, :unit => "$") %><br>
+              Order Total: <%= number_to_currency(@order.total, :unit => "$") %>
+            </p>
+          </div>
+          <div class="col-sm-7">
+            <p>
+              <%= @order.first_name_shipping %> <%= @order.last_name_shipping %><br>
+              <% if @order.company_shipping %>
+                <%= @order.company_shipping %><br>
+              <% end %>
+              <%= @order.address_line_one_shipping %><br>
+              <% if @order.address_line_two_shipping %>
+                <%= @order.address_line_two_shipping %><br>
+              <% end %>
+              <%= @order.city_shipping %>, <%= @order.state_shipping %> <%= @order.zip_shipping %> <%= @order.country_shipping %>
+            </p>
+            <% if @order.phone_shipping %>
+              <p>
+                <strong>Phone number:</strong>
+                <%= @order.phone_shipping %>
+              </p>
             <% end %>
-            <% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
-              Deduction: -<%= number_to_currency(@order.get_discount.deduction, :unit => "$") %><br>
+          </div>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <td class="field-label">
+                <label>Line Item</label>
+              </td>
+              <td class="field-label">
+                <label>Price</label>
+              </td>
+              <td class="field-label">
+                <label>Quantity</label>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cart.line_items.each do |line_item| %>
+              <tr>
+                  <td>
+                    <%= line_item.listing.product.name %><br>
+                    <%= line_item.listing.name %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(line_item.persisted_price, :unit => "$") %>
+                  </td>
+                  <td>
+                    <%= line_item.quantity %>
+                  </td>
+              </tr>
             <% end %>
-            Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %><br>
-          <% end %>
-          Shipping: <%= number_to_currency(@order.shipping_method.price, :unit => "$") %><br>
-          Order Total: <%= number_to_currency(@order.total, :unit => "$") %>
-        </p>
+          </tbody>
+        </table>
         
-        <p>
-          <strong>First name billing:</strong>
-          <%= @order.first_name_billing %>
-        </p>
-
-        <p>
-          <strong>Last name billing:</strong>
-          <%= @order.last_name_billing %>
-        </p>
-
-        <p>
-          <strong>Company billing:</strong>
-          <%= @order.company_billing %>
-        </p>
-
-        <p>
-          <strong>Address line one billing:</strong>
-          <%= @order.address_line_one_billing %>
-        </p>
-
-        <p>
-          <strong>Address line two billing:</strong>
-          <%= @order.address_line_two_billing %>
-        </p>
-
-        <p>
-          <strong>City billing:</strong>
-          <%= @order.city_billing %>
-        </p>
-
-        <p>
-          <strong>Country billing:</strong>
-          <%= @order.country_billing %>
-        </p>
-
-        <p>
-          <strong>State billing:</strong>
-          <%= @order.state_billing %>
-        </p>
-
-        <p>
-          <strong>Zip billing:</strong>
-          <%= @order.zip_billing %>
-        </p>
-
-        <p>
-          <strong>Phone billing:</strong>
-          <%= @order.phone_billing %>
-        </p>
-
-        <p>
-          <strong>First name shipping:</strong>
-          <%= @order.first_name_shipping %>
-        </p>
-
-        <p>
-          <strong>Last name shipping:</strong>
-          <%= @order.last_name_shipping %>
-        </p>
-
-        <p>
-          <strong>Company shipping:</strong>
-          <%= @order.company_shipping %>
-        </p>
-
-        <p>
-          <strong>Address line one shipping:</strong>
-          <%= @order.address_line_one_shipping %>
-        </p>
-
-        <p>
-          <strong>Address line two shipping:</strong>
-          <%= @order.address_line_two_shipping %>
-        </p>
-
-        <p>
-          <strong>City shipping:</strong>
-          <%= @order.city_shipping %>
-        </p>
-
-        <p>
-          <strong>Country shipping:</strong>
-          <%= @order.country_shipping %>
-        </p>
-
-        <p>
-          <strong>State shipping:</strong>
-          <%= @order.state_shipping %>
-        </p>
-
-        <p>
-          <strong>Zip shipping:</strong>
-          <%= @order.zip_shipping %>
-        </p>
-
-        <p>
-          <strong>Phone shipping:</strong>
-          <%= @order.phone_shipping %>
-        </p>
       <% else %>
         This order was made by a different email address.
       <% end %>

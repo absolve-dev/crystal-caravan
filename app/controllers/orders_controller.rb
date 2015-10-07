@@ -7,6 +7,7 @@ class OrdersController < ApplicationController
   def show
     authenticate_user!
     user_signed_in? && @order.email == current_user.email ? @allowed = true : @allowed = false
+    @cart = @order.cart
   end
   
   # GET /orders/1/cancel
