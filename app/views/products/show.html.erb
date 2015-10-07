@@ -19,28 +19,22 @@
         <div class="col-sm-7">
           <h1><%= @product.name %></h1>  
           <p>
-            <strong>Category:</strong>
+            <strong>Category :</strong>
             <%= link_to @product.category.name, category_path(@product.category) %>
           </p>
-      
-          <p>
-            <strong>Description:</strong>
-            <%= @product.description %>
-          </p>
-      
-          <p>
-            <strong>Short description:</strong>
-            <%= @product.short_description %>
-          </p>
+          
+          <% if @product.description %>
+            <p>
+              <%= @product.description %>
+            </p>
+          <% end %>
       
           <% if @card_data %>
-            <ul>
-              <% @card_data.each do |key,value| %>
-                <% if value %>
-                  <li><%= key %>: <%= value %>
-                <% end %>
-              <% end %>
-            </ul>
+            <% @card_data.each do |key,value| %>
+              <p>
+                <b><%= key %> :</b> <%= value %>
+              </p>
+            <% end %>
           <% end %>
           
           <% if @product.listings.length > 0 %>

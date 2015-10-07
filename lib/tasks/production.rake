@@ -44,7 +44,20 @@ namespace :production do
         current_card ||= CatalogCard.create(:catalog_set_id => current_set.id, :name => card[:name])
         card_data = card[:data].merge(handler.get_card(card[:name]))
         card_data.delete('name')
-        current_card.card_data_json = card_data.to_json
+        
+        # Re-code card data
+        recoded_card_data = Hash.new
+        recoded_card_data["Card Number"] = card_data[:print_tag] if card_data[:print_tag]
+        recoded_card_data["Rarity"] = card_data[:rarity] if card_data[:rarity]
+        recoded_card_data["Card Type"] = card_data["card_type"].capitalize if card_data["card_type"]
+        recoded_card_data["Card Sub-Type"] = card_data["property"].capitalize if card_data["property"]
+        recoded_card_data["Attribute"] = card_data["family"].capitalize if card_data["family"]
+        recoded_card_data["Type"] = card_data["type"].capitalize if card_data["type"]
+        recoded_card_data["Level"] = card_data["level"] if card_data["level"]
+        recoded_card_data["ATK/DEF"] = "#{card_data['atk']} / #{card_data['def']}" if card_data["atk"] && card_data["def"]
+        recoded_card_data["Card Text"] = card_data["text"] if card_data["text"]
+        
+        current_card.card_data_json = recoded_card_data.to_json
         card_image = handler.get_card_image(card[:name])
         current_card.remote_product_image_url = card_image if card_image
       
