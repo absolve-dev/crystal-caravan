@@ -27,7 +27,14 @@ class CategoriesController < ApplicationController
     end
     return false
   end
-
+  
+  helper_method :number_and_rarity
+  
+  def number_and_rarity(product)
+    catalog_data = JSON.parse( product.catalog_card.card_data_json ) rescue false
+    catalog_data ? { :card_number => catalog_data["Card Number"], :rarity => catalog_data["Rarity"] } : false
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category

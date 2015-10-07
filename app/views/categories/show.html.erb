@@ -43,6 +43,11 @@
                   </a>
                   <div class="caption">
                     <b><%= product.name %></b><br>
+                    <% n_and_r = number_and_rarity(product) %>
+                    <% if n_and_r %>
+                      <%= n_and_r[:card_number] %><br>
+                      <%= n_and_r[:rarity] %><br>
+                    <% end %>
                     <% lowest = lowest_listing(product) %>
                     <% if lowest %>
                       <%= "#{lowest.name} - #{ number_to_currency(lowest.price, :unit => "$") }" %>
