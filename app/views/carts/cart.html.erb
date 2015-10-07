@@ -26,7 +26,7 @@
                         <%= line_item.listing.product.name %><br>
                         <%= line_item.listing.name %>
                       </td>
-                      <td><%= line_item.listing.price %></td>
+                      <td><%= number_to_currency(line_item.listing.price, :unit => "$") %></td>
                       <%= f.fields_for :line_items, line_item do |line_item_fields| %>
                         <td><%= line_item_fields.number_field :quantity, class: "line_item_qty_field" %></td>
                       <% end %>
