@@ -6,6 +6,7 @@ class CategoriesController < ApplicationController
   def index
     @categories = Category.all
   end
+  # no route, but still here in case needed in the future
 
   # GET /categories/1
   # GET /categories/1.json

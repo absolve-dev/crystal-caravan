@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all.reject{ |p| p.active == false }
   end
+  # no route, but still here in case needed in the future
 
   # GET /products/1
   # GET /products/1.json

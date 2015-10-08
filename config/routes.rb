@@ -23,8 +23,8 @@ Rails.application.routes.draw do
   end
   
   resources :games, only: [:index, :show]
-  resources :categories, only: [:index, :show]
-  resources :products, only: [:index, :show]
+  resources :categories, only: [:show]
+  resources :products, only: [:show]
   resources :carts, only: [:update]
   get 'cart' => 'carts#cart', as: :show_cart
   resources :line_items, only: [:create, :destroy]
