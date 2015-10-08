@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-5">
+      <%= render 'dashboard/shared/product_links' %>
       <h1>Categories</h1>
       <%= link_to 'New Category', new_dashboard_category_path, class:"btn btn-default" %>
     </div>
@@ -12,51 +13,36 @@
   </div>
   <table class="table table-bordered">
     <tr>
-      <td class="field-label col-xs-1">
-        <label>Game ID</label>
+      <td class="field-label">
+        <label>ID</label>
       </td>
-      <td class="field-label col-xs-1">
+      <td class="field-label">
         <label>Name</label>
       </td>
-      <td class="field-label col-xs-1">
-        <label>Description</label>
+      <td class="field-label">
+        <label>Game ID</label>
       </td>
-      <td class="field-label col-xs-1">
+      <td class="field-label">
         <label>Permalink</label>
       </td>
-      <td class="field-label col-xs-1">
+      <td class="field-label">
         <label>Created</label>
       </td>
-      <td class="field-label col-xs-1">
-        <label>Update</label>
+      <td class="field-label">
+        <label>Updated</label>
       </td>
     </tr>
         
     <% @categories.each do |category| %>
       <tr>
-        <td class="col-xs-1"><%= category.game_id or "N/A" %></td>
-        <td class="col-xs-1">
-          <div class="btn-group">
-            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= category.name %><span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><%= link_to 'Show', dashboard_category_path(category) %></li>
-              <li><%= link_to 'Edit', edit_dashboard_category_path(category) %></li>
-              <li><%= link_to 'Destroy', dashboard_category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %></li>
-            </ul>
-          </div>
+        <td><%= category.id %></td>
+        <td>
+          <%= link_to category.name, edit_dashboard_category_path(category) %>
         </td>
-      
-        <td class="col-xs-1"><%= category.description or "N/A" %></td>
-      
-      
-        <td class="col-xs-1"><%= category.permalink or "N/A" %></td>
-      
-  
-        <td class="col-xs-1"><%= category.created or "N/A" %></td>
-      
-      
-        <td class="col-xs-1"><%= category.update_id or "N/A" %></td>
+        <td><%= category.game_id or "N/A" %></td>
+        <td><%= category.permalink or "N/A" %></td>
+        <td><%= category.created_at or "N/A" %></td>
+        <td><%= category.updated_at or "N/A" %></td>
       </tr>
     <% end %>
     </table>

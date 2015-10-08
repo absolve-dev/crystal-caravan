@@ -1,6 +1,37 @@
-<h1>Editing Game</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', dashboard_game_path(@game) %> |
-<%= link_to 'Back', dashboard_games_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <%= render 'dashboard/shared/product_links' %>
+      <h1>Editing <%= @game.name %></h1>
+      <%= render 'form' %>
+    </div>
+  </div>
+  <div class="row">
+    <% if @game.categories.length > 0 %>
+      <h2>Categories</h2>
+      <% category_counter = 1 %>
+      <% @game.categories.each do |category| %>
+        <% if category.products.length > 0 %>
+          <%= '<div class="row">'.html_safe if (category_counter - 1) % 4 == 0 %>
+          <div class="col-sm-6 col-md-3">
+            <div class="thumbnail">
+              <a href="<%= edit_dashboard_category_path(category) %>">
+                <% if category.default_image.url %>
+                  <%= image_tag category.default_image.url %>
+                <% else %>
+                  <center>No picture available</center>
+                <% end %>
+              </a>
+              <div class="caption">
+                <b><%= category.name %></b><br>
+                <br><%= link_to "Edit category", edit_dashboard_category_path, :class => "btn btn-default category_link" %>
+              </div>
+            </div>
+          </div>
+          <%= '</div>'.html_safe if category_counter % 4 == 0 || category_counter > @game.categories.length %>
+          <% category_counter += 1 %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

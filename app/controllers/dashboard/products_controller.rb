@@ -32,7 +32,7 @@ class Dashboard::ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.save
-        format.html { redirect_to dashboard_product_path(@product), notice: 'Product was successfully created.' }
+        format.html { redirect_to edit_dashboard_product_path(@product), notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class Dashboard::ProductsController < ApplicationController
   def update
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to dashboard_product_path(@product), notice: 'Product was successfully updated.' }
+        format.html { redirect_to edit_dashboard_product_path(@product), notice: 'Product was successfully updated.' }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit }
@@ -81,6 +81,6 @@ class Dashboard::ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:name, :category_id, :permalink, :description, :short_description, :active, :weight, :created, :update_id, :default_picture, :collectible, listings_attributes: [:id, :quantity, :price, :active])
+      params.require(:product).permit(:name, :category_id, :permalink, :description, :short_description, :active, :weight, :created, :update_id, :default_picture, :collectible, listings_attributes: [:id, :quantity, :price, :active, :_destroy])
     end
 end

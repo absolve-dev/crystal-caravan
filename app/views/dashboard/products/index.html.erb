@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-5">
+      <%= render 'dashboard/shared/product_links' %>
       <h1>Products</h1>
     </div>
   </div>
@@ -14,19 +15,16 @@
   <table class="table table-bordered">
     <tr>
       <td class="field-label col-xs-1">
-        <label>Category ID</label>
+        <label>ID</label>
       </td>
       <td class="field-label col-xs-1">
         <label>Name</label>
       </td>
       <td class="field-label col-xs-1">
+        <label>Category ID</label>
+      </td>
+      <td class="field-label col-xs-1">
         <label>Permalink</label>
-      </td>
-      <td class="field-label col-xs-1">
-        <label>Description</label>
-      </td>
-      <td class="field-label col-xs-1">
-        <label>Short Desc</label>
       </td>
       <td class="field-label col-xs-1">
         <label>Active</label>
@@ -38,26 +36,17 @@
         <label>Created</label>
       </td>
       <td class="field-label col-xs-1">
-        <label>Update</label>
+        <label>Updated</label>
       </td>
     </tr>
     <% @products.each do |product| %>
       <tr>
-        <td class="col-xs-1"><%= product.category_id %></td>
+        <td><%= product.id %></td>
         <td class="col-xs-1">
-          <div class="btn-group">
-            <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= product.name %><span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><%= link_to 'Show', dashboard_product_path(product) %></li>
-              <li><%= link_to 'Edit', edit_dashboard_product_path(product) %></li>
-              <li><%= link_to 'Destroy', dashboard_product_path(product), method: :delete, data: { confirm: 'Are you sure?' } %></li>
-            </ul>
-          </div>
+          <%= link_to product.name, edit_dashboard_product_path(product) %>
         </td>
+        <td class="col-xs-1"><%= product.category_id %></td>
         <td class="col-xs-1"><%= product.permalink %></td>
-        <td class="col-xs-1"><%= product.description or "N/A" %></td>
-        <td class="col-xs-1"><%= product.short_description or "N/A" %></td>
         <td class="col-xs-1"><%= product.active or "N/A" %></td>
         <td class="col-xs-1"><%= product.weight or "N/A" %></td>
         <td class="col-xs-1"><%= product.created or "N/A" %></td>

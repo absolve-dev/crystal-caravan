@@ -22,8 +22,27 @@ class Dashboard::CategoriesController < ApplicationController
 
   # GET /categories/1/edit
   def edit
+    @products = @category.products.reject{ |p| p.active == false }
   end
-
+  
+  helper_method :number_and_rarity
+  
+  def number_and_rarity(product)
+    catalog_data = JSON.parse( product.catalog_card.card_data_json ) rescue false
+    catalog_data ? { :card_number => catalog_data["Card Number"], :rarity => catalog_data["Rarity"] } : false
+  end
+  
+  helper_method :lowest_listing
+  
+  def lowest_listing(product)
+    product.listings.each do |listing|
+      if listing.price > 0.0 && listing.quantity > 0
+        return listing
+      end
+    end
+    return false
+  end
+  
   # POST /categories
   # POST /categories.json
   def create
@@ -31,7 +50,7 @@ class Dashboard::CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to dashboard_category_path(@category), notice: 'Category was successfully created.' }
+        format.html { redirect_to edit_dashboard_category_path(@category), notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
@@ -45,7 +64,7 @@ class Dashboard::CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to dashboard_category_path(@category), notice: 'Category was successfully updated.' }
+        format.html { redirect_to edit_dashboard_category_path(@category), notice: 'Category was successfully updated.' }
         format.json { render :show, status: :ok, location: @category }
       else
         format.html { render :edit }

@@ -27,7 +27,7 @@ class Dashboard::GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
-      redirect_to dashboard_game_path(@game), notice: 'Game was successfully created.'
+      redirect_to edit_dashboard_game_path(@game), notice: 'Game was successfully created.'
     else
       render :new
     end
@@ -37,7 +37,7 @@ class Dashboard::GamesController < ApplicationController
   # PATCH/PUT /games/1.json
   def update
     if @game.update(game_params)
-      redirect_to dashboard_game_path(@game), notice: 'Game was successfully updated.'
+      redirect_to edit_dashboard_game_path(@game), notice: 'Game was successfully updated.'
     else
       render :edit
     end

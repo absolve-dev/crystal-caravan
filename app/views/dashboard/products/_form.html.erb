@@ -1,75 +1,72 @@
-<%= form_for(@product, url: @form_path) do |f| %>
-  <% if @product.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
-
-      <ul>
-      <% @product.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+<div class="row header">
+    
+  <%= form_for(@product, url: @form_path) do |f| %>
+    <% if @product.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+        <ul>
+        <% @product.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <%= f.label :name %><br>
+        <%= f.text_field :name, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+        <b>Category ID</b><br>
+        <%= f.number_field :category_id, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :permalink %><br>
+        <%= f.text_field :permalink, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :description %><br>
+        <%= f.text_field :description, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :weight %><br>
+        <%= f.text_field :weight, :class => "form-control" %>
+      </div>
+      <div class="checkbox">
+        <label>
+          <%= f.check_box :active %> Active
+        </label>
+      </div>
+      <% if @product.listings.length > 0 %>
+        <h2>Listings</h2>
+        <%= f.fields_for :listings do |listings_f| %>
+          <div class="thumbnail">
+            <b><%= listings_f.object.name %></b><br>
+            Qty: <%= listings_f.number_field :quantity %><br>
+            Price: <%= listings_f.text_field :price %><br>
+            <%= listings_f.check_box "_destroy" %> Check to delete
+          </div>
+        <% end %>
       <% end %>
-      </ul>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <h3>Image</h3>
+      <% if @product.product_image.url %>
+        <b>Uploaded Image:</b><br>
+        <%= image_tag @product.product_image.url, :style => "width: 100%;" %>
+      <% elsif @product.catalog_card && @product.catalog_card.product_image.url %>
+        <b>Catalog Image:</b><br>
+        <%= image_tag @product.catalog_card.product_image.url, :style => "width: 100%;" %>
+      <% else %>
+        No picture available
+      <% end %>
+      <div class="form-group">
+        <%= f.label :product_image %><br>
+        <%= f.file_field :product_image, :class => "form-control" %>
+      </div>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :category_id %><br>
-    <%= f.number_field :category_id %>
-  </div>
-  <div class="field">
-    <%= f.label :permalink %><br>
-    <%= f.text_field :permalink %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :short_description %><br>
-    <%= f.text_field :short_description %>
-  </div>
-  <div class="field">
-    <%= f.label :active %><br>
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
-    <%= f.label :weight %><br>
-    <%= f.text_field :weight %>
-  </div>
-  <div class="field">
-    <%= f.label :created %><br>
-    <%= f.datetime_select :created %>
-  </div>
-  <div class="field">
-    <%= f.label :update_id %><br>
-    <%= f.number_field :update_id %>
-  </div>
-  <div class="field">
-    <%= f.label :product_image %><br>
-    <%= f.file_field :product_image %>
-  </div>
-  <div class="field">
-    <%= f.label :collectible %><br>
-    <%= f.check_box :collectible %>
-  </div>
-  <%= image_tag @product.product_image.url if @product.product_image.url %><br>
-  
-  Listings:
-  <ul>
-    <%= f.fields_for :listings do |listings_f| %>
-      <li>
-        <%= listings_f.object.name %><br>
-        Qty: <%= listings_f.number_field :quantity %><br>
-        Price: <%= listings_f.text_field :price %><br>
-        Active: <%= listings_f.check_box :active %>
-      </li>
-    <% end %>
-  </ul>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

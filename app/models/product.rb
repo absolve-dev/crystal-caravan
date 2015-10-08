@@ -2,7 +2,7 @@ require 'PermalinkValidator'
 
 class Product < ActiveRecord::Base
   has_many :listings
-  accepts_nested_attributes_for :listings
+  accepts_nested_attributes_for :listings, :allow_destroy => true
   
   belongs_to :category
   

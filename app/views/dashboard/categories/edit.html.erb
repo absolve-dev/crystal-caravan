@@ -1,12 +1,48 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-5">
-      <h1>Editing Category</h1>
-
+    <div class="col-xs-12">
+      <%= render 'dashboard/shared/product_links' %>
+      <h1>Editing <%= @category.name %></h1>
       <%= render 'form' %>
-      <br>
-      <%= link_to 'Show', dashboard_category_path(@category), class:"btn btn-default" %>
-      <%= link_to 'Back', dashboard_categories_path, class:"btn btn-default" %>
     </div>
+  </div>
+  <div class="row">
+    <% if @products.length > 0 %>
+      <h2>Products</h2>
+      <% product_counter = 1 %>
+      <% @products.each do |product| %>
+        <%= '<div class="row">'.html_safe if (product_counter - 1) % 6 == 0 %>
+        <div class="col-sm-6 col-md-2">
+            <div class="thumbnail">
+              <a href="<%= edit_dashboard_product_path(product) %>">
+                <% if product.product_image.url %>
+                  <%= image_tag product.product_image.url %>
+                <% elsif product.catalog_card && product.catalog_card.product_image.url %>
+                  <%= image_tag product.catalog_card.product_image.url %>
+                <% else %>
+                  <center>No picture available</center>
+                <% end %>
+              </a>
+              <div class="caption">
+                <b><%= product.name %></b><br>
+                <% n_and_r = number_and_rarity(product) %>
+                <% if n_and_r %>
+                  <%= n_and_r[:card_number] %><br>
+                  <%= n_and_r[:rarity] %><br>
+                <% end %>
+                <% lowest = lowest_listing(product) %>
+                <% if lowest %>
+                  <%= "#{lowest.name} - #{ number_to_currency(lowest.price, :unit => "$") }" %>
+                <% else %>
+                  Out of Stock
+                <% end %>
+                <br><%= link_to "Edit Product", edit_dashboard_product_path(product), :class => "btn btn-default product_link" %>
+              </div>
+            </div>
+        </div>
+        <%= '</div>'.html_safe if product_counter % 6 == 0 || product_counter > @products.length %>
+        <% product_counter += 1 %>
+      <% end %>
+    <% end %>
   </div>
 </div>
