@@ -10,7 +10,7 @@ class Cart < ActiveRecord::Base
       item.valid?
       item.errors ? "#{item.errors.full_messages.to_sentence}" : nil
     end.compact
-    errors.length > 0 ? errors : true
+    errors.length > 0 && errors.first != "" ? errors : true
   end
   
   def persist_line_items
