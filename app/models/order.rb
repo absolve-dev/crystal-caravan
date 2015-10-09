@@ -15,7 +15,14 @@ class Order < ActiveRecord::Base
   has_many :stock_adjustments
   
   belongs_to :shipping_method
-   
+  
+  def persist_shipping
+    self.persisted_shipping_service_name = self.shipping_method.shipping_service.name
+    self.persisted_shipping_method_name = self.shipping_method.name
+    self.persisted_shipping_method_price = self.shipping_method.price
+    self.save
+  end
+  
   def discount_code_valid?
     self.discount_code && get_discount ? true : false
   end

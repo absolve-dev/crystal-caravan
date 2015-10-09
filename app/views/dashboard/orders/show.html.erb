@@ -18,9 +18,9 @@
           Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %>
         <% end %>
       </p>
-      Shipping: <%= number_to_currency(@order.shipping_method.price, :unit => "$") %><br>
+      Shipping: <%= @order.persisted_shipping_service_name %> - <%= @order.persisted_shipping_method_name %> - <%= number_to_currency(@order.persisted_shipping_method_price, :unit => "$") %><br>
       Order Total: <%= number_to_currency(@order.total, :unit => "$") %><br>
-      Cart ID <%= @order.cart.id %>:
+      Cart ID <%= @order.cart.id %><br><br>
       <table class="table table-bordered">
         <thead>
           <tr>

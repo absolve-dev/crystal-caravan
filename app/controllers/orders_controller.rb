@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
   def ship_options_form
     return redirect_backwards_in_checkout if @order[:order_status] < Order.order_statuses[:ship_info_completed]
     @shipping_methods_select = ShippingMethod.all.collect do |method| 
-      method.shipping_service.active && method.active ? ["#{method.shipping_service.name} #{method.name} - #{method.price}", method.id] : nil
+      method.shipping_service.active && method.active ? ["#{method.shipping_service.name} - #{method.name} - #{method.price}", method.id] : nil
     end.compact
   end
   
@@ -93,10 +93,11 @@ class OrdersController < ApplicationController
   def checkout_update
     # check if line items are valid
     check = @cart.check_stock
-    if check.is_a?(Array)
+    if check.is_a?(Array) && check.length > 0
       redirect_to :order_checkout_form, alert: check.join(" ")
     else
       @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
+      @order.persist_shipping
       @cart.persist_line_items
       @cart.adjust_line_items(@order.id)
       @cart.update(:active => false)

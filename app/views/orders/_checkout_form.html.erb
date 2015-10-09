@@ -30,7 +30,7 @@
     <% end %>
   </p>
   
-  Shipping: <%= @order.shipping_method.price %><br>
+  Shipping: <%= @order.shipping_method.shipping_service.name %> - <%= @order.shipping_method.name %> - <%= @order.shipping_method.price %><br>
   Total: <%= @order.total %>
   
   <div class="actions">
