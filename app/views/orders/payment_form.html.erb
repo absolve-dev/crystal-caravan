@@ -1,6 +1,19 @@
 <div class="container">
+  <div class="row header">
+    <div class="col-xs-12">
+      <%= render 'order_links' %>
+      <h1 class="checkout">Payment Information</h1>
+    </div>
+  </div>
+  <div class="row header">
+    <div class="col-xs-12">
+      <%= render 'payment_form' %>
+    </div>
+  </div>
   <div class="row">
-    <%= render 'order_links' %>
-    <%= render 'payment_form' %>
+    <div class="col-xs-12">
+      <%= render 'cart' %>
+      <%= render 'checkout_footer' %>
+    </div>
   </div>
 </div>
