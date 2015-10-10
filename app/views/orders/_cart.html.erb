@@ -32,12 +32,14 @@
       Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %>
     <% elsif @order.discount_code && @order.discount_code != "" %>
       Discount code not found: <%= @order.discount_code %>
-    <% elsif @order.discount_code == "" %>
+    <% elsif @order.discount_code == "" || !@order.discount_code %>
       No discount code
     <% else %>
       Invalid discount code
     <% end %>
-    <br><%= @order.shipping_method.shipping_service.name %> - <%= @order.shipping_method.name %> - <%= number_to_currency(@order.shipping_method.price, :unit => "$") %><br>
-    Total: <%= number_to_currency(@order.total, :unit => "$") %>
+    <% if @order.shipping_method %>
+      <br><%= @order.shipping_method.shipping_service.name %> - <%= @order.shipping_method.name %> - <%= number_to_currency(@order.shipping_method.price, :unit => "$") %>
+      <br>Total: <%= number_to_currency(@order.total, :unit => "$") %>
+    <% end %>
   </div>
 </div>
