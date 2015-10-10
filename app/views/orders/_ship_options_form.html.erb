@@ -11,7 +11,10 @@
     </div>
   <% end %>
   
-  <%= f.select(:shipping_method_id, @shipping_methods_select) %>
+  <% for method in @shipping_methods %>
+    <%= f.radio_button(:shipping_method_id, method[:id]) %>
+    <%= label_tag(method[:name], method[:name]) %>
+  <% end %>
   
   <div class="actions">
     <%= f.submit %>

@@ -37,8 +37,8 @@ class OrdersController < ApplicationController
   # GET /orders/ship_options
   def ship_options_form
     return redirect_backwards_in_checkout if @order[:order_status] < Order.order_statuses[:ship_info_completed]
-    @shipping_methods_select = ShippingMethod.all.collect do |method| 
-      method.shipping_service.active && method.active ? ["#{method.shipping_service.name} - #{method.name} - #{method.price}", method.id] : nil
+    @shipping_methods = ShippingMethod.all.collect do |method| 
+      method.shipping_service.active && method.active ? { :name => "#{method.shipping_service.name} - #{method.name} - #{method.price}", :id => method.id } : nil
     end.compact
   end
   
