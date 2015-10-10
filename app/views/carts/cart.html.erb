@@ -23,6 +23,7 @@
                 <% @cart.line_items.each do |line_item| %>
                   <tr>
                       <td>
+                        <%= line_item.listing.product.category.name %><br>
                         <%= line_item.listing.product.name %><br>
                         <%= line_item.listing.name %>
                       </td>
