@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
   
   # GET /orders/1/cancel
   def cancel
+    OrderMailer.cancelled(@order).deliver_now
     @order.cancel
     redirect_to order_path(@order), notice: 'Status was successfully changed'
   end
@@ -96,10 +97,11 @@ class OrdersController < ApplicationController
     if check.is_a?(Array) && check.length > 0
       redirect_to :order_checkout_form, alert: check.join(" ")
     else
-      @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
       @order.persist_shipping
       @cart.persist_line_items
       @cart.adjust_line_items(@order.id)
+      OrderMailer.placed(@order).deliver_now
+      @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
       @cart.update(:active => false)
     end
   end
