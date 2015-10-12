@@ -1,6 +1,11 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   
+  config.stripe = {
+    :publishable_key => "pk_live_hDRuVx1p3YgtyW0v2IbpeFZC",
+    :secret_key      => "sk_live_4nfbPrOI89ZtbgdiZvC5psTN"
+  }
+  
   # force site-wide SSL
   config.force_ssl = true
   

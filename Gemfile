@@ -27,6 +27,9 @@ gem 'carrierwave'
 # Use fog for S3 storage
 gem 'fog'
 
+# Use stripe for payment
+gem 'stripe'
+
 # Use Bootstrap
 gem 'bootstrap-sass'
 # Use jquery as the JavaScript library
