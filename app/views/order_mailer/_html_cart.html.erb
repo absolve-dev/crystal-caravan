@@ -1,0 +1,59 @@
+<style>
+  table.cart {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  table td {
+    padding: 6px;
+    border: 1px solid black;
+  }
+</style>
+<table class="cart">
+  <thead>
+    <tr>
+      <td>
+        <label>Line Item</label>
+      </td>
+      <td>
+        <label>Price</label>
+      </td>
+      <td>
+        <label>Quantity</label>
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.cart.line_items.each do |line_item| %>
+      <tr>
+          <td>
+            <%= line_item.listing.product.category.name %><br>
+            <%= line_item.listing.product.name %><br>
+            <%= line_item.listing.name %>
+          </td>
+          <td>
+            <%= number_to_currency(line_item.persisted_price, :unit => "$") %>
+          </td>
+          <td>
+            <%= line_item.quantity %>
+          </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<p>
+  Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %><br>
+  <% if @order.discount_code_valid? %>
+    Discount code used: <%= @order.discount_code %><br>
+    <% if @order.get_discount.multiplier %>
+      Percent discount: <%= @order.get_discount.percentage %>%<br>
+    <% end %>
+    <% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
+      Deduction: -<%= number_to_currency(@order.get_discount.deduction, :unit => "$") %><br>
+    <% end %>
+    Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %><br>
+  <% end %>
+  Shipping: <%= @order.persisted_shipping_service_name %> - <%= @order.persisted_shipping_method_name %> - <%= number_to_currency(@order.persisted_shipping_method_price, :unit => "$") %><br>
+  Order Total: <%= number_to_currency(@order.total, :unit => "$") %>
+</p>

@@ -1,0 +1,16 @@
+<% @order.cart.line_items.each do |line_item| %>
+<%= line_item.listing.product.category.name %> - <%= line_item.listing.product.name %> - <%= line_item.listing.name %> - <%= number_to_currency(line_item.persisted_price, :unit => "$") %> x<%= line_item.quantity %>
+<% end %>
+Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %>
+<% if @order.discount_code_valid? %>
+Discount code used: <%= @order.discount_code %>
+<% if @order.get_discount.multiplier %>
+  Percent discount: <%= @order.get_discount.percentage %>%
+<% end %>
+<% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
+  Deduction: -<%= number_to_currency(@order.get_discount.deduction, :unit => "$") %>
+<% end %>
+Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %>
+<% end %>
+Shipping: <%= @order.persisted_shipping_service_name %> - <%= @order.persisted_shipping_method_name %> - <%= number_to_currency(@order.persisted_shipping_method_price, :unit => "$") %>
+Order Total: <%= number_to_currency(@order.total, :unit => "$") %>

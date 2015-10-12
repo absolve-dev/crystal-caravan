@@ -1,5 +1,8 @@
-<h1>OrderMailer#shipped</h1>
-
 <p>
-  <%= @greeting %>, find me in app/views/order_mailer/shipped.html.erb
+  Hi <%= @order.first_name_billing %>,
 </p>
+<p>
+  Your order has been shipped! If you have any questions, feel free to send an email to sales@absolvegaming.com.
+</p>
+
+<%= render 'html_cart' %>

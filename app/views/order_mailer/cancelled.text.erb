@@ -1,3 +1,5 @@
-OrderMailer#cancelled
+Hi <%= @order.first_name_billing %>,
 
-<%= @greeting %>, find me in app/views/order_mailer/cancelled.text.erb
+Your order has been cancelled. If you have any questions, feel free to send an email to sales@absolvegaming.com.
+
+<%= render 'text_cart' %>

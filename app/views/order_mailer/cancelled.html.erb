@@ -1,5 +1,8 @@
-<h1>OrderMailer#cancelled</h1>
-
 <p>
-  <%= @greeting %>, find me in app/views/order_mailer/cancelled.html.erb
+  Hi <%= @order.first_name_billing %>,
 </p>
+<p>
+  Your order has been cancelled. If you have any questions, feel free to send an email to sales@absolvegaming.com.
+</p>
+
+<%= render 'html_cart' %>
