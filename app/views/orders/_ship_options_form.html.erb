@@ -12,7 +12,8 @@
   <% end %>
   
   <% for method in @shipping_methods %>
-    <%= f.radio_button(:shipping_method_id, method[:id]) %>
+    <% checked = true if @shipping_methods.first == method %>
+    <%= f.radio_button(:shipping_method_id, method[:id], :checked => checked) %>
     <%= label_tag(method[:name], method[:name]) %>
   <% end %>
   
