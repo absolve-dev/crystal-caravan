@@ -3,6 +3,9 @@
     <div class="col-xs-12">
         <h1>Your Cart</h1>
         <% if @cart.line_items.length > 0 %>
+          <p>
+            Sub-total: <%= number_to_currency(@cart.sub_total, :unit => "$") %>
+          </p>
           <%= form_for(@cart) do |f| %>
             <table class="table table-bordered">
               <thead>
@@ -22,18 +25,18 @@
               <tbody>
                 <% @cart.line_items.each do |line_item| %>
                   <tr>
-                      <td>
-                        <%= line_item.listing.product.category.name %><br>
-                        <%= line_item.listing.product.name %><br>
-                        <%= line_item.listing.name %>
-                      </td>
-                      <td><%= number_to_currency(line_item.listing.price, :unit => "$") %></td>
-                      <%= f.fields_for :line_items, line_item do |line_item_fields| %>
-                        <td><%= line_item_fields.number_field :quantity, class: "line_item_qty_field" %></td>
-                      <% end %>
-                      <td>
-                        <%= link_to 'Remove', line_item, method: :delete, class:"btn btn-default btn-xs" %>
-                      </td>
+                    <td>
+                      <%= line_item.listing.product.category.name %><br>
+                      <%= line_item.listing.product.name %><br>
+                      <%= line_item.listing.name %>
+                    </td>
+                    <td><%= number_to_currency(line_item.listing.price, :unit => "$") %></td>
+                    <%= f.fields_for :line_items, line_item do |line_item_fields| %>
+                      <td><%= line_item_fields.number_field :quantity, class: "line_item_qty_field" %></td>
+                    <% end %>
+                    <td>
+                      <%= link_to 'Remove', line_item, method: :delete, class:"btn btn-default btn-xs" %>
+                    </td>
                   </tr>
                 <% end %>
               </tbody>

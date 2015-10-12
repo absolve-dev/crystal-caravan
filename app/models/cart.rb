@@ -24,4 +24,12 @@ class Cart < ActiveRecord::Base
       item.create_adjustment(order_id)
     end
   end
+  
+  def sub_total
+    sub_total = 0.0
+    for item in self.line_items
+      sub_total += item.listing.price * item.quantity
+    end
+    sub_total
+  end
 end
