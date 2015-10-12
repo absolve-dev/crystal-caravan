@@ -5,9 +5,11 @@
       <% if @allowed %>
         <div class="row">
           <div class="col-sm-5">
+            <% if @order[:order_status] == Order.order_statuses[:checkout_completed] %>
             <p>
               <%= link_to "Cancel Order", order_cancel_path(@order) %>
             </p>
+            <% end %>
             <p>
               Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %><br>
               <% if @order.discount_code_valid? %>
@@ -79,6 +81,7 @@
       <% else %>
         This order was made by a different email address.
       <% end %>
+      <p>For any questions regarding your order, please contact sales @ absolvegaming.com</p>
     </div>
   </div>
 </div>
