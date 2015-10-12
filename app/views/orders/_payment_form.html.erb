@@ -1,23 +1,29 @@
 <%= form_for(:order, url: order_payment_update_path, html: {id: :payment}) do |f| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+  <div class="row">
+    <div class="col-xs-12">  
+      <% if @order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
 
-      <ul>
-      <% @order.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @order.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-  
-  <div class="field">
-    Discount code:<br>
-    <%= f.text_field :discount_code %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit "Verify Payment Info" %>
-    <br>No charges will occur until checkout is complete.
+    <div class="col-sm-4">
+      <div class="form-group">
+        Discount code:<br>
+        <%= f.text_field :discount_code, :class => "form-control" %>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="actions">
+        <%= f.submit "Verify Payment Info", :class => "btn btn-primary" %>
+      </div>
+      <small>No charges will occur until checkout is complete in the next step.</small>
+    </div>
   </div>
 <% end %>

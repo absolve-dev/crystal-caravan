@@ -1,5 +1,5 @@
 <%= form_for(:order, url: order_checkout_update_path, html: {id: :checkout}) do |f| %>
   <div class="actions">
-    <%= f.submit "Confirm Order" %>
+    <%= f.submit "Confirm Order", :class => "btn btn-primary" %>
   </div>
 <% end %>
