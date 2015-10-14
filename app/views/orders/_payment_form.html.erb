@@ -13,9 +13,36 @@
         </div>
       <% end %>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-3">
       <div class="form-group">
-        Discount code:<br>
+        <label>Card Number</label>
+        <%= text_field_tag :card_number, nil, :class => "form-control" %>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-8">
+            <label>Expiration (MM/YYYY)</label>
+          </div>
+          <div class="col-xs-4">
+            <label>CVC</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3" style="margin-left:0px; margin-right:0px; padding-right:0px;">
+            <%= text_field_tag :card_exp_month, nil, :class => "form-control", :placeholder => "MM", :maxlength => 2 %>
+          </div>
+          <div class="col-xs-5" style="margin-left:0px; margin-right:0px;">
+            <%= text_field_tag :card_exp_year, nil, :class => "form-control", :placeholder => "YYYY", :maxlength => 4 %>
+          </div>
+          <div class="col-xs-4">
+            <%= text_field_tag :card_cvc, nil, :class => "form-control", :placeholder => "CVC", :maxlength => 4 %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Discount code</label>
         <%= f.text_field :discount_code, :class => "form-control" %>
       </div>
     </div>

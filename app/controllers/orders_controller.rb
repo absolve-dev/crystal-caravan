@@ -119,7 +119,16 @@ class OrdersController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit!.except(:order_status)
+      params.require(:order).permit(
+        # billing info
+        :first_name_billing, :last_name_billing, :company_billing, :address_line_one_billing, :address_line_two_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :phone_billing,
+        # shipping info
+        :first_name_shipping, :last_name_shipping, :company_shipping, :address_line_one_shipping, :address_line_two_shipping, :city_shipping, :country_shipping, :state_shipping, :zip_shipping, :phone_shipping, :email,
+        # shipping options
+        :shipping_method_id,
+        # payment options
+        :card_number, :exp_month, :exp_year, :cvc, :discount_code
+      )
     end
     
     def redirect_backwards_in_checkout
