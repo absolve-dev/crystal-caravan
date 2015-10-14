@@ -16,6 +16,8 @@ class Order < ActiveRecord::Base
   
   belongs_to :shipping_method
   
+  has_one :payment
+  
   def persist_shipping
     self.persisted_shipping_service_name = self.shipping_method.shipping_service.name
     self.persisted_shipping_method_name = self.shipping_method.name
