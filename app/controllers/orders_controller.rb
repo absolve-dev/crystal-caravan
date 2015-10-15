@@ -85,9 +85,25 @@ class OrdersController < ApplicationController
   
   # POST /orders/payment
   def payment_update
-    @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
     @order.update(discount_code: params[:order][:discount_code])
-    redirect_to :order_checkout_form
+    
+    payment = @order.payment.destroy if @order.payment
+    payment = Payment.create(:order_id => @order.id, :amount => @order.total)
+    
+    stripe_params = payment.stripe_params(order_params)
+    
+    if stripe_params.is_a?(String)
+      return redirect_to :order_payment_form, :alert => stripe_params
+    end
+    
+    payment_success = payment.stripe_create(stripe_params)
+    
+    if payment_success
+      @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
+      redirect_to :order_checkout_form, :notice => "Credit card information was successfully verified."
+    else
+      redirect_to :order_payment_form, :alert => payment[:response_message]
+    end
   end
   
   # POST /orders/checkout
@@ -119,7 +135,7 @@ class OrdersController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(
+      params.permit(
         # billing info
         :first_name_billing, :last_name_billing, :company_billing, :address_line_one_billing, :address_line_two_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :phone_billing,
         # shipping info
@@ -127,7 +143,7 @@ class OrdersController < ApplicationController
         # shipping options
         :shipping_method_id,
         # payment options
-        :card_number, :exp_month, :exp_year, :cvc, :discount_code
+        :card_number, :card_exp_month, :card_exp_year, :card_cvc, :discount_code
       )
     end
     
