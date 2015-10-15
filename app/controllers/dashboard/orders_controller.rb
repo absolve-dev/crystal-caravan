@@ -25,6 +25,7 @@ class Dashboard::OrdersController < ApplicationController
   def fulfill
     OrderMailer.shipped(@order).deliver_now
     @order.fulfill_order
+    @order.payment.stripe_capture
     @order.update(:order_status => :fulfilled)
     redirect_to dashboard_order_path(@order), notice: 'Status was successfully changed'
   end

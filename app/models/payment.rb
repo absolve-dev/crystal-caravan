@@ -68,4 +68,9 @@ class Payment < ActiveRecord::Base
     end
   end
   
+  def stripe_capture
+    charge = Stripe::Charge.retrieve(self.stripe_charge_id)
+    charge.capture
+  end
+  
 end
