@@ -1,10 +1,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   
-  config.stripe = {
-    :publishable_key => "pk_test_i9yzj4NbbExsQpALzd8KO2Cs",
-    :secret_key      => "sk_test_qdyR2ZGyL67ks2qlPtM9MEhl"
-  }
+  Stripe.api_key = "sk_test_qdyR2ZGyL67ks2qlPtM9MEhl"
   
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
