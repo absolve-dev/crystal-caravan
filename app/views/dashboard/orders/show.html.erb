@@ -4,7 +4,7 @@
       <h1>Order <%= @order.id %></h1>
       Order Status: <%= @order.order_status %><br>
       <%= link_to "Fulfill Order<br>".html_safe, dashboard_order_fulfill_path if @order[:order_status] < Order.order_statuses[:fulfilled] %>
-      <%= link_to "Cancel Order<br>".html_safe, dashboard_order_cancel_path if @order[:order_status] < Order.order_statuses[:fulfilled] %>
+      <%= link_to "Cancel Order<br>".html_safe, dashboard_order_cancel_path %>
       <p>
         Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %><br>
         <% if @order.discount_code_valid? %>

@@ -73,4 +73,9 @@ class Payment < ActiveRecord::Base
     charge.capture
   end
   
+  def stripe_refund
+    refund = Stripe::Refund.create( :charge => self.stripe_charge_id )
+    self.update(:stripe_refund_id => refund.id)
+  end
+  
 end

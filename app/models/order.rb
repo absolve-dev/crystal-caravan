@@ -43,6 +43,7 @@ class Order < ActiveRecord::Base
   
   def cancel
     self.destroy_stock_adjustments
+    self.payment.stripe_refund
     self.update(:order_status => :cancelled)
   end
   
