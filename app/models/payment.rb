@@ -22,7 +22,7 @@ class Payment < ActiveRecord::Base
     # fail on regex match, check for only numbers
     attributes.each do |key, value|
       if !params[key] || params[key] == ""
-        errors << "#{params[key]} is empty."
+        errors << "#{value} is empty."
       elsif not params[key] =~ /^[\d]+$/
         errors << "#{value} is invalid."
       end
