@@ -38,7 +38,7 @@
               <% end %>
               <%= @order.city_shipping %>, <%= @order.state_shipping %> <%= @order.zip_shipping %> <%= @order.country_shipping %>
             </p>
-            <% if @order.phone_shipping %>
+            <% if @order.phone_shipping && @order.phone_shipping != "" %>
               <p>
                 <strong>Phone number:</strong>
                 <%= @order.phone_shipping %>

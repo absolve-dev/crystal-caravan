@@ -2,25 +2,55 @@
   <div class="row">
     <div class="col-xs-12">
       <h1>Order <%= @order.id %></h1>
-      Order Status: <%= @order.order_status %><br>
-      <%= link_to "Fulfill Order<br>".html_safe, dashboard_order_fulfill_path if @order[:order_status] < Order.order_statuses[:fulfilled] %>
-      <%= link_to "Cancel Order<br>".html_safe, dashboard_order_cancel_path %>
-      <p>
-        Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %><br>
-        <% if @order.discount_code_valid? %>
-          Discount code used: <%= @order.discount_code %><br>
-          <% if @order.get_discount.multiplier %>
-            Percent discount: <%= @order.get_discount.percentage %>%<br>
-          <% end %>
-          <% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
-            Deduction: -<%= number_to_currency(@order.get_discount.deduction, :unit => "$") %><br>
-          <% end %>
-          Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %>
-        <% end %>
-      </p>
-      Shipping: <%= @order.persisted_shipping_service_name %> - <%= @order.persisted_shipping_method_name %> - <%= number_to_currency(@order.persisted_shipping_method_price, :unit => "$") %><br>
-      Order Total: <%= number_to_currency(@order.total, :unit => "$") %><br>
-      Cart ID <%= @order.cart.id %><br><br>
+      
+      <div class="row">
+        <div class="col-xs-5">
+          Order Status: <%= @order.order_status %><br>
+          <%= link_to "Fulfill Order<br>".html_safe, dashboard_order_fulfill_path if @order[:order_status] < Order.order_statuses[:fulfilled] %>
+          <%= link_to "Cancel Order<br>".html_safe, dashboard_order_cancel_path %>
+          <p>
+            Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %><br>
+            <% if @order.discount_code_valid? %>
+              Discount code used: <%= @order.discount_code %><br>
+              <% if @order.get_discount.multiplier %>
+                Percent discount: <%= @order.get_discount.percentage %>%<br>
+              <% end %>
+              <% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
+                Deduction: -<%= number_to_currency(@order.get_discount.deduction, :unit => "$") %><br>
+              <% end %>
+              Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %>
+            <% end %>
+          </p>
+          Shipping: <%= @order.persisted_shipping_service_name %> - <%= @order.persisted_shipping_method_name %> - <%= number_to_currency(@order.persisted_shipping_method_price, :unit => "$") %><br>
+          Order Total: <%= number_to_currency(@order.total, :unit => "$") %><br>
+          Cart ID <%= @order.cart.id %><br><br>
+        </div>
+        <div class="col-xs-7">
+          <p>
+            <%= @order.first_name_shipping %> <%= @order.last_name_shipping %><br>
+            <% if @order.company_shipping %>
+              <%= @order.company_shipping %><br>
+            <% end %>
+            <%= @order.address_line_one_shipping %><br>
+            <% if @order.address_line_two_shipping %>
+              <%= @order.address_line_two_shipping %><br>
+            <% end %>
+            <%= @order.city_shipping %>, <%= @order.state_shipping %> <%= @order.zip_shipping %> <%= @order.country_shipping %>
+            </p>
+            <% if @order.phone_shipping != "" %>
+              <p>
+                <strong>Phone number:</strong>
+                <%= @order.phone_shipping %>
+              </p>
+            <% end %>
+            <p>
+              <strong>Email address:</strong>
+              <%= @order.email %>
+            </p>
+          </div>
+      </div>
+      
+      
       <table class="table table-bordered">
         <thead>
           <tr>
