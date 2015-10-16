@@ -93,6 +93,7 @@ class OrdersController < ApplicationController
     stripe_params = payment.stripe_params(order_params_for_credit_card)
     
     if stripe_params.is_a?(String)
+      @order.update(order_status: :ship_options_completed) # move back to payment step if fail
       return redirect_to :order_payment_form, :alert => stripe_params
     end
     
@@ -102,6 +103,7 @@ class OrdersController < ApplicationController
       @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
       redirect_to :order_checkout_form, :notice => "Credit card information was successfully verified."
     else
+      @order.update(order_status: :ship_options_completed) # move back to payment step if fail
       redirect_to :order_payment_form, :alert => payment[:response_message]
     end
   end
