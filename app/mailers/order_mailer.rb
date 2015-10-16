@@ -9,7 +9,7 @@ class OrderMailer < ApplicationMailer
   #
   def placed(order)
     @order = order
-    mail to: order.email
+    mail :to => order.email, :subject => "Order #{order.id} has been placed!"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -19,7 +19,7 @@ class OrderMailer < ApplicationMailer
   #
   def shipped(order)
     @order = order
-    mail to: order.email
+    mail :to => order.email, :subject => "Order #{order.id} has been shipped!"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -29,6 +29,6 @@ class OrderMailer < ApplicationMailer
   #
   def cancelled(order)
     @order = order
-    mail to: order.email
+    mail :to => order.email, :subject => "Order #{order.id} has been cancelled."
   end
 end
