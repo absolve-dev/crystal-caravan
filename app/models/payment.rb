@@ -71,6 +71,9 @@ class Payment < ActiveRecord::Base
     rescue Stripe::CardError => e
       self.update(:status => :failed, :response_message => e.message)
       return false
+    rescue Stripe::StripeError => e
+      self.update(:status => :failed, :response_message => e.message)
+      return false
     end
   end
   
