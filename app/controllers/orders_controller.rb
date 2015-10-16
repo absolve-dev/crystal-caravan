@@ -90,7 +90,7 @@ class OrdersController < ApplicationController
     payment = @order.payment.destroy if @order.payment
     payment = Payment.create(:order_id => @order.id, :amount => @order.total)
     
-    stripe_params = payment.stripe_params(order_params)
+    stripe_params = payment.stripe_params(order_params_for_credit_card)
     
     if stripe_params.is_a?(String)
       return redirect_to :order_payment_form, :alert => stripe_params
@@ -135,7 +135,7 @@ class OrdersController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.permit(
+      params.require(:order).permit(
         # billing info
         :first_name_billing, :last_name_billing, :company_billing, :address_line_one_billing, :address_line_two_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :phone_billing,
         # shipping info
@@ -143,8 +143,18 @@ class OrdersController < ApplicationController
         # shipping options
         :shipping_method_id,
         # payment options
-        :card_number, :card_exp_month, :card_exp_year, :card_cvc, :discount_code
+        :discount_code
       )
+    end
+    
+    def order_params_for_credit_card
+      cc_params = {
+        :card_number => params[:card_number],
+        :card_exp_month => params[:card_exp_month],
+        :card_exp_year => params[:card_exp_year],
+        :card_cvc => params[:card_cvc]
+      }
+      order_params.merge(cc_params)
     end
     
     def redirect_backwards_in_checkout
