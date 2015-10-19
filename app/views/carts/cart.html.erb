@@ -3,9 +3,6 @@
     <div class="col-xs-12">
         <h1>Your Cart</h1>
         <% if @cart.line_items.length > 0 %>
-          <p>
-            Sub-total: <%= number_to_currency(@cart.sub_total, :unit => "$") %>
-          </p>
           <%= form_for(@cart) do |f| %>
             <table class="table table-bordered">
               <thead>
@@ -41,6 +38,9 @@
                 <% end %>
               </tbody>
             </table>
+            <p>
+              Sub-total: <%= number_to_currency(@cart.sub_total, :unit => "$") %>
+            </p>
             <div class="actions">
               <%= link_to "Checkout", new_order_path, :class => "btn btn-primary", :role => "button", :id => "cart_checkout" %>
               <%= f.submit class:"btn btn-default" %>
