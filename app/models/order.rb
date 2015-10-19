@@ -1,4 +1,11 @@
 class Order < ActiveRecord::Base
+  
+  validates :first_name_billing, :last_name_billing, :address_line_one_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :presence => true, :on => :update
+  validates :email, :format => { :with => /@/, :message => "is not a valid email address." }
+  
+  validates :first_name_shipping, :last_name_shipping, :address_line_one_shipping, :city_shipping, :country_shipping, :state_shipping, :zip_shipping, :presence => true, :on => :update
+  
+  
   # Only append to the end of this enum
   enum order_status: [
     :empty,

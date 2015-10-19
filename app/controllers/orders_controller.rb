@@ -59,7 +59,7 @@ class OrdersController < ApplicationController
       @order.update(order_status: :bill_info_completed) if @order[:order_status] < Order.order_statuses[:bill_info_completed]
       redirect_to :order_ship_info_form
     else
-      render json: @order.errors, status: :unprocessable_entity
+      redirect_to :order_bill_info_form, :alert => @order.errors.full_messages.join(". ")
     end
   end
   
@@ -69,18 +69,15 @@ class OrdersController < ApplicationController
       @order.update(order_status: :ship_info_completed) if @order[:order_status] < Order.order_statuses[:ship_info_completed]
       redirect_to :order_ship_options_form
     else
-      render json: @order.errors, status: :unprocessable_entity
+      redirect_to :order_ship_info_form, :alert => @order.errors.full_messages.join(". ")
     end
   end
   
   # POST /orders/ship_options
   def ship_options_update
-    if @order.update(order_params)
-      @order.update(order_status: :ship_options_completed) if @order[:order_status] < Order.order_statuses[:ship_options_completed]
-      redirect_to :order_payment_form
-    else
-      render json: @order.errors, status: :unprocessable_entity
-    end
+    @order.update(order_params)
+    @order.update(order_status: :ship_options_completed) if @order[:order_status] < Order.order_statuses[:ship_options_completed]
+    redirect_to :order_payment_form
   end
   
   # POST /orders/payment
