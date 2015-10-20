@@ -15,10 +15,12 @@
         </thead>
         <tbody>
           <% for order in @orders %>
-            <tr>
-              <td><%= link_to order.id, dashboard_order_path(order) %></td>
-              <td><%= order.order_status %></td>
-            </td>
+            <% if order[:order_status] >= Order.order_statuses[:checkout_completed] %>
+              <tr>
+                <td><%= link_to order.id, dashboard_order_path(order) %></td>
+                <td><%= order.order_status %></td>
+              </td>
+            <% end %>
           <% end %>
         </tbody>
       </table>
