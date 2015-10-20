@@ -69,7 +69,9 @@ namespace :production do
       end
       
     end
-  
+    
+    puts "YGO database sync complete!"
+    
   end
   
 end
