@@ -30,6 +30,10 @@ gem 'fog'
 # Use stripe for payment
 gem 'stripe'
 
+# Use rollbar for back-end error reporting
+gem 'rollbar', '~> 2.4.0'
+gem 'oj', '~> 2.12.14'
+
 # Use Bootstrap
 gem 'bootstrap-sass'
 # Use jquery as the JavaScript library
