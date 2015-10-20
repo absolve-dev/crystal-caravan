@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
   
   # GET /orders/1/cancel
   def cancel
+    OrderMailer.cancelled(@order).deliver_now
     @order.cancel
     redirect_to order_path(@order), notice: 'Status was successfully changed'
   end
@@ -37,8 +38,8 @@ class OrdersController < ApplicationController
   # GET /orders/ship_options
   def ship_options_form
     return redirect_backwards_in_checkout if @order[:order_status] < Order.order_statuses[:ship_info_completed]
-    @shipping_methods_select = ShippingMethod.all.collect do |method| 
-      method.shipping_service.active && method.active ? ["#{method.shipping_service.name} #{method.name} - #{method.price}", method.id] : nil
+    @shipping_methods = ShippingMethod.all.collect do |method| 
+      method.shipping_service.active && method.active ? { :name => "#{method.shipping_service.name} - #{method.name} - $#{method.price}", :id => method.id } : nil
     end.compact
   end
   
@@ -58,7 +59,7 @@ class OrdersController < ApplicationController
       @order.update(order_status: :bill_info_completed) if @order[:order_status] < Order.order_statuses[:bill_info_completed]
       redirect_to :order_ship_info_form
     else
-      render json: @order.errors, status: :unprocessable_entity
+      redirect_to :order_bill_info_form, :alert => @order.errors.full_messages.join(" ")
     end
   end
   
@@ -68,37 +69,54 @@ class OrdersController < ApplicationController
       @order.update(order_status: :ship_info_completed) if @order[:order_status] < Order.order_statuses[:ship_info_completed]
       redirect_to :order_ship_options_form
     else
-      render json: @order.errors, status: :unprocessable_entity
+      redirect_to :order_ship_info_form, :alert => @order.errors.full_messages.join(" ")
     end
   end
   
   # POST /orders/ship_options
   def ship_options_update
-    if @order.update(order_params)
-      @order.update(order_status: :ship_options_completed) if @order[:order_status] < Order.order_statuses[:ship_options_completed]
-      redirect_to :order_payment_form
-    else
-      render json: @order.errors, status: :unprocessable_entity
-    end
+    @order.update(order_params)
+    @order.update(order_status: :ship_options_completed) if @order[:order_status] < Order.order_statuses[:ship_options_completed]
+    redirect_to :order_payment_form
   end
   
   # POST /orders/payment
   def payment_update
-    @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
     @order.update(discount_code: params[:order][:discount_code])
-    redirect_to :order_checkout_form
+    
+    payment = @order.payment.destroy if @order.payment
+    payment = Payment.create(:order_id => @order.id, :amount => @order.total)
+    
+    stripe_params = payment.stripe_params(order_params_for_credit_card)
+    
+    if stripe_params.is_a?(String)
+      @order.update(order_status: :ship_options_completed) # move back to payment step if fail
+      return redirect_to :order_payment_form, :alert => stripe_params
+    end
+    
+    payment_success = payment.stripe_create(stripe_params)
+    
+    if payment_success
+      @order.update(order_status: :payment_completed) if @order[:order_status] < Order.order_statuses[:payment_completed]
+      redirect_to :order_checkout_form, :notice => "Credit card information was successfully verified."
+    else
+      @order.update(order_status: :ship_options_completed) # move back to payment step if fail
+      redirect_to :order_payment_form, :alert => payment[:response_message]
+    end
   end
   
   # POST /orders/checkout
   def checkout_update
     # check if line items are valid
     check = @cart.check_stock
-    if check.is_a?(Array)
+    if check.is_a?(Array) && check.length > 0
       redirect_to :order_checkout_form, alert: check.join(" ")
     else
-      @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
+      @order.persist_shipping
       @cart.persist_line_items
       @cart.adjust_line_items(@order.id)
+      OrderMailer.placed(@order).deliver_now
+      @order.update(order_status: :checkout_completed) if @order[:order_status] < Order.order_statuses[:checkout_completed]
       @cart.update(:active => false)
     end
   end
@@ -116,7 +134,26 @@ class OrdersController < ApplicationController
     
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit!.except(:order_status)
+      params.require(:order).permit(
+        # billing info
+        :first_name_billing, :last_name_billing, :company_billing, :address_line_one_billing, :address_line_two_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :phone_billing,
+        # shipping info
+        :first_name_shipping, :last_name_shipping, :company_shipping, :address_line_one_shipping, :address_line_two_shipping, :city_shipping, :country_shipping, :state_shipping, :zip_shipping, :phone_shipping, :email,
+        # shipping options
+        :shipping_method_id,
+        # payment options
+        :discount_code
+      )
+    end
+    
+    def order_params_for_credit_card
+      cc_params = {
+        :card_number => params[:card_number],
+        :card_exp_month => params[:card_exp_month],
+        :card_exp_year => params[:card_exp_year],
+        :card_cvc => params[:card_cvc]
+      }
+      order_params.merge(cc_params)
     end
     
     def redirect_backwards_in_checkout

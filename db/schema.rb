@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006061103) do
+ActiveRecord::Schema.define(version: 20151013000949) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -141,19 +141,22 @@ ActiveRecord::Schema.define(version: 20151006061103) do
     t.string   "state_shipping"
     t.integer  "zip_shipping"
     t.string   "phone_shipping"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
     t.integer  "shipping_method_id"
     t.string   "email"
     t.string   "discount_code"
     t.integer  "cart_id"
-    t.integer  "order_status",              default: 0
+    t.integer  "order_status",                                            default: 0
     t.string   "origin_ip"
     t.integer  "payment_id"
+    t.string   "persisted_shipping_service_name"
+    t.string   "persisted_shipping_method_name"
+    t.decimal  "persisted_shipping_method_price", precision: 8, scale: 2
   end
 
   create_table "payments", force: :cascade do |t|
-    t.string   "transaction_id"
+    t.string   "stripe_charge_id"
     t.string   "order_id"
     t.string   "gateway"
     t.decimal  "amount"
@@ -161,6 +164,7 @@ ActiveRecord::Schema.define(version: 20151006061103) do
     t.string   "response_message"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "stripe_refund_id"
   end
 
   create_table "products", force: :cascade do |t|

@@ -22,21 +22,25 @@
               <tbody>
                 <% @cart.line_items.each do |line_item| %>
                   <tr>
-                      <td>
-                        <%= line_item.listing.product.name %><br>
-                        <%= line_item.listing.name %>
-                      </td>
-                      <td><%= number_to_currency(line_item.listing.price, :unit => "$") %></td>
-                      <%= f.fields_for :line_items, line_item do |line_item_fields| %>
-                        <td><%= line_item_fields.number_field :quantity, class: "line_item_qty_field" %></td>
-                      <% end %>
-                      <td>
-                        <%= link_to 'Remove', line_item, method: :delete, class:"btn btn-default btn-xs" %>
-                      </td>
+                    <td>
+                      <%= line_item.listing.product.category.name %><br>
+                      <%= line_item.listing.product.name %><br>
+                      <%= line_item.listing.name %>
+                    </td>
+                    <td><%= number_to_currency(line_item.listing.price, :unit => "$") %></td>
+                    <%= f.fields_for :line_items, line_item do |line_item_fields| %>
+                      <td><%= line_item_fields.number_field :quantity, class: "line_item_qty_field" %></td>
+                    <% end %>
+                    <td>
+                      <%= link_to 'Remove', line_item, method: :delete, class:"btn btn-default btn-xs" %>
+                    </td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
+            <p>
+              Sub-total: <%= number_to_currency(@cart.sub_total, :unit => "$") %>
+            </p>
             <div class="actions">
               <%= link_to "Checkout", new_order_path, :class => "btn btn-primary", :role => "button", :id => "cart_checkout" %>
               <%= f.submit class:"btn btn-default" %>

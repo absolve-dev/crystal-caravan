@@ -64,6 +64,7 @@ end
 
 # Order - Persist and Adjust
 order = Order.create(:email => user.email, :order_status => :checkout_completed, :cart_id => cart.id, :shipping_method_id => ship_method.id)
+order.persist_shipping
 cart.persist_line_items
 cart.adjust_line_items(order.id)
 

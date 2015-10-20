@@ -1,4 +1,16 @@
+
 class Order < ActiveRecord::Base
+  
+  validates_each :first_name_billing, :last_name_billing, :address_line_one_billing, :city_billing, :country_billing, :state_billing, :zip_billing, :on => :update do |record, attr, value|
+    record.errors.add(attr, "is required.") if value == ""
+  end
+  
+  validates :email, :format => { :with => /@/, :message => "is not a valid email address." }
+  
+  validates_each :first_name_shipping, :last_name_shipping, :address_line_one_shipping, :city_shipping, :country_shipping, :state_shipping, :zip_shipping, :on => :update do |record, attr, value|
+    record.errors.add(attr, "is required.") if record[:order_status] >= Order.order_statuses[:bill_info_completed] && value == ""
+  end
+  
   # Only append to the end of this enum
   enum order_status: [
     :empty,
@@ -15,7 +27,16 @@ class Order < ActiveRecord::Base
   has_many :stock_adjustments
   
   belongs_to :shipping_method
-   
+  
+  has_one :payment
+  
+  def persist_shipping
+    self.persisted_shipping_service_name = self.shipping_method.shipping_service.name
+    self.persisted_shipping_method_name = self.shipping_method.name
+    self.persisted_shipping_method_price = self.shipping_method.price
+    self.save
+  end
+  
   def discount_code_valid?
     self.discount_code && get_discount ? true : false
   end
@@ -34,6 +55,7 @@ class Order < ActiveRecord::Base
   
   def cancel
     self.destroy_stock_adjustments
+    self.payment.stripe_refund
     self.update(:order_status => :cancelled)
   end
   
@@ -45,11 +67,7 @@ class Order < ActiveRecord::Base
   
   # only total with line_items
   def sub_total
-    sub_total = 0.0
-    for item in self.cart.line_items
-      sub_total += item.listing.price * item.quantity
-    end
-    sub_total
+    self.cart.sub_total
   end
   
   def sub_total_after_discount

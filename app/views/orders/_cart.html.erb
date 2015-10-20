@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-sm-8">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <td class="field-label"><label>Product</label></td>
+          <td class="field-label"><label>Quantity</label></td>
+          <td class="field-label"><label>Price</label></td>
+        </tr>
+      </thead>
+      <tbody>
+        <% for item in @order.cart.line_items %>
+          <tr>
+            <td><%= item.listing.product.category.name %><br><%= item.listing.product.name %><br><%= item.listing.name %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.listing.price, :unit => "$") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-4">
+    Sub-total: <%= number_to_currency(@order.sub_total, :unit => "$") %><br>
+    <% if @order.discount_code_valid? %>
+      Discount code valid: <%= @order.discount_code %><br>
+      <% if @order.get_discount.multiplier %>
+        Percent discount: <%= @order.get_discount.percentage %>%<br>
+      <% end %>
+      <% if @order.get_discount.deduction && @order.get_discount.deduction > 0 %>
+        Deduction: -<%= number_to_currency(@order.get_discount.deduction, :unit => "$") %><br>
+      <% end %>
+      Sub-total after discount: <%= number_to_currency(@order.sub_total_after_discount, :unit => "$") %>
+    <% elsif @order.discount_code && @order.discount_code != "" %>
+      Discount code not found: <%= @order.discount_code %>
+    <% elsif @order.discount_code == "" || !@order.discount_code %>
+      No discount code
+    <% else %>
+      Invalid discount code
+    <% end %>
+    <% if @order.shipping_method %>
+      <br><%= @order.shipping_method.shipping_service.name %> - <%= @order.shipping_method.name %> - <%= number_to_currency(@order.shipping_method.price, :unit => "$") %>
+      <br>Total: <%= number_to_currency(@order.total, :unit => "$") %>
+    <% end %>
+  </div>
+</div>

@@ -1,6 +1,25 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
   
+  Stripe.api_key = "sk_live_4nfbPrOI89ZtbgdiZvC5psTN"
+  
+  # Configure Action Mailer
+  Rails.application.configure do
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.delivery_method = :smtp
+  
+    config.action_mailer.smtp_settings = {
+      :address => "smtp.gmail.com",
+      :port => 587,
+      :domain => "gmail.com",
+      :authentication => "plain",
+      :user_name => "ruby-carbuncle@absolvegaming.com",
+      :password => "CrystalPromiseOTKorDIE",
+      :enable_starttls_auto => true
+    }
+  end
+  
   # force site-wide SSL
   config.force_ssl = true
   

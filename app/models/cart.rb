@@ -10,7 +10,7 @@ class Cart < ActiveRecord::Base
       item.valid?
       item.errors ? "#{item.errors.full_messages.to_sentence}" : nil
     end.compact
-    errors.length > 0 ? errors : true
+    errors.length > 0 && errors.first != "" ? errors : true
   end
   
   def persist_line_items
@@ -23,5 +23,13 @@ class Cart < ActiveRecord::Base
     for item in self.line_items
       item.create_adjustment(order_id)
     end
+  end
+  
+  def sub_total
+    sub_total = 0.0
+    for item in self.line_items
+      sub_total += item.listing.price * item.quantity
+    end
+    sub_total
   end
 end

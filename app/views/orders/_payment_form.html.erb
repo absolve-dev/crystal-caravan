@@ -1,22 +1,57 @@
 <%= form_for(:order, url: order_payment_update_path, html: {id: :payment}) do |f| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+  <div class="row">
+    <div class="col-xs-12">  
+      <% if @order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
 
-      <ul>
-      <% @order.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @order.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-  
-  <div class="field">
-    Discount code:<br>
-    <%= f.text_field :discount_code %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit %>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label>Card Number</label>
+        <%= text_field_tag :card_number, nil, :class => "form-control", :maxlength => 20 %>
+        <small>Numbers only please!</small>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-8">
+            <label>Expiration (MM/YYYY)</label>
+          </div>
+          <div class="col-xs-4">
+            <label>CVC</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-3" style="margin-left:0px; margin-right:0px; padding-right:0px;">
+            <%= text_field_tag :card_exp_month, nil, :class => "form-control", :placeholder => "MM", :maxlength => 2 %>
+          </div>
+          <div class="col-xs-5" style="margin-left:0px; margin-right:0px;">
+            <%= text_field_tag :card_exp_year, nil, :class => "form-control", :placeholder => "YYYY", :maxlength => 4 %>
+          </div>
+          <div class="col-xs-4">
+            <%= text_field_tag :card_cvc, nil, :class => "form-control", :placeholder => "CVC", :maxlength => 4 %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label>Discount code</label>
+        <%= f.text_field :discount_code, :class => "form-control" %>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="actions">
+        <%= f.submit "Verify Payment Info", :class => "btn btn-primary" %>
+      </div>
+      <small>No charges will occur until checkout is complete in the next step.</small>
+    </div>
   </div>
 <% end %>

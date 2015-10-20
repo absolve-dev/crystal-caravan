@@ -1,19 +1,31 @@
 <%= form_for(:order, url: order_ship_options_update_path, html: {id: :ship_options}) do |f| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+  <div class="row">
+    <div class="col-xs-12">
+      <% if @order.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
 
-      <ul>
-      <% @order.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+          <% @order.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-  
-  <%= f.select(:shipping_method_id, @shipping_methods_select) %>
-  
-  <div class="actions">
-    <%= f.submit %>
+    <div class="col-sm-4">
+      <% for method in @shipping_methods %>
+        <div class="form-group">
+          <% checked = true if @shipping_methods.first == method %>
+          <%= f.radio_button(:shipping_method_id, method[:id], :checked => checked) %>
+          <%= label_tag(method[:name], method[:name]) %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-xs-12">
+      <div class="actions">
+        <%= f.submit "Choose Shipping Option", :class => "btn btn-primary" %>
+      </div>
+    </div>
   </div>
 <% end %>
