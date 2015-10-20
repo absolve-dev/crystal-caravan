@@ -10,7 +10,7 @@ class Product < ActiveRecord::Base
   
   has_one :catalog_card
   
-  validates :name, :presence => true, :on => :create, :uniqueness => true
+  validates :name, :presence => true, :on => :create
   validates :category_id, :presence => true
   validates :weight, :numericality => true
   validates :permalink, :presence => true, :permalink => true
