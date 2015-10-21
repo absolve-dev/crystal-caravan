@@ -30,7 +30,7 @@
     <% if @game.categories.length > 0 %>
         <% category_counter = 1 %>
         <% @game.categories.each do |category| %>
-          <% if category.products.length > 0 %>
+          <% if category.products.size > 0 %>
             <%= '<div class="row">'.html_safe if (category_counter - 1) % 4 == 0 %>
             <div class="col-sm-6 col-md-3">
               <div class="thumbnail">
