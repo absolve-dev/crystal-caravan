@@ -39,9 +39,7 @@ namespace :production do
       current_set.save
     
       for card in handler.get_set(set)
-        # Create or modify a card in the database
-        current_card = CatalogCard.where(:name => card[:name], :catalog_set_id => current_set.id).first
-        current_card ||= CatalogCard.create(:catalog_set_id => current_set.id, :name => card[:name])
+        
         card_data = card[:data].merge(handler.get_card(card[:name]))
         card_data.delete('name')
         
@@ -56,6 +54,11 @@ namespace :production do
         recoded_card_data["Level"] = card_data["level"] if card_data["level"]
         recoded_card_data["ATK/DEF"] = "#{card_data['atk']} / #{card_data['def']}" if card_data["atk"] && card_data["def"]
         recoded_card_data["Card Text"] = card_data["text"] if card_data["text"]
+        
+        # Create or modify a card in the database
+        current_card = CatalogCard.where(:name => card[:name], :catalog_set_id => current_set.id).first
+        current_card = nil if current_card && current_card.card_data_json && JSON.parse(current_card.card_data_json)["Rarity"] != recoded_card_data["Rarity"]
+        current_card ||= CatalogCard.create(:catalog_set_id => current_set.id, :name => card[:name])
         
         current_card.card_data_json = recoded_card_data.to_json
         unless current_card.remote_product_image_url
