@@ -58,8 +58,10 @@ namespace :production do
         recoded_card_data["Card Text"] = card_data["text"] if card_data["text"]
         
         current_card.card_data_json = recoded_card_data.to_json
-        card_image = handler.get_card_image(card[:name])
-        current_card.remote_product_image_url = card_image if card_image
+        unless current_card.remote_product_image_url
+          card_image = handler.get_card_image(card[:name])
+          current_card.remote_product_image_url = card_image if card_image
+        end
       
         # Link to a product
         current_product = current_card.product
