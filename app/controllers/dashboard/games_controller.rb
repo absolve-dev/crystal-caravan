@@ -53,7 +53,7 @@ class Dashboard::GamesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
-      @game = Game.find(params[:id])
+      @game = Game.includes(:categories => :products).find(params[:id])
     end
     
     def set_form_path
