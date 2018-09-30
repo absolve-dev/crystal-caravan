@@ -1,28 +1,19 @@
-== README
+== CRYSTAL CARAVAN README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project was V1 of Absolve Digital's Ecommerce site, built on Ruby on Rails in 2015. Thought lacking a well-designed user-facing design, it works as intended. This repository was made public for demonstration and learning purposes.
 
-Things you may want to cover:
+The following features have been implemented:
+- Admin dashboard for managing products, managing orders, managing shipping methods
+- Generate a catalog of potential products from YGO Prices API (https://yugiohprices.docs.apiary.io/)
+- Show all products to customers (Front-end made with Bootstrap)
+- Manage customer cart in session
+- Utilize Stripe for credit card payments
+- Rollbar implemented for error tracking
 
-* Ruby version
+It features the following infrastructure:
+- Made for Heroku deployment
+- Relational DB with Postgres
+- Asset storage with S3
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Additional notes:
+- There are credentials in here that should be in environment variables. The accounts for them have long since been deleted and API keys revoked.
